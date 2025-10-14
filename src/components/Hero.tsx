@@ -4,19 +4,27 @@ interface HeroProps {
 
 export default function Hero({ onOrderClick }: HeroProps) {
   return (
-    <section className="relative bg-gradient-to-br from-orange-600 via-orange-500 to-amber-500 text-white pt-24 pb-16 sm:pt-32 sm:pb-24 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(255,255,255,0.08),transparent_50%)]"></div>
+    <section className="relative text-white pt-24 pb-16 sm:pt-32 sm:pb-24 overflow-hidden min-h-[600px] sm:min-h-[700px] flex items-center">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/images/WhatsApp Image 2025-10-14 at 20.19.39_8878c8d6.jpg')"
+        }}
+      ></div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-black/50"></div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="text-center">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 tracking-tighter leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 tracking-tighter leading-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
             Dobrodošli u Napoli 🍕
           </h2>
-          <p className="text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4 text-orange-50 font-medium">
+          <p className="text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4 font-medium drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
             Autentična italijanska kuhinja u srcu Srbije
           </p>
-          <p className="text-sm sm:text-base md:text-lg mb-6 sm:mb-10 text-orange-100 max-w-2xl mx-auto leading-relaxed px-2">
+          <p className="text-sm sm:text-base md:text-lg mb-6 sm:mb-10 max-w-2xl mx-auto leading-relaxed px-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
             Tradicionalne recepte donosimo pravo do vaših vrata. Svaka pica, svaki obrok pripremljen sa ljubavlju i pažnjom. ❤️
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
