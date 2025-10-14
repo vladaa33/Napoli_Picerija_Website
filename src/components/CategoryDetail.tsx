@@ -91,19 +91,19 @@ export default function CategoryDetail({ category, onBack }: CategoryDetailProps
   };
 
   return (
-    <section className="py-12 sm:py-16 bg-gray-50 min-h-screen">
+    <section className="py-12 sm:py-16 bg-[#1A1A1A] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold mb-6 sm:mb-8 transition-colors min-h-[44px] active:scale-95"
+          className="flex items-center gap-2 text-[#FF6B35] hover:text-[#e55a2a] font-semibold mb-6 sm:mb-8 transition-colors min-h-[44px] active:scale-95"
         >
           <ArrowLeft className="h-5 w-5" />
           Nazad na kategorije
         </button>
 
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">{category.name}</h2>
-          <p className="text-base sm:text-lg text-gray-600">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">{category.name}</h2>
+          <p className="text-base sm:text-lg text-gray-300">
             Izaberite jelo i dodajte ga u korpu
           </p>
         </div>
@@ -117,10 +117,10 @@ export default function CategoryDetail({ category, onBack }: CategoryDetailProps
           </div>
         ) : menuItems.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
+            <p className="text-gray-400 text-lg">
               Trenutno nema dostupnih jela u ovoj kategoriji.
             </p>
-            <p className="text-gray-400 mt-2">
+            <p className="text-gray-500 mt-2">
               Molimo vas da proverite kasnije ili kontaktirajte restoran.
             </p>
           </div>
@@ -129,11 +129,11 @@ export default function CategoryDetail({ category, onBack }: CategoryDetailProps
             {menuItems.map(item => (
               <div
                 key={item.id}
-                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden group active:scale-98"
+                className="bg-[#2A2A2A] rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden group active:scale-98 border border-[#FF6B35]/20"
               >
                 <div
                   ref={(el) => (imageRefs.current[item.id] = el)}
-                  className="relative h-44 sm:h-48 bg-gray-200 overflow-hidden"
+                  className="relative h-44 sm:h-48 bg-[#1A1A1A] overflow-hidden"
                 >
                   {item.image_url ? (
                     <img
@@ -142,22 +142,22 @@ export default function CategoryDetail({ category, onBack }: CategoryDetailProps
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-orange-100 to-amber-50">
-                      <span className="text-orange-300 text-4xl font-bold">
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#FF6B35]/20 to-[#4CAF50]/20">
+                      <span className="text-[#FF6B35] text-4xl font-bold">
                         {item.name.charAt(0)}
                       </span>
                     </div>
                   )}
                 </div>
                 <div className="p-4 sm:p-6">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">{item.name}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2">{item.name}</h3>
                   {item.description && (
-                    <p className="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm line-clamp-2">{item.description}</p>
+                    <p className="text-gray-300 mb-3 sm:mb-4 text-xs sm:text-sm line-clamp-2">{item.description}</p>
                   )}
 
                   {item.sizes && item.sizes.length > 0 && (
                     <div className="mb-3 sm:mb-4">
-                      <label className="text-xs sm:text-sm font-semibold text-gray-700 mb-2 block">
+                      <label className="text-xs sm:text-sm font-semibold text-gray-300 mb-2 block">
                         Veličina:
                       </label>
                       <div className="grid grid-cols-2 gap-2">
@@ -167,8 +167,8 @@ export default function CategoryDetail({ category, onBack }: CategoryDetailProps
                             onClick={() => handleSizeChange(item.id, size)}
                             className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all min-h-[44px] flex items-center justify-center active:scale-95 ${
                               selectedSizes[item.id]?.id === size.id
-                                ? 'bg-orange-600 text-white shadow-md'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                ? 'bg-[#FF6B35] text-white shadow-md'
+                                : 'bg-[#1A1A1A] text-gray-300 hover:bg-[#2A2A2A] border border-[#FF6B35]/20'
                             }`}
                           >
                             {size.size_name}
@@ -179,12 +179,12 @@ export default function CategoryDetail({ category, onBack }: CategoryDetailProps
                   )}
 
                   <div className="flex items-center justify-between">
-                    <span className="text-xl sm:text-2xl font-bold text-orange-600">
+                    <span className="text-xl sm:text-2xl font-bold text-[#FF6B35]">
                       {getDisplayPrice(item).toFixed(2)} RSD
                     </span>
                     <button
                       onClick={() => handleAddToCart(item)}
-                      className="bg-orange-600 text-white p-3 rounded-full hover:bg-orange-700 transition-colors shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 min-w-[48px] min-h-[48px] flex items-center justify-center"
+                      className="bg-[#4CAF50] text-white p-3 rounded-full hover:bg-[#3d8b40] transition-colors shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 min-w-[48px] min-h-[48px] flex items-center justify-center"
                       aria-label={`Dodaj ${item.name} u korpu`}
                     >
                       <Plus className="h-5 w-5" />

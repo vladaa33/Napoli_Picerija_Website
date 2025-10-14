@@ -41,11 +41,11 @@ export default function MenuSection() {
 
   if (loading) {
     return (
-      <section id="menu" className="py-20 bg-gradient-to-br from-orange-200 via-green-200 to-amber-200 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-40">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-orange-300 rounded-full filter blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-green-300 rounded-full filter blur-3xl animate-pulse"></div>
-          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-amber-300 rounded-full filter blur-3xl animate-pulse"></div>
+      <section id="menu" className="py-20 bg-[#1A1A1A] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-[#FF6B35] rounded-full filter blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#4CAF50] rounded-full filter blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-[#FF6B35] rounded-full filter blur-3xl animate-pulse"></div>
         </div>
         <div className="relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,17 +62,17 @@ export default function MenuSection() {
   }
 
   return (
-    <section id="menu" className="py-12 sm:py-20 bg-gradient-to-br from-orange-200 via-green-200 to-amber-200 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-40">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-orange-300 rounded-full filter blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-green-300 rounded-full filter blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-amber-300 rounded-full filter blur-3xl animate-pulse"></div>
+    <section id="menu" className="py-12 sm:py-20 bg-[#1A1A1A] relative overflow-hidden">
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-[#FF6B35] rounded-full filter blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#4CAF50] rounded-full filter blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-[#FF6B35] rounded-full filter blur-3xl animate-pulse"></div>
       </div>
       <div className="relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 tracking-tight px-4">Naš Meni 🍽️</h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 tracking-tight px-4">Naš Meni 🍽️</h2>
+          <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto px-4">
             Izaberite kategoriju i istražite našu ponudu 👨‍🍳
           </p>
         </div>
@@ -81,7 +81,7 @@ export default function MenuSection() {
           {categories.map(category => (
             <div
               key={category.id}
-              className="bg-white rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 overflow-hidden group cursor-pointer transform hover:-translate-y-2 active:scale-95"
+              className="bg-[#2A2A2A] rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 overflow-hidden group cursor-pointer transform hover:-translate-y-2 active:scale-95 border border-[#FF6B35]/20"
               onClick={() => setSelectedCategory(category)}
             >
               <div className="relative aspect-[3/2] overflow-hidden">
@@ -92,7 +92,7 @@ export default function MenuSection() {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-orange-400 via-amber-500 to-yellow-500">
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#FF6B35] to-[#4CAF50]">
                     <span className="text-white text-5xl font-bold drop-shadow-lg">
                       {category.name.charAt(0)}
                     </span>
@@ -102,7 +102,7 @@ export default function MenuSection() {
               </div>
               <div className="p-2 sm:p-4">
                 <button
-                  className="w-full bg-orange-600 text-white py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold hover:bg-orange-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:scale-95 text-xs sm:text-base"
+                  className="w-full bg-[#FF6B35] text-white py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold hover:bg-[#e55a2a] transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:scale-95 text-xs sm:text-base"
                   onClick={(e) => {
                     e.stopPropagation();
                     setSelectedCategory(category);
