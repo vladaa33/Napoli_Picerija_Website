@@ -78,7 +78,7 @@ function App() {
 
   return (
     <CartProvider>
-      <div className="min-h-screen bg-[#1A1A1A]">
+      <div className="min-h-screen bg-gradient-to-br from-orange-100 via-green-100 to-amber-100">
         <Header onCartClick={() => setIsCartOpen(true)} onMenuClick={scrollToSection} />
 
         <main>
@@ -121,7 +121,7 @@ function App() {
 
         <button
           onClick={() => setShowAdmin(true)}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-[#FF6B35] text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl shadow-soft-lg hover:bg-[#e55a2a] transition-all duration-300 text-xs sm:text-sm font-semibold z-40 hover:-translate-y-1 min-h-[44px] active:scale-95"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-gray-900 text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl shadow-soft-lg hover:bg-gray-800 transition-all duration-300 text-xs sm:text-sm font-semibold z-40 hover:-translate-y-1 min-h-[44px] active:scale-95"
         >
           Admin
         </button>

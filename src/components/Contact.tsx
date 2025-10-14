@@ -2,88 +2,88 @@ import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-20 bg-[#1A1A1A] relative overflow-hidden">
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-10 left-10 w-96 h-96 bg-[#FF6B35] rounded-full filter blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#4CAF50] rounded-full filter blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-[#FF6B35] rounded-full filter blur-3xl animate-pulse"></div>
+    <section id="contact" className="py-20 bg-gradient-to-br from-amber-200 via-green-200 to-orange-200 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-45">
+        <div className="absolute top-10 left-10 w-96 h-96 bg-amber-400 rounded-full filter blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-green-400 rounded-full filter blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-orange-400 rounded-full filter blur-3xl animate-pulse"></div>
       </div>
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjIiIGZpbGw9IiNmYjkyM2MiIGZpbGwtb3BhY2l0eT0iLjA4Ii8+PC9nPjwvc3ZnPg==')] opacity-40"></div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-white mb-4 tracking-tight">Kontakt 📞</h2>
-          <p className="text-lg text-gray-300">
+          <h2 className="text-5xl font-bold text-gray-900 mb-4 tracking-tight">Kontakt 📞</h2>
+          <p className="text-lg text-gray-600">
             Rado ćemo odgovoriti na sva vaša pitanja 👋
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          <div className="bg-[#2A2A2A] p-8 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1 border border-[#FF6B35]/20">
-            <div className="bg-gradient-to-br from-[#4CAF50] to-[#3d8b40] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-white p-8 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1">
+            <div className="bg-gradient-to-br from-green-600 to-green-700 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
               <Phone className="h-7 w-7 text-white" />
             </div>
-            <h3 className="font-bold text-white mb-3 text-lg tracking-tight">Telefon 📱</h3>
-            <a href="+38164 111 6 999" className="text-gray-300 hover:text-[#FF6B35] transition-colors">
+            <h3 className="font-bold text-gray-900 mb-3 text-lg tracking-tight">Telefon 📱</h3>
+            <a href="+38164 111 6 999" className="text-gray-600 hover:text-orange-600 transition-colors">
               +38164 111 6 999
             </a>
           </div>
 
-          <div className="bg-[#2A2A2A] p-8 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1 border border-[#FF6B35]/20">
-            <div className="bg-gradient-to-br from-[#4CAF50] to-[#3d8b40] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-white p-8 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1">
+            <div className="bg-gradient-to-br from-green-600 to-green-700 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
               <Mail className="h-7 w-7 text-white" />
             </div>
-            <h3 className="font-bold text-white mb-3 text-lg tracking-tight">Email ✉️</h3>
-            <a href="mailto:info@napolipizza.rs" className="text-gray-300 hover:text-[#FF6B35] transition-colors">
+            <h3 className="font-bold text-gray-900 mb-3 text-lg tracking-tight">Email ✉️</h3>
+            <a href="mailto:info@napolipizza.rs" className="text-gray-600 hover:text-orange-600 transition-colors">
               info@napolipizza.rs
             </a>
           </div>
 
-          <div className="bg-[#2A2A2A] p-8 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1 border border-[#FF6B35]/20">
-            <div className="bg-gradient-to-br from-[#FF6B35] to-[#e55a2a] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-white p-8 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1">
+            <div className="bg-gradient-to-br from-orange-500 to-orange-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
               <MapPin className="h-7 w-7 text-white" />
             </div>
-            <h3 className="font-bold text-white mb-3 text-lg tracking-tight">Adresa 📍</h3>
-            <p className="text-gray-300">
+            <h3 className="font-bold text-gray-900 mb-3 text-lg tracking-tight">Adresa 📍</h3>
+            <p className="text-gray-600">
               Bulevar Zorana Đinđića 85<br />
             </p>
           </div>
 
-          <div className="bg-[#2A2A2A] p-8 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1 border border-[#FF6B35]/20">
-            <div className="bg-gradient-to-br from-[#FF6B35] to-[#e55a2a] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-white p-8 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1">
+            <div className="bg-gradient-to-br from-orange-500 to-orange-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
               <Clock className="h-7 w-7 text-white" />
             </div>
-            <h3 className="font-bold text-white mb-3 text-lg tracking-tight">Radno vreme ⏰</h3>
-            <p className="text-gray-300">
+            <h3 className="font-bold text-gray-900 mb-3 text-lg tracking-tight">Radno vreme ⏰</h3>
+            <p className="text-gray-600">
               Svakog dana<br />
               09:00 - 00:01
             </p>
           </div>
         </div>
 
-        <div className="bg-[#2A2A2A] rounded-2xl shadow-soft-lg p-10 md:p-14 border border-[#FF6B35]/20">
+        <div className="bg-white rounded-2xl shadow-soft-lg p-10 md:p-14 border border-gray-100">
           <div className="max-w-2xl mx-auto">
-            <h3 className="text-3xl font-bold text-white mb-8 text-center tracking-tight">
+            <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center tracking-tight">
               Pošaljite nam poruku ✉️
             </h3>
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-3">
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">
                     Ime i prezime
                   </label>
                   <input
                     type="text"
-                    className="w-full px-5 py-3.5 border border-[#FF6B35]/20 rounded-xl focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent transition-all duration-200 placeholder:text-gray-500 bg-[#1A1A1A] text-white"
+                    className="w-full px-5 py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400"
                     placeholder="Vaše ime"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-3">
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">
                     Email
                   </label>
                   <input
                     type="email"
-                    className="w-full px-5 py-3.5 border border-[#FF6B35]/20 rounded-xl focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent transition-all duration-200 placeholder:text-gray-500 bg-[#1A1A1A] text-white"
+                    className="w-full px-5 py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400"
                     placeholder="vas@email.com"
                   />
                 </div>
@@ -94,13 +94,13 @@ export default function Contact() {
                 </label>
                 <textarea
                   rows={5}
-                  className="w-full px-5 py-3.5 border border-[#FF6B35]/20 rounded-xl focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent resize-none transition-all duration-200 placeholder:text-gray-500 bg-[#1A1A1A] text-white"
+                  className="w-full px-5 py-3.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none transition-all duration-200 placeholder:text-gray-400"
                   placeholder="Vaša poruka..."
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="w-full bg-[#4CAF50] text-white py-4 rounded-xl font-bold hover:bg-[#3d8b40] transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                className="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               >
                 Pošalji poruku 🚀
               </button>

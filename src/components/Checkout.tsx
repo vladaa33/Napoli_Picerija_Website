@@ -102,14 +102,14 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
         onClick={onClose}
       >
         <div
-          className="bg-[#2A2A2A] rounded-none sm:rounded-xl shadow-2xl max-w-2xl w-full h-full sm:h-auto sm:max-h-[90vh] overflow-y-auto border border-[#FF6B35]/20"
+          className="bg-white rounded-none sm:rounded-xl shadow-2xl max-w-2xl w-full h-full sm:h-auto sm:max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="sticky top-0 bg-[#2A2A2A] border-b border-[#FF6B35]/20 p-4 sm:p-6 flex items-center justify-between z-10">
-            <h2 className="text-xl sm:text-2xl font-bold text-white">Završite porudžbinu</h2>
+          <div className="sticky top-0 bg-white border-b p-4 sm:p-6 flex items-center justify-between z-10">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Završite porudžbinu</h2>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-[#FF6B35]/10 rounded-full transition-colors text-gray-300"
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
               aria-label="Zatvori"
             >
               <X className="h-6 w-6" />
@@ -118,11 +118,11 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
 
           <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-5 sm:space-y-6">
             <div className="space-y-3 sm:space-y-4">
-              <h3 className="text-base sm:text-lg font-semibold text-white">Vaši podaci</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900">Vaši podaci</h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                     Ime i prezime *
                   </label>
                   <input
@@ -130,12 +130,12 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                     required
                     value={formData.full_name}
                     onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-                    className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white"
+                    className="w-full px-4 py-3 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-base min-h-[48px]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                     Telefon *
                   </label>
                   <input
@@ -143,7 +143,7 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white"
+                    className="w-full px-4 py-3 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-base min-h-[48px]"
                   />
                 </div>
               </div>
@@ -163,7 +163,7 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
             </div>
 
             <div className="space-y-3 sm:space-y-4">
-              <h3 className="text-base sm:text-lg font-semibold text-white">Adresa dostave</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900">Adresa dostave</h3>
 
               <div>
                 <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
@@ -180,7 +180,7 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                     Grad *
                   </label>
                   <input
@@ -188,12 +188,12 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                     required
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white"
+                    className="w-full px-4 py-3 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-base min-h-[48px]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                     Poštanski broj *
                   </label>
                   <input
@@ -201,7 +201,7 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                     required
                     value={formData.postal_code}
                     onChange={(e) => setFormData({ ...formData, postal_code: e.target.value })}
-                    className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white"
+                    className="w-full px-4 py-3 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-base min-h-[48px]"
                   />
                 </div>
               </div>
@@ -216,12 +216,12 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                 onChange={(e) => setNotes(e.target.value)}
                 rows={3}
                 placeholder="Dodatne instrukcije za dostavu..."
-                className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent resize-none text-base min-h-[80px] bg-[#1A1A1A] text-white placeholder:text-gray-500"
+                className="w-full px-4 py-3 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none text-base min-h-[80px]"
               />
             </div>
 
             <div className="space-y-3 sm:space-y-4">
-              <h3 className="text-base sm:text-lg font-semibold text-white">Način plaćanja</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900">Način plaćanja</h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 <button
@@ -229,14 +229,14 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                   onClick={() => setPaymentMethod('card')}
                   className={`p-4 border-2 rounded-lg transition-all min-h-[80px] active:scale-95 ${
                     paymentMethod === 'card'
-                      ? 'border-[#FF6B35] bg-[#FF6B35]/10'
-                      : 'border-[#FF6B35]/20 hover:border-[#FF6B35]/40 bg-[#1A1A1A]'
+                      ? 'border-orange-600 bg-orange-50'
+                      : 'border-gray-300 hover:border-gray-400'
                   }`}
                 >
                   <CreditCard className={`h-8 w-8 mx-auto mb-2 ${
-                    paymentMethod === 'card' ? 'text-[#FF6B35]' : 'text-gray-400'
+                    paymentMethod === 'card' ? 'text-orange-600' : 'text-gray-600'
                   }`} />
-                  <span className="block font-medium text-sm sm:text-base text-white">Kartica online</span>
+                  <span className="block font-medium text-sm sm:text-base">Kartica online</span>
                 </button>
 
                 <button
@@ -244,28 +244,28 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                   onClick={() => setPaymentMethod('cash')}
                   className={`p-4 border-2 rounded-lg transition-all ${
                     paymentMethod === 'cash'
-                      ? 'border-[#FF6B35] bg-[#FF6B35]/10'
-                      : 'border-[#FF6B35]/20 hover:border-[#FF6B35]/40 bg-[#1A1A1A]'
+                      ? 'border-orange-600 bg-orange-50'
+                      : 'border-gray-300 hover:border-gray-400'
                   }`}
                 >
                   <Banknote className={`h-8 w-8 mx-auto mb-2 ${
-                    paymentMethod === 'cash' ? 'text-[#FF6B35]' : 'text-gray-400'
+                    paymentMethod === 'cash' ? 'text-orange-600' : 'text-gray-600'
                   }`} />
-                  <span className="block font-medium text-sm sm:text-base text-white">Gotovina</span>
+                  <span className="block font-medium text-sm sm:text-base">Gotovina</span>
                 </button>
               </div>
             </div>
 
-            <div className="border-t border-[#FF6B35]/20 pt-5 sm:pt-6">
+            <div className="border-t pt-5 sm:pt-6">
               <div className="flex justify-between items-center text-lg sm:text-xl font-bold mb-5 sm:mb-6">
-                <span className="text-white">Ukupno:</span>
-                <span className="text-[#FF6B35]">{totalAmount.toFixed(2)} RSD</span>
+                <span>Ukupno:</span>
+                <span className="text-orange-600">{totalAmount.toFixed(2)} RSD</span>
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#4CAF50] text-white py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-[#3d8b40] transition-colors disabled:bg-gray-700 disabled:cursor-not-allowed shadow-lg hover:shadow-xl min-h-[52px] active:scale-98"
+                className="w-full bg-orange-600 text-white py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-orange-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed shadow-lg hover:shadow-xl min-h-[52px] active:scale-98"
               >
                 {loading ? 'Obrada...' : paymentMethod === 'card' ? 'Plati i poruči' : 'Potvrdi porudžbinu'}
               </button>
