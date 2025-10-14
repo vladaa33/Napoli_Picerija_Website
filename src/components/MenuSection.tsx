@@ -1,0 +1,121 @@
+import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
+import type { Category } from '../types';
+import CategoryDetail from './CategoryDetail';
+
+export default function MenuSection() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = async () => {
+    try {
+      const { data: categoriesData } = await supabase
+        .from('categories')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order');
+
+      if (categoriesData) {
+        setCategories(categoriesData);
+      }
+    } catch (error) {
+      console.error('Error loading categories:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (selectedCategory) {
+    return (
+      <CategoryDetail
+        category={selectedCategory}
+        onBack={() => setSelectedCategory(null)}
+      />
+    );
+  }
+
+  if (loading) {
+    return (
+      <section id="menu" className="py-20 bg-gradient-to-br from-orange-200 via-green-200 to-amber-200 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-orange-300 rounded-full filter blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-green-300 rounded-full filter blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-amber-300 rounded-full filter blur-3xl animate-pulse"></div>
+        </div>
+        <div className="relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <div className="animate-pulse">
+                <div className="h-10 bg-gray-200 rounded-xl w-56 mx-auto mb-6"></div>
+                <div className="h-5 bg-gray-200 rounded-lg w-96 mx-auto"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="menu" className="py-12 sm:py-20 bg-gradient-to-br from-orange-200 via-green-200 to-amber-200 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-40">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-orange-300 rounded-full filter blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-green-300 rounded-full filter blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-amber-300 rounded-full filter blur-3xl animate-pulse"></div>
+      </div>
+      <div className="relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 tracking-tight px-4">Naš Meni 🍽️</h2>
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
+            Izaberite kategoriju i istražite našu ponudu 👨‍🍳
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+          {categories.map(category => (
+            <div
+              key={category.id}
+              className="bg-white rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 overflow-hidden group cursor-pointer transform hover:-translate-y-2 active:scale-95"
+              onClick={() => setSelectedCategory(category)}
+            >
+              <div className="relative aspect-[3/2] overflow-hidden">
+                {category.image_url ? (
+                  <img
+                    src={category.image_url}
+                    alt={category.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-orange-400 via-amber-500 to-yellow-500">
+                    <span className="text-white text-5xl font-bold drop-shadow-lg">
+                      {category.name.charAt(0)}
+                    </span>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent group-hover:from-black/40 transition-all duration-300"></div>
+              </div>
+              <div className="p-2 sm:p-4">
+                <button
+                  className="w-full bg-orange-600 text-white py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold hover:bg-orange-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:scale-95 text-xs sm:text-base"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedCategory(category);
+                  }}
+                >
+                  {category.name}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+        </div>
+      </div>
+    </section>
+  );
+}

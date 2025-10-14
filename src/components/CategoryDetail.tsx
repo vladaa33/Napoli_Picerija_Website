@@ -1,0 +1,201 @@
+import { useState, useEffect, useRef } from 'react';
+import { ArrowLeft, Plus } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+import { useCart } from '../context/CartContext';
+import { useFlyToCart } from '../hooks/useFlyToCart';
+import type { Category, MenuItem, MenuItemSize } from '../types';
+
+interface CategoryDetailProps {
+  category: Category;
+  onBack: () => void;
+}
+
+export default function CategoryDetail({ category, onBack }: CategoryDetailProps) {
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedSizes, setSelectedSizes] = useState<Record<string, MenuItemSize>>({});
+  const imageRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const { addItem, cartRef } = useCart();
+  const flyToCart = useFlyToCart();
+
+  useEffect(() => {
+    loadItems();
+  }, [category.id]);
+
+  const loadItems = async () => {
+    try {
+      const { data: itemsData } = await supabase
+        .from('menu_items')
+        .select('*')
+        .eq('category_id', category.id)
+        .eq('is_available', true)
+        .order('display_order');
+
+      if (itemsData) {
+        const itemsWithSizes = await Promise.all(
+          itemsData.map(async (item) => {
+            const { data: sizesData } = await supabase
+              .from('menu_item_sizes')
+              .select('*')
+              .eq('menu_item_id', item.id)
+              .eq('is_available', true)
+              .order('display_order');
+
+            return {
+              ...item,
+              sizes: sizesData || [],
+            };
+          })
+        );
+
+        setMenuItems(itemsWithSizes);
+
+        const initialSizes: Record<string, MenuItemSize> = {};
+        itemsWithSizes.forEach((item) => {
+          if (item.sizes && item.sizes.length > 0) {
+            initialSizes[item.id] = item.sizes[0];
+          }
+        });
+        setSelectedSizes(initialSizes);
+      }
+    } catch (error) {
+      console.error('Error loading menu items:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddToCart = (item: MenuItem) => {
+    const sourceEl = imageRefs.current[item.id];
+    const targetEl = cartRef.current;
+
+    flyToCart(sourceEl, targetEl);
+
+    const selectedSize = selectedSizes[item.id];
+    addItem(item, 1, selectedSize);
+  };
+
+  const handleSizeChange = (itemId: string, size: MenuItemSize) => {
+    setSelectedSizes((prev) => ({
+      ...prev,
+      [itemId]: size,
+    }));
+  };
+
+  const getDisplayPrice = (item: MenuItem) => {
+    if (item.sizes && item.sizes.length > 0) {
+      const selectedSize = selectedSizes[item.id];
+      return selectedSize?.price || item.sizes[0].price;
+    }
+    return item.price;
+  };
+
+  return (
+    <section className="py-12 sm:py-16 bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-orange-600 hover:text-orange-700 font-semibold mb-6 sm:mb-8 transition-colors min-h-[44px] active:scale-95"
+        >
+          <ArrowLeft className="h-5 w-5" />
+          Nazad na kategorije
+        </button>
+
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">{category.name}</h2>
+          <p className="text-base sm:text-lg text-gray-600">
+            Izaberite jelo i dodajte ga u korpu
+          </p>
+        </div>
+
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-pulse">
+              <div className="h-8 bg-gray-200 rounded w-48 mx-auto mb-4"></div>
+              <div className="h-4 bg-gray-200 rounded w-96 mx-auto"></div>
+            </div>
+          </div>
+        ) : menuItems.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">
+              Trenutno nema dostupnih jela u ovoj kategoriji.
+            </p>
+            <p className="text-gray-400 mt-2">
+              Molimo vas da proverite kasnije ili kontaktirajte restoran.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            {menuItems.map(item => (
+              <div
+                key={item.id}
+                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden group active:scale-98"
+              >
+                <div
+                  ref={(el) => (imageRefs.current[item.id] = el)}
+                  className="relative h-44 sm:h-48 bg-gray-200 overflow-hidden"
+                >
+                  {item.image_url ? (
+                    <img
+                      src={item.image_url}
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-orange-100 to-amber-50">
+                      <span className="text-orange-300 text-4xl font-bold">
+                        {item.name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                <div className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">{item.name}</h3>
+                  {item.description && (
+                    <p className="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm line-clamp-2">{item.description}</p>
+                  )}
+
+                  {item.sizes && item.sizes.length > 0 && (
+                    <div className="mb-3 sm:mb-4">
+                      <label className="text-xs sm:text-sm font-semibold text-gray-700 mb-2 block">
+                        Veličina:
+                      </label>
+                      <div className="grid grid-cols-2 gap-2">
+                        {item.sizes.map((size) => (
+                          <button
+                            key={size.id}
+                            onClick={() => handleSizeChange(item.id, size)}
+                            className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all min-h-[44px] flex items-center justify-center active:scale-95 ${
+                              selectedSizes[item.id]?.id === size.id
+                                ? 'bg-orange-600 text-white shadow-md'
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            }`}
+                          >
+                            {size.size_name}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-xl sm:text-2xl font-bold text-orange-600">
+                      {getDisplayPrice(item).toFixed(2)} RSD
+                    </span>
+                    <button
+                      onClick={() => handleAddToCart(item)}
+                      className="bg-orange-600 text-white p-3 rounded-full hover:bg-orange-700 transition-colors shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 min-w-[48px] min-h-[48px] flex items-center justify-center"
+                      aria-label={`Dodaj ${item.name} u korpu`}
+                    >
+                      <Plus className="h-5 w-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
