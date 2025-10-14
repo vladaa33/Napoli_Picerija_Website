@@ -1,6 +1,14 @@
-import { Facebook, Instagram, Phone, Mail } from 'lucide-react';
+import { Facebook, Instagram, Phone, Mail, Home, UtensilsCrossed, Info, MessageSquare } from 'lucide-react';
+import { NavBar } from './ui/tubelight-navbar';
 
 export default function Footer() {
+  const navItems = [
+    { name: 'Početna', url: '#home', icon: Home },
+    { name: 'Meni', url: '#menu', icon: UtensilsCrossed },
+    { name: 'O nama', url: '#about', icon: Info },
+    { name: 'Kontakt', url: '#contact', icon: MessageSquare }
+  ];
+
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -14,28 +22,7 @@ export default function Footer() {
 
           <div>
             <h4 className="font-bold mb-5 text-lg">Brzi linkovi</h4>
-            <ul className="space-y-3 text-gray-400">
-              <li>
-                <a href="#home" className="hover:text-orange-500 transition-all duration-200 hover:translate-x-1 inline-block">
-                  Početna
-                </a>
-              </li>
-              <li>
-                <a href="#menu" className="hover:text-orange-500 transition-all duration-200 hover:translate-x-1 inline-block">
-                  Meni
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="hover:text-orange-500 transition-all duration-200 hover:translate-x-1 inline-block">
-                  O nama
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="hover:text-orange-500 transition-all duration-200 hover:translate-x-1 inline-block">
-                  Kontakt
-                </a>
-              </li>
-            </ul>
+            <NavBar items={navItems} />
           </div>
 
           <div>
