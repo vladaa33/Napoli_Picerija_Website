@@ -115,7 +115,7 @@ export default function Contact() {
             </h3>
             <div className="relative w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden">
               <iframe
-                src="https://www.google.com/maps/search/?api=1&query=Napoli+Picerija&query_place_id=ChIJexample"
+                src="https://maps.google.com/maps?q=44.800548,20.463489&z=15&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
