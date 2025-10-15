@@ -115,7 +115,7 @@ export default function Contact() {
             </h3>
             <div className="relative w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden">
               <iframe
-               src="https://www.google.com/maps?q=Napoli+Picerija,+Beograd,+Serbia&output=embed"
+               src="https://www.google.com/maps/place/Napoli+Picerija/@44.8159881,20.4158339,618m/data=!3m1!1e3!4m15!1m8!3m7!1s0x475a6563c1cc8b0b:0x44962b4dee8120!2sBulevar+Zorana+%C4%90in%C4%91i%C4%87a+85,+Beograd+11159!3b1!8m2!3d44.8160617!4d20.4184968!16s%2Fg%2F11nnk_tbfy!3m5!1s0x475a65f6d0a1bf63:0x9742b3c5cc457ff9!8m2!3d44.816026!4d20.4186769!16s%2Fg%2F11thp3l7jp?entry=ttu&g_ep=EgoyMDI1MTAxMy4wIKXMDSoASAFQAw%3D%3D,+Beograd,+Serbia&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
