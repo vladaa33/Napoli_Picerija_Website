@@ -11,7 +11,7 @@ export default function Contact() {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjIiIGZpbGw9IiNmYjkyM2MiIGZpbGwtb3BhY2l0eT0iLjA4Ii8+PC9nPjwvc3ZnPg==')] opacity-40"></div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-white mb-4 tracking-tight">Kontakt 📞</h2>
+          <h2 className="text-5xl font-bold text-white mb-4 tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>Kontakt 📞</h2>
           <p className="text-lg text-gray-300">
             Rado ćemo odgovoriti na sva vaša pitanja 👋
           </p>
@@ -62,7 +62,7 @@ export default function Contact() {
 
         <div className="bg-[#2A2A2A] rounded-2xl shadow-soft-lg p-10 md:p-14 border border-[#FF6B35]/20">
           <div className="max-w-2xl mx-auto">
-            <h3 className="text-3xl font-bold text-white mb-8 text-center tracking-tight">
+            <h3 className="text-3xl font-bold text-white mb-8 text-center tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
               Pošaljite nam poruku ✉️
             </h3>
             <form className="space-y-6">

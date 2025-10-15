@@ -11,7 +11,7 @@ export default function About() {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIHN0cm9rZT0iI2VhNTgwYyIgc3Ryb2tlLW9wYWNpdHk9Ii4xIiBzdHJva2Utd2lkdGg9IjIiLz48L2c+PC9zdmc+')] opacity-30"></div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-white mb-4 tracking-tight">O nama</h2>
+          <h2 className="text-5xl font-bold text-white mb-4 tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>O nama</h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
             Napoli donosi autentičan ukus Italije u Srbiju već više od decenije ✨
           </p>
@@ -51,7 +51,7 @@ export default function About() {
 
         <div className="bg-[#2A2A2A] rounded-2xl shadow-soft-lg p-10 md:p-16 border border-[#FF6B35]/20">
           <div className="max-w-3xl mx-auto text-center">
-            <h3 className="text-3xl font-bold text-white mb-8 tracking-tight">Naša priča 📖</h3>
+            <h3 className="text-3xl font-bold text-white mb-8 tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>Naša priča 📖</h3>
             <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
               <p>
                 Restoran Napoli osnovan je sa vizijom da donese autentičan italijanski ukus srpskim ljubiteljima dobre hrane. Inspirisani toplinom i gostoprimstvom južne Italije, trudimo se da svaki obrok bude poseban doživljaj.

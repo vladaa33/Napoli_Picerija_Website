@@ -19,7 +19,7 @@ export default function Hero({ onOrderClick, onCartClick }: HeroProps) {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="text-center">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 tracking-tighter leading-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 tracking-tighter leading-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]" style={{ fontFamily: "'Playfair Display', serif" }}>
             Dobrodošli u Napoli 🍕
           </h2>
           <p className="text-lg sm:text-xl md:text-2xl mb-3 sm:mb-4 font-medium drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]">
