@@ -1,8 +1,9 @@
 interface HeroProps {
   onOrderClick: () => void;
+  onCartClick: () => void;
 }
 
-export default function Hero({ onOrderClick }: HeroProps) {
+export default function Hero({ onOrderClick, onCartClick }: HeroProps) {
   return (
     <section className="relative text-white pt-24 pb-16 sm:pt-32 sm:pb-24 overflow-hidden min-h-[600px] sm:min-h-[700px] flex items-center">
       {/* Background Image */}
@@ -29,7 +30,7 @@ export default function Hero({ onOrderClick }: HeroProps) {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
             <button
-              onClick={onOrderClick}
+              onClick={onCartClick}
               className="bg-[#FF6B35] text-white px-8 py-3.5 sm:px-10 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#e55a2a] transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 hover:scale-105 min-h-[48px]"
             >
               Poručite odmah

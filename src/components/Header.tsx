@@ -23,7 +23,7 @@ export default function Header({ onCartClick, onMenuClick }: HeaderProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           <div className="flex items-center cursor-pointer group" onClick={() => onMenuClick('home')}>
-            <h1 className="text-2xl sm:text-3xl font-bold text-[#FF6B35] tracking-tight group-hover:text-[#e55a2a] transition-colors">Napoli 🍕</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#FF6B35] tracking-tight group-hover:text-[#e55a2a] transition-colors" style={{ fontFamily: "'Playfair Display', serif" }}>Napoli 🍕</h1>
           </div>
 
           <nav className="hidden md:flex space-x-10">

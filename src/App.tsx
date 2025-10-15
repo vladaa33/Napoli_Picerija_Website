@@ -83,7 +83,7 @@ function App() {
 
         <main>
           <div ref={homeRef}>
-            <Hero onOrderClick={() => scrollToSection('menu')} />
+            <Hero onOrderClick={() => scrollToSection('menu')} onCartClick={() => setIsCartOpen(true)} />
           </div>
 
           <div ref={menuRef}>
