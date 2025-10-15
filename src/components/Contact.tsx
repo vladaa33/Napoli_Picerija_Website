@@ -39,7 +39,7 @@ export default function Contact() {
           </div>
 
           <div className="bg-[#2A2A2A] p-8 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1 border border-[#FF6B35]/20">
-            <div className="bg-gradient-to-br from-[#FF6B35] to-[#e55a2a] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
+            <div className="bg-gradient-to-br from-[#4CAF50] to-[#3d8b40] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
               <MapPin className="h-7 w-7 text-white" />
             </div>
             <h3 className="font-bold text-white mb-3 text-lg tracking-tight">Adresa 📍</h3>
@@ -49,7 +49,7 @@ export default function Contact() {
           </div>
 
           <div className="bg-[#2A2A2A] p-8 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1 border border-[#FF6B35]/20">
-            <div className="bg-gradient-to-br from-[#FF6B35] to-[#e55a2a] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
+            <div className="bg-gradient-to-br from-[#4CAF50] to-[#3d8b40] w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-md group-hover:scale-110 transition-transform duration-300">
               <Clock className="h-7 w-7 text-white" />
             </div>
             <h3 className="font-bold text-white mb-3 text-lg tracking-tight">Radno vreme ⏰</h3>
@@ -60,7 +60,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="bg-[#2A2A2A] rounded-2xl shadow-soft-lg p-10 md:p-14 border border-[#FF6B35]/20">
+        <div className="bg-[#2A2A2A] rounded-2xl shadow-soft-lg p-10 md:p-14 border border-[#FF6B35]/20 mb-8">
           <div className="max-w-2xl mx-auto">
             <h3 className="text-3xl font-bold text-white mb-8 text-center tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
               Pošaljite nam poruku ✉️
@@ -105,6 +105,26 @@ export default function Contact() {
                 Pošalji poruku 🚀
               </button>
             </form>
+          </div>
+        </div>
+
+        <div className="bg-[#2A2A2A] rounded-2xl shadow-soft-lg overflow-hidden border border-[#FF6B35]/20">
+          <div className="p-6 md:p-8">
+            <h3 className="text-3xl font-bold text-white mb-6 text-center tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Pronađite nas 🗺️
+            </h3>
+            <div className="relative w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2830.1234567890123!2d20.462!3d44.787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDTCsDQ3JzEzLjIiTiAyMMKwMjcnNDMuMiJF!5e0!3m2!1sen!2srs!4v1234567890123!5m2!1sen!2srs&q=Bulevar+Zorana+Đinđića+85,+Beograd"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Napoli Restaurant Location"
+              ></iframe>
+            </div>
           </div>
         </div>
       </div>

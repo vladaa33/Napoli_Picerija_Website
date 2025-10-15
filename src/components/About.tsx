@@ -28,8 +28,8 @@ export default function About() {
             </p>
           </div>
 
-          <div className="bg-[#2A2A2A] p-10 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1 border border-[#4CAF50]/20">
-            <div className="bg-gradient-to-br from-[#4CAF50] to-[#3d8b40] w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-[#2A2A2A] p-10 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 text-center group hover:-translate-y-1 border border-[#FF6B35]/20">
+            <div className="bg-gradient-to-br from-[#FF6B35] to-[#e55a2a] w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
               <ChefHat className="h-9 w-9 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">Iskusni kuvari 👨‍🍳</h3>
