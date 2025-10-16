@@ -8,9 +8,10 @@ import type { Category, MenuItem, MenuItemSize } from '../types';
 interface CategoryDetailProps {
   category: Category;
   onBack: () => void;
+  scrollPosition: number;
 }
 
-export default function CategoryDetail({ category, onBack }: CategoryDetailProps) {
+export default function CategoryDetail({ category, onBack, scrollPosition }: CategoryDetailProps) {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState<Record<string, MenuItemSize>>({});
@@ -20,12 +21,12 @@ export default function CategoryDetail({ category, onBack }: CategoryDetailProps
 
   useEffect(() => {
     window.scrollTo({
-      top: 0,
+      top: scrollPosition,
       behavior: 'instant'
     });
 
     loadItems();
-  }, [category.id]);
+  }, [category.id, scrollPosition]);
 
   const loadItems = async () => {
     try {

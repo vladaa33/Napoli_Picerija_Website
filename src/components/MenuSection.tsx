@@ -7,6 +7,7 @@ export default function MenuSection() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [loading, setLoading] = useState(true);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
     loadCategories();
@@ -31,10 +32,13 @@ export default function MenuSection() {
   };
 
   const handleCategorySelect = (category: Category) => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'instant'
-    });
+    const menuSection = document.getElementById('menu');
+    if (menuSection) {
+      const headerOffset = 80;
+      const elementPosition = menuSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      setScrollPosition(offsetPosition);
+    }
 
     setSelectedCategory(category);
   };
@@ -44,6 +48,7 @@ export default function MenuSection() {
       <CategoryDetail
         category={selectedCategory}
         onBack={() => setSelectedCategory(null)}
+        scrollPosition={scrollPosition}
       />
     );
   }
