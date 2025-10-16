@@ -30,6 +30,15 @@ export default function MenuSection() {
     }
   };
 
+  const handleCategorySelect = (category: Category) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+
+    setSelectedCategory(category);
+  };
+
   if (selectedCategory) {
     return (
       <CategoryDetail
@@ -82,7 +91,7 @@ export default function MenuSection() {
             <div
               key={category.id}
               className="bg-[#2A2A2A] rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 overflow-hidden group cursor-pointer transform hover:-translate-y-2 active:scale-95 border border-[#FF6B35]/20"
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => handleCategorySelect(category)}
             >
               <div className="relative aspect-[3/2] overflow-hidden">
                 {category.image_url ? (
@@ -105,7 +114,7 @@ export default function MenuSection() {
                   className="w-full bg-[#FF6B35] text-white py-2 sm:py-3 rounded-lg sm:rounded-xl font-bold hover:bg-[#e55a2a] transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:scale-95 text-xs sm:text-base"
                   onClick={(e) => {
                     e.stopPropagation();
-                    setSelectedCategory(category);
+                    handleCategorySelect(category);
                   }}
                 >
                   {category.name}

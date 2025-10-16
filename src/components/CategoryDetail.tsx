@@ -19,6 +19,11 @@ export default function CategoryDetail({ category, onBack }: CategoryDetailProps
   const flyToCart = useFlyToCart();
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant'
+    });
+
     loadItems();
   }, [category.id]);
 
