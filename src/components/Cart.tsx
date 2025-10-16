@@ -5,9 +5,10 @@ interface CartProps {
   isOpen: boolean;
   onClose: () => void;
   onCheckout: () => void;
+  onMenuClick: () => void;
 }
 
-export default function Cart({ isOpen, onClose, onCheckout }: CartProps) {
+export default function Cart({ isOpen, onClose, onCheckout, onMenuClick }: CartProps) {
   const { items, updateQuantity, removeItem, totalAmount, totalItems } = useCart();
 
   if (!isOpen) return null;
@@ -38,7 +39,7 @@ export default function Cart({ isOpen, onClose, onCheckout }: CartProps) {
               Dodajte nešto ukusno iz našeg menija! 🍕
             </p>
             <button
-              onClick={onClose}
+              onClick={onMenuClick}
               className="bg-[#FF6B35] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#e55a2a] transition-colors min-h-[48px] active:scale-95"
             >
               Pogledajte meni

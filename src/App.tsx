@@ -105,6 +105,10 @@ function App() {
           isOpen={isCartOpen}
           onClose={() => setIsCartOpen(false)}
           onCheckout={handleCheckout}
+          onMenuClick={() => {
+            setIsCartOpen(false);
+            setTimeout(() => scrollToSection('menu'), 100);
+          }}
         />
 
         <Checkout
