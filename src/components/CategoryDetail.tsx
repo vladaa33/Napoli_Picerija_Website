@@ -131,20 +131,22 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {menuItems.map(item => (
-              <div
+              <li
                 key={item.id}
                 className="bg-[#2A2A2A] rounded-xl shadow-md hover:shadow-xl transition-shadow overflow-hidden group active:scale-98 border border-[#FF6B35]/20"
               >
                 <div
                   ref={(el) => (imageRefs.current[item.id] = el)}
-                  className="relative h-44 sm:h-48 bg-[#1A1A1A] overflow-hidden"
+                  className="relative aspect-square overflow-hidden bg-[#1A1A1A]"
                 >
                   {item.image_url ? (
                     <img
                       src={item.image_url}
                       alt={item.name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                   ) : (
@@ -197,9 +199,9 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
                     </button>
                   </div>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </div>
     </section>

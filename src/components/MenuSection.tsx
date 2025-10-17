@@ -91,18 +91,20 @@ export default function MenuSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+        <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {categories.map(category => (
-            <div
+            <li
               key={category.id}
               className="bg-[#2A2A2A] rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-300 overflow-hidden group cursor-pointer transform hover:-translate-y-2 active:scale-95 border border-[#FF6B35]/20"
               onClick={() => handleCategorySelect(category)}
             >
-              <div className="relative aspect-[3/2] overflow-hidden">
+              <div className="relative aspect-square overflow-hidden">
                 {category.image_url ? (
                   <img
                     src={category.image_url}
                     alt={category.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 ) : (
@@ -125,9 +127,9 @@ export default function MenuSection() {
                   {category.name}
                 </button>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
         </div>
       </div>
     </section>
