@@ -34,7 +34,7 @@ export default function Contact() {
             </div>
             <h3 className="font-bold text-white mb-3 text-lg tracking-tight">Email ✉️</h3>
             <a href="mailto:info@napolipizza.rs" className="text-gray-300 hover:text-[#FF6B35] transition-colors">
-              info@napolipizza.rs
+              napolidostava@gmail.com
             </a>
           </div>
 
