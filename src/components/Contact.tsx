@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
+import ReviewsCarousel from './ReviewsCarousel';
 
 export default function Contact() {
   return (
@@ -60,52 +61,8 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="bg-[#2A2A2A] rounded-2xl shadow-soft-lg p-10 md:p-14 border border-[#FF6B35]/20 mb-8">
-          <div className="max-w-2xl mx-auto">
-            <h3 className="text-3xl font-bold text-white mb-8 text-center tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Pošaljite nam poruku ✉️
-            </h3>
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-3">
-                    Ime i prezime
-                  </label>
-                  <input
-                    type="text"
-                    className="w-full px-5 py-3.5 border border-[#FF6B35]/20 rounded-xl focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent transition-all duration-200 placeholder:text-gray-500 bg-[#1A1A1A] text-white"
-                    placeholder="Vaše ime"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-3">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className="w-full px-5 py-3.5 border border-[#FF6B35]/20 rounded-xl focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent transition-all duration-200 placeholder:text-gray-500 bg-[#1A1A1A] text-white"
-                    placeholder="vas@email.com"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
-                  Poruka
-                </label>
-                <textarea
-                  rows={5}
-                  className="w-full px-5 py-3.5 border border-[#FF6B35]/20 rounded-xl focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent resize-none transition-all duration-200 placeholder:text-gray-500 bg-[#1A1A1A] text-white"
-                  placeholder="Vaša poruka..."
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-[#4CAF50] text-white py-4 rounded-xl font-bold hover:bg-[#3d8b40] transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-              >
-                Pošalji poruku 🚀
-              </button>
-            </form>
-          </div>
+        <div className="mb-8">
+          <ReviewsCarousel />
         </div>
 
         <div className="bg-[#2A2A2A] rounded-2xl shadow-soft-lg overflow-hidden border border-[#FF6B35]/20">
