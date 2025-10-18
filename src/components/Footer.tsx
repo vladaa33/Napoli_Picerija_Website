@@ -50,7 +50,7 @@ export default function Footer() {
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
                 <a href="mailto:info@napolipizza.rs" className="hover:text-[#FF6B35] transition-colors">
-                  info@napolipizza.rs
+                  napolidostava@gmail.com
                 </a>
               </li>
             </ul>
