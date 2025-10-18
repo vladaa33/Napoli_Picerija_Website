@@ -63,15 +63,3 @@ export default function Footer() {
                 className="bg-[#2A2A2A] p-3.5 rounded-xl hover:bg-[#FF6B35] transition-all duration-300 hover:scale-110 shadow-lg border border-[#FF6B35]/20"
                 aria-label="Instagram"
               >
-                <Instagram className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="border-t border-[#FF6B35]/20 pt-10 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Napoli. Sva prava zadržana.</p>
-        </div>
-      </div>
-    </footer>
-  );
-}
