@@ -51,6 +51,69 @@ const reviews: Review[] = [
     rating: 5,
     text: "Apsolutno najbolje mesto za poručivanje hrane! Kvalitet je uvek na visokom nivou, a cene su fer. Preporučujem svima!",
     date: "prije 4 sedmice"
+  },
+  {
+    id: 7,
+    name: "Emilija Cvijanović",
+    rating: 5,
+    text: "Izuzetna usluga sa osobljem koje je uvek ljubazno i pažljivo. Hrana je bez sumnje najbolja u gradu. Sve je uvek savršeno pri dostavi, vruće i lepo predstavljeno. Cene su iznenađujuće fer.",
+    date: "Pre godinu dana"
+  },
+  {
+    id: 8,
+    name: "Yevgeniy Kovalenko",
+    rating: 5,
+    text: "Veoma dobra i ukusna pizza i salata. Preporuka!",
+    date: "Pre godinu dana"
+  },
+  {
+    id: 9,
+    name: "Marijana Kocic",
+    rating: 5,
+    text: "Potpuno preporučujem!",
+    date: "Pre 8 meseci"
+  },
+  {
+    id: 10,
+    name: "Aleksandra Milosevic",
+    rating: 5,
+    text: "Odlična pizza! Preporučujem! 😊",
+    date: "Pre 2 godine"
+  },
+  {
+    id: 11,
+    name: "Alena Chyhrynets",
+    rating: 5,
+    text: "Ukusno!",
+    date: "Pre godinu dana"
+  },
+  {
+    id: 12,
+    name: "Artemiy Shuliak",
+    rating: 5,
+    text: "Veoma brzo, pizza je ukusna i dobili smo palačinke za džabe.",
+    date: "Pre 7 meseci"
+  },
+  {
+    id: 13,
+    name: "Veljko Kostadinovic",
+    rating: 5,
+    text: "Definitivno jedna od najboljih pica koje sam jeo, a cena je stvarno dobra. Topla preporuka, dobio sam čak i palačinke za džabe.",
+    date: "Pre 4 meseca"
+  },
+  {
+    id: 14,
+    name: "Danica Markovic",
+    rating: 5,
+    text: "Sve je savršena desetka! Brzo, ljubazno i ukusno svaki put!",
+    date: "Pre 4 meseca"
+  },
+  {
+    id: 15,
+    name: "En Nikolic",
+    rating: 5,
+    text: "Odlična hrana. Iznenadila me veličina porcije. Stvarno ukusno i super cena!",
+    date: "Pre 3 meseca"
   }
 ];
 
