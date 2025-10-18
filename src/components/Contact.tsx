@@ -56,7 +56,7 @@ export default function Contact() {
             <h3 className="font-bold text-white mb-3 text-lg tracking-tight">Radno vreme ⏰</h3>
             <p className="text-gray-300">
               Svakog dana<br />
-              09:00 - 00:10
+              09:00 - 01:00
             </p>
           </div>
         </div>
