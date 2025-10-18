@@ -1,5 +1,4 @@
-import { Facebook, Instagram, Phone, Mail } from 'lucide-react';
-
+import { Instagram, Phone, Mail } from 'lucide-react';
 export default function Footer() {
   return (
     <footer className="bg-[#1A1A1A] text-white border-t border-[#FF6B35]/20">
@@ -11,7 +10,6 @@ export default function Footer() {
               Autentična italijanska kuhinja u srcu Srbije
             </p>
           </div>
-
           <div>
             <h4 className="font-bold mb-5 text-lg">Brzi linkovi</h4>
             <ul className="space-y-3 text-gray-400">
@@ -37,7 +35,6 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
           <div>
             <h4 className="font-bold mb-5 text-lg">Kontakt</h4>
             <ul className="space-y-4 text-gray-400">
@@ -55,21 +52,11 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
           <div>
             <h4 className="font-bold mb-5 text-lg">Pratite nas</h4>
             <div className="flex gap-4">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#2A2A2A] p-3.5 rounded-xl hover:bg-[#FF6B35] transition-all duration-300 hover:scale-110 shadow-lg border border-[#FF6B35]/20"
-                aria-label="Facebook"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="https://instagram.com"
+              
+                href="https://instagram.com/napoli_picerija"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#2A2A2A] p-3.5 rounded-xl hover:bg-[#FF6B35] transition-all duration-300 hover:scale-110 shadow-lg border border-[#FF6B35]/20"
@@ -80,7 +67,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
         <div className="border-t border-[#FF6B35]/20 pt-10 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} Napoli. Sva prava zadržana.</p>
         </div>
