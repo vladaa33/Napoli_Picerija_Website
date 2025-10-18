@@ -1,4 +1,5 @@
 import { Instagram, Phone, Mail } from 'lucide-react';
+
 export default function Footer() {
   return (
     <footer className="bg-[#1A1A1A] text-white border-t border-[#FF6B35]/20">
@@ -40,13 +41,13 @@ export default function Footer() {
             <ul className="space-y-4 text-gray-400">
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4" />
-                <a href="tel:+38164 111 6 999" className="hover:text-[#FF6B35] transition-colors">
+                <a href="tel:+381641116999" className="hover:text-[#FF6B35] transition-colors">
                   +38164 111 6 999
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                <a href="mailto:info@napolipizza.rs" className="hover:text-[#FF6B35] transition-colors">
+                <a href="mailto:napolidostava@gmail.com" className="hover:text-[#FF6B35] transition-colors">
                   napolidostava@gmail.com
                 </a>
               </li>
