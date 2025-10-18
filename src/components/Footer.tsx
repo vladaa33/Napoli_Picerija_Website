@@ -6,7 +6,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div>
-            <h3 className="text-3xl font-bold text-[#FF6B35] mb-4 tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>Napoli</h3>
+            <h3 className="text-3xl font-bold text-[#FF6B35] mb-4 tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+              Napoli
+            </h3>
             <p className="text-gray-400 leading-relaxed">
               Autentična italijanska kuhinja u srcu Srbije
             </p>
@@ -63,3 +65,15 @@ export default function Footer() {
                 className="bg-[#2A2A2A] p-3.5 rounded-xl hover:bg-[#FF6B35] transition-all duration-300 hover:scale-110 shadow-lg border border-[#FF6B35]/20"
                 aria-label="Instagram"
               >
+                <Instagram className="h-5 w-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-[#FF6B35]/20 pt-10 text-center text-gray-400">
+          <p>&copy; {new Date().getFullYear()} Napoli. Sva prava zadržana.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
