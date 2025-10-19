@@ -86,7 +86,8 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
 
     const needsModal = category.name.toLowerCase().includes('sendvič') ||
                        category.name.toLowerCase().includes('paste') ||
-                       category.name.toLowerCase().includes('tortilje');
+                       category.name.toLowerCase().includes('tortilje') ||
+                       category.name.toLowerCase().includes('pasta');
 
     if (isPizza && selectedSize) {
       console.log('Opening pizza modal for:', item.name, selectedSize.size_name);
