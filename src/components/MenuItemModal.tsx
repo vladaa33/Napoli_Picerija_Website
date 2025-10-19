@@ -26,7 +26,7 @@ export default function MenuItemModal({
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [nothingSelected, setNothingSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCart();
+  const { addItem } = useCart();
 
   useEffect(() => {
     if (isOpen) {
@@ -85,17 +85,23 @@ export default function MenuItemModal({
       ? selectedAddons.join(', ')
       : (nothingSelected ? 'Bez dodataka' : '');
 
-    const itemFullName = extrasList
-      ? `${itemName} - ${extrasList}`
-      : itemName;
+    const specialInstructions = extrasList || undefined;
 
-    addToCart({
+    const menuItem = {
       id: `${itemName}-${Date.now()}`,
-      name: itemFullName,
+      category_id: '',
+      name: itemName,
+      description: '',
       price: calculateTotalPrice() / quantity,
-      quantity: quantity,
-      image: itemImage
-    });
+      image_url: itemImage || '',
+      is_available: true,
+      is_featured: false,
+      display_order: 0,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+
+    addItem(menuItem, quantity, undefined, specialInstructions);
 
     onClose();
   };

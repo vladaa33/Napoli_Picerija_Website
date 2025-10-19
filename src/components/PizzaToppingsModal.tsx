@@ -47,7 +47,7 @@ export default function PizzaToppingsModal({
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [nothingSelected, setNothingSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCart();
+  const { addItem } = useCart();
 
   useEffect(() => {
     if (isOpen) {
@@ -133,17 +133,33 @@ export default function PizzaToppingsModal({
       ? allExtras.join(', ')
       : (nothingSelected ? 'Bez dodataka' : '');
 
-    const itemName = extrasList
-      ? `${pizzaName} (${pizzaSize}) - ${extrasList}`
-      : `${pizzaName} (${pizzaSize})`;
+    const specialInstructions = extrasList || undefined;
 
-    addToCart({
+    const menuItem = {
       id: `${pizzaName}-${pizzaSize}-${Date.now()}`,
-      name: itemName,
+      category_id: '',
+      name: pizzaName,
+      description: '',
+      price: basePrice,
+      image_url: pizzaImage || '',
+      is_available: true,
+      is_featured: false,
+      display_order: 0,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+
+    const selectedSize = {
+      id: `size-${pizzaSize}-${Date.now()}`,
+      menu_item_id: menuItem.id,
+      size_name: pizzaSize,
       price: calculateTotalPrice() / quantity,
-      quantity: quantity,
-      image: pizzaImage
-    });
+      is_available: true,
+      display_order: 0,
+      created_at: new Date().toISOString()
+    };
+
+    addItem(menuItem, quantity, selectedSize, specialInstructions);
 
     onClose();
   };
