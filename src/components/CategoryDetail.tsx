@@ -82,7 +82,6 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
                     (item.sizes && item.sizes.length > 0);
 
     if (isPizza && selectedSize) {
-      console.log('Opening modal for:', item.name, selectedSize.size_name);
       setSelectedPizza({ item, size: selectedSize });
       setModalOpen(true);
     } else {
