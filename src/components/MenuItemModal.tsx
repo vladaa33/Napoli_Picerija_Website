@@ -31,6 +31,10 @@ const SWEET_PANCAKE_ADDONS: Record<number, string[]> = {
   150: ['Dodatak Nutela']
 };
 
+const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
+  150: ['Pohovanje']
+};
+
 export default function MenuItemModal({
   isOpen,
   onClose,
@@ -67,12 +71,15 @@ export default function MenuItemModal({
 
   const isBreakfast = categoryName?.toLowerCase().includes('doručak') || categoryName?.toLowerCase().includes('dorucak');
   const isSweetPancake = categoryName?.toLowerCase().includes('slatke palačinke') || categoryName?.toLowerCase().includes('slatke palacinke');
+  const isSaltyPancake = categoryName?.toLowerCase().includes('slane palačinke') || categoryName?.toLowerCase().includes('slane palacinke');
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
     addonsToUse = BREAKFAST_ADDONS;
   } else if (isSweetPancake) {
     addonsToUse = SWEET_PANCAKE_ADDONS;
+  } else if (isSaltyPancake) {
+    addonsToUse = SALTY_PANCAKE_ADDONS;
   }
 
   const handleAddonToggle = (addonName: string) => {
