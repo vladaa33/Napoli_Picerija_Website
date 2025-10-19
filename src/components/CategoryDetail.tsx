@@ -3,6 +3,7 @@ import { ArrowLeft, Plus } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useCart } from '../context/CartContext';
 import { useFlyToCart } from '../hooks/useFlyToCart';
+import PizzaToppingsModal from './PizzaToppingsModal';
 import type { Category, MenuItem, MenuItemSize } from '../types';
 
 interface CategoryDetailProps {
@@ -15,6 +16,8 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState<Record<string, MenuItemSize>>({});
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPizza, setSelectedPizza] = useState<{ item: MenuItem; size: MenuItemSize } | null>(null);
   const imageRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const { addItem, cartRef } = useCart();
   const flyToCart = useFlyToCart();
@@ -72,13 +75,18 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
   };
 
   const handleAddToCart = (item: MenuItem) => {
-    const sourceEl = imageRefs.current[item.id];
-    const targetEl = cartRef.current;
-
-    flyToCart(sourceEl, targetEl);
-
     const selectedSize = selectedSizes[item.id];
-    addItem(item, 1, selectedSize);
+
+    if (category.name === 'Pica' && selectedSize) {
+      setSelectedPizza({ item, size: selectedSize });
+      setModalOpen(true);
+    } else {
+      const sourceEl = imageRefs.current[item.id];
+      const targetEl = cartRef.current;
+
+      flyToCart(sourceEl, targetEl);
+      addItem(item, 1, selectedSize);
+    }
   };
 
   const handleSizeChange = (itemId: string, size: MenuItemSize) => {
@@ -204,6 +212,20 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
           </ul>
         )}
       </div>
+
+      {selectedPizza && (
+        <PizzaToppingsModal
+          isOpen={modalOpen}
+          onClose={() => {
+            setModalOpen(false);
+            setSelectedPizza(null);
+          }}
+          pizzaName={selectedPizza.item.name}
+          pizzaSize={selectedPizza.size.size_name}
+          basePrice={selectedPizza.size.price}
+          pizzaImage={selectedPizza.item.image_url}
+        />
+      )}
     </section>
   );
 }
