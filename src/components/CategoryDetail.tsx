@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase';
 import { useCart } from '../context/CartContext';
 import { useFlyToCart } from '../hooks/useFlyToCart';
 import PizzaToppingsModal from './PizzaToppingsModal';
+import MenuItemModal from './MenuItemModal';
 import type { Category, MenuItem, MenuItemSize } from '../types';
 
 interface CategoryDetailProps {
@@ -16,8 +17,10 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState<Record<string, MenuItemSize>>({});
-  const [modalOpen, setModalOpen] = useState(false);
+  const [pizzaModalOpen, setPizzaModalOpen] = useState(false);
+  const [menuItemModalOpen, setMenuItemModalOpen] = useState(false);
   const [selectedPizza, setSelectedPizza] = useState<{ item: MenuItem; size: MenuItemSize } | null>(null);
+  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem | null>(null);
   const imageRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const { addItem, cartRef } = useCart();
   const flyToCart = useFlyToCart();
@@ -81,10 +84,18 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
                     category.name.toLowerCase().includes('pizza') ||
                     (item.sizes && item.sizes.length > 0);
 
+    const needsModal = category.name.toLowerCase().includes('sendvič') ||
+                       category.name.toLowerCase().includes('paste') ||
+                       category.name.toLowerCase().includes('tortilje');
+
     if (isPizza && selectedSize) {
-      console.log('Opening modal for:', item.name, selectedSize.size_name);
+      console.log('Opening pizza modal for:', item.name, selectedSize.size_name);
       setSelectedPizza({ item, size: selectedSize });
-      setModalOpen(true);
+      setPizzaModalOpen(true);
+    } else if (needsModal) {
+      console.log('Opening menu item modal for:', item.name);
+      setSelectedMenuItem(item);
+      setMenuItemModalOpen(true);
     } else {
       const sourceEl = imageRefs.current[item.id];
       const targetEl = cartRef.current;
@@ -219,15 +230,26 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
       </div>
 
       <PizzaToppingsModal
-        isOpen={modalOpen && selectedPizza !== null}
+        isOpen={pizzaModalOpen && selectedPizza !== null}
         onClose={() => {
-          setModalOpen(false);
+          setPizzaModalOpen(false);
           setSelectedPizza(null);
         }}
         pizzaName={selectedPizza?.item.name || ''}
         pizzaSize={selectedPizza?.size.size_name || ''}
         basePrice={selectedPizza?.size.price || 0}
         pizzaImage={selectedPizza?.item.image_url}
+      />
+
+      <MenuItemModal
+        isOpen={menuItemModalOpen && selectedMenuItem !== null}
+        onClose={() => {
+          setMenuItemModalOpen(false);
+          setSelectedMenuItem(null);
+        }}
+        itemName={selectedMenuItem?.name || ''}
+        basePrice={selectedMenuItem?.price || 0}
+        itemImage={selectedMenuItem?.image_url}
       />
     </section>
   );
