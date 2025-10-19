@@ -77,7 +77,12 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
   const handleAddToCart = (item: MenuItem) => {
     const selectedSize = selectedSizes[item.id];
 
-    if (category.name === 'Pica' && selectedSize) {
+    const isPizza = category.name.toLowerCase().includes('pica') ||
+                    category.name.toLowerCase().includes('pizza') ||
+                    (item.sizes && item.sizes.length > 0);
+
+    if (isPizza && selectedSize) {
+      console.log('Opening modal for:', item.name, selectedSize.size_name);
       setSelectedPizza({ item, size: selectedSize });
       setModalOpen(true);
     } else {
@@ -213,19 +218,17 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
         )}
       </div>
 
-      {selectedPizza && (
-        <PizzaToppingsModal
-          isOpen={modalOpen}
-          onClose={() => {
-            setModalOpen(false);
-            setSelectedPizza(null);
-          }}
-          pizzaName={selectedPizza.item.name}
-          pizzaSize={selectedPizza.size.size_name}
-          basePrice={selectedPizza.size.price}
-          pizzaImage={selectedPizza.item.image_url}
-        />
-      )}
+      <PizzaToppingsModal
+        isOpen={modalOpen && selectedPizza !== null}
+        onClose={() => {
+          setModalOpen(false);
+          setSelectedPizza(null);
+        }}
+        pizzaName={selectedPizza?.item.name || ''}
+        pizzaSize={selectedPizza?.size.size_name || ''}
+        basePrice={selectedPizza?.size.price || 0}
+        pizzaImage={selectedPizza?.item.image_url}
+      />
     </section>
   );
 }
