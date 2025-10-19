@@ -24,6 +24,13 @@ const BREAKFAST_ADDONS: Record<number, string[]> = {
   130: ['Pršuta']
 };
 
+const SWEET_PANCAKE_ADDONS: Record<number, string[]> = {
+  80: ['Banana', 'Orasi', 'Plazma', 'Višnja', 'Šlag'],
+  100: ['Ananas'],
+  130: ['Dodatak Eurokrem'],
+  150: ['Dodatak Nutela']
+};
+
 export default function MenuItemModal({
   isOpen,
   onClose,
@@ -59,7 +66,14 @@ export default function MenuItemModal({
   if (!isOpen) return null;
 
   const isBreakfast = categoryName?.toLowerCase().includes('doručak') || categoryName?.toLowerCase().includes('dorucak');
-  const addonsToUse = isBreakfast ? BREAKFAST_ADDONS : MENU_ITEM_ADDONS;
+  const isSweetPancake = categoryName?.toLowerCase().includes('slatke palačinke') || categoryName?.toLowerCase().includes('slatke palacinke');
+
+  let addonsToUse = MENU_ITEM_ADDONS;
+  if (isBreakfast) {
+    addonsToUse = BREAKFAST_ADDONS;
+  } else if (isSweetPancake) {
+    addonsToUse = SWEET_PANCAKE_ADDONS;
+  }
 
   const handleAddonToggle = (addonName: string) => {
     if (nothingSelected) return;

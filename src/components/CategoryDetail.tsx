@@ -89,7 +89,9 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
                        category.name.toLowerCase().includes('tortilje') ||
                        category.name.toLowerCase().includes('pasta') ||
                        category.name.toLowerCase().includes('doručak') ||
-                       category.name.toLowerCase().includes('dorucak');
+                       category.name.toLowerCase().includes('dorucak') ||
+                       category.name.toLowerCase().includes('slatke palačinke') ||
+                       category.name.toLowerCase().includes('slatke palacinke');
 
     if (isPizza && selectedSize) {
       console.log('Opening pizza modal for:', item.name, selectedSize.size_name);
