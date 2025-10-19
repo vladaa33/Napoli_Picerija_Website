@@ -46,8 +46,7 @@ export default function PizzaToppingsModal({
 
   if (!isOpen) return null;
 
-  const normalizedSize = pizzaSize.replace(/\s+/g, '');
-  const sizeToppings = toppings[normalizedSize] || {};
+  const sizeToppings = toppings[pizzaSize] || {};
 
   const handleToppingToggle = (toppingName: string) => {
     if (nothingSelected) return;
