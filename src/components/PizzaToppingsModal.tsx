@@ -12,6 +12,29 @@ interface PizzaToppingsModalProps {
   pizzaImage?: string;
 }
 
+const PIZZA_ADDONS: Record<number, Record<number, string[]>> = {
+  28: {
+    0: ['Kečap Blagi', 'Kečap Ljuti'],
+    200: ['Ananas', 'Feferoni', 'Feta', 'Gorgonzola', 'Jaje', 'Kajmak', 'Kačkavalj', 'Kulen', 'Majonez', 'Masline', 'Mocarela', 'Morski plodovi', 'Paradajz', 'Parmezan', 'Pavlaka', 'Pečenica', 'Pečurke', 'Piletina', 'Punjena ivica', 'Rukola', 'Susam', 'Suvi vrat', 'Tabasko', 'Čili sos', 'Šunka'],
+    250: ['Pršuta']
+  },
+  32: {
+    0: ['Kečap Blagi', 'Kečap Ljuti'],
+    250: ['Ananas', 'Feferoni', 'Feta', 'Gorgonzola', 'Jaje', 'Kajmak', 'Kačkavalj', 'Kulen', 'Majonez', 'Masline', 'Mocarela', 'Morski plodovi', 'Paradajz', 'Parmezan', 'Pavlaka', 'Pečenica', 'Pečurke', 'Piletina', 'Punjena ivica', 'Rukola', 'Susam', 'Suvi vrat', 'Tabasko', 'Čili sos', 'Šunka'],
+    300: ['Pršuta']
+  },
+  42: {
+    0: ['Kečap Blagi', 'Kečap Ljuti'],
+    300: ['Ananas', 'Feferoni', 'Feta', 'Jaje', 'Kulen', 'Majonez', 'Masline', 'Paradajz', 'Pavlaka', 'Pečenica', 'Pečurke', 'Rukola', 'Susam', 'Suvi vrat', 'Čili sos', 'Šunka'],
+    350: ['Gorgonzola', 'Kajmak', 'Kačkavalj', 'Mocarela', 'Morski plodovi', 'Parmezan', 'Piletina', 'Pršuta', 'Punjena ivica', 'Tabasko']
+  },
+  50: {
+    0: ['Kečap Blagi', 'Kečap Ljuti'],
+    350: ['Ananas', 'Feferoni', 'Feta', 'Jaje', 'Kulen', 'Majonez', 'Masline', 'Paradajz', 'Pavlaka', 'Pečenica', 'Pečurke', 'Rukola', 'Susam', 'Suvi vrat', 'Čili sos', 'Šunka'],
+    400: ['Gorgonzola', 'Kajmak', 'Kačkavalj', 'Mocarela', 'Morski plodovi', 'Parmezan', 'Piletina', 'Pršuta', 'Punjena ivica', 'Tabasko']
+  }
+};
+
 export default function PizzaToppingsModal({
   isOpen,
   onClose,
@@ -21,6 +44,7 @@ export default function PizzaToppingsModal({
   pizzaImage
 }: PizzaToppingsModalProps) {
   const [selectedToppings, setSelectedToppings] = useState<string[]>([]);
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [nothingSelected, setNothingSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
@@ -39,6 +63,7 @@ export default function PizzaToppingsModal({
   useEffect(() => {
     if (isOpen) {
       setSelectedToppings([]);
+      setSelectedAddons([]);
       setNothingSelected(false);
       setQuantity(1);
     }
@@ -47,6 +72,8 @@ export default function PizzaToppingsModal({
   if (!isOpen) return null;
 
   const sizeToppings = toppings[pizzaSize] || {};
+  const sizeNum = parseInt(pizzaSize);
+  const sizeAddons = PIZZA_ADDONS[sizeNum] || {};
 
   const handleToppingToggle = (toppingName: string) => {
     if (nothingSelected) return;
@@ -58,10 +85,21 @@ export default function PizzaToppingsModal({
     );
   };
 
+  const handleAddonToggle = (addonName: string) => {
+    if (nothingSelected) return;
+
+    setSelectedAddons(prev =>
+      prev.includes(addonName)
+        ? prev.filter(a => a !== addonName)
+        : [...prev, addonName]
+    );
+  };
+
   const handleNothingSelectedToggle = () => {
     setNothingSelected(!nothingSelected);
     if (!nothingSelected) {
       setSelectedToppings([]);
+      setSelectedAddons([]);
     }
   };
 
@@ -76,16 +114,27 @@ export default function PizzaToppingsModal({
       });
     });
 
-    return (basePrice + toppingsPrice) * quantity;
+    let addonsPrice = 0;
+    Object.entries(sizeAddons).forEach(([priceKey, addonsList]) => {
+      const price = Number(priceKey);
+      addonsList.forEach(addon => {
+        if (selectedAddons.includes(addon)) {
+          addonsPrice += price;
+        }
+      });
+    });
+
+    return (basePrice + toppingsPrice + addonsPrice) * quantity;
   };
 
   const handleAddToCart = () => {
-    const toppingsList = selectedToppings.length > 0
-      ? selectedToppings.join(', ')
+    const allExtras = [...selectedToppings, ...selectedAddons];
+    const extrasList = allExtras.length > 0
+      ? allExtras.join(', ')
       : (nothingSelected ? 'Bez dodataka' : '');
 
-    const itemName = toppingsList
-      ? `${pizzaName} (${pizzaSize}) - ${toppingsList}`
+    const itemName = extrasList
+      ? `${pizzaName} (${pizzaSize}) - ${extrasList}`
       : `${pizzaName} (${pizzaSize})`;
 
     addToCart({
@@ -140,6 +189,58 @@ export default function PizzaToppingsModal({
               />
               <span className="font-semibold text-white">Ništa od ponuđenog</span>
             </label>
+
+            {Object.keys(sizeAddons).length > 0 && (
+              <div className="mb-6">
+                <h4 className="text-lg font-bold text-white mb-4">Dodatci</h4>
+                {Object.entries(sizeAddons)
+                  .sort((a, b) => Number(a[0]) - Number(b[0]))
+                  .map(([priceKey, addonsList]) => {
+                    const price = Number(priceKey);
+
+                    return (
+                      <div key={priceKey} className="mb-4">
+                        <p className="text-sm text-gray-400 mb-2">
+                          {price === 0 ? 'Besplatno' : `+${price} RSD po dodatku`}
+                        </p>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                          {addonsList.map(addon => {
+                            const isSelected = selectedAddons.includes(addon);
+                            const isDisabled = nothingSelected;
+
+                            return (
+                              <label
+                                key={addon}
+                                className={`flex items-start gap-2 p-2.5 rounded-lg border-2 transition-all cursor-pointer ${
+                                  isDisabled
+                                    ? 'opacity-50 cursor-not-allowed bg-[#1A1A1A] border-gray-700'
+                                    : isSelected
+                                    ? 'bg-[#FF6B35]/10 border-[#FF6B35] shadow-md'
+                                    : 'bg-[#1A1A1A] border-gray-700 hover:border-[#FF6B35]/40 hover:bg-[#1A1A1A]/80'
+                                }`}
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={isSelected}
+                                  onChange={() => handleAddonToggle(addon)}
+                                  disabled={isDisabled}
+                                  className="mt-0.5 w-4 h-4 rounded border-2 border-gray-600 text-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-offset-2 focus:ring-offset-[#2A2A2A] bg-[#1A1A1A] cursor-pointer disabled:cursor-not-allowed"
+                                />
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-white text-sm font-medium leading-tight">{addon}</p>
+                                  {price > 0 && (
+                                    <p className="text-gray-400 text-xs mt-0.5">+{price} RSD</p>
+                                  )}
+                                </div>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
 
             {priceGroups.map(priceKey => {
               const price = Number(priceKey);
