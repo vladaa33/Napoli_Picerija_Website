@@ -8,6 +8,7 @@ interface MenuItemModalProps {
   itemName: string;
   basePrice: number;
   itemImage?: string;
+  categoryName?: string;
 }
 
 const MENU_ITEM_ADDONS: Record<number, string[]> = {
@@ -16,12 +17,20 @@ const MENU_ITEM_ADDONS: Record<number, string[]> = {
   120: ['Njegušski pršut']
 };
 
+const BREAKFAST_ADDONS: Record<number, string[]> = {
+  60: ['Lepinja'],
+  80: ['Jaje', 'Šunka', 'Pečurke'],
+  100: ['Paradajz', 'Feta', 'Slanina', 'Kačkavalj', 'Kajmak', 'Viršla', 'Eurokrem', 'Marmelada'],
+  130: ['Pršuta']
+};
+
 export default function MenuItemModal({
   isOpen,
   onClose,
   itemName,
   basePrice,
-  itemImage
+  itemImage,
+  categoryName
 }: MenuItemModalProps) {
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [nothingSelected, setNothingSelected] = useState(false);
@@ -49,6 +58,9 @@ export default function MenuItemModal({
 
   if (!isOpen) return null;
 
+  const isBreakfast = categoryName?.toLowerCase().includes('doručak') || categoryName?.toLowerCase().includes('dorucak');
+  const addonsToUse = isBreakfast ? BREAKFAST_ADDONS : MENU_ITEM_ADDONS;
+
   const handleAddonToggle = (addonName: string) => {
     if (nothingSelected) return;
 
@@ -68,7 +80,7 @@ export default function MenuItemModal({
 
   const calculateTotalPrice = () => {
     let addonsPrice = 0;
-    Object.entries(MENU_ITEM_ADDONS).forEach(([priceKey, addonsList]) => {
+    Object.entries(addonsToUse).forEach(([priceKey, addonsList]) => {
       const price = Number(priceKey);
       addonsList.forEach(addon => {
         if (selectedAddons.includes(addon)) {
@@ -146,7 +158,7 @@ export default function MenuItemModal({
             </label>
 
             <div className="mb-6">
-              {Object.entries(MENU_ITEM_ADDONS)
+              {Object.entries(addonsToUse)
                 .sort((a, b) => Number(a[0]) - Number(b[0]))
                 .map(([priceKey, addonsList]) => {
                   const price = Number(priceKey);
