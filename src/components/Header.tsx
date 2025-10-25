@@ -24,7 +24,7 @@ export default function Header({ onCartClick, onMenuClick }: HeaderProps) {
         <div className="flex justify-between items-center h-16 sm:h-20">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => onMenuClick('home')}>
             <img
-              src="/images/napolipizza.jpg"
+              src="/images/image copy.png"
               alt="Napoli Pizza Logo"
               className="h-10 sm:h-12 object-contain"
             />
