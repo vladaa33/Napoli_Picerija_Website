@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { X, CreditCard, Banknote } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { localDataService } from '../lib/localDataService';
+import { supabase } from '../lib/supabase';
 import type { Customer, Order, OrderItem } from '../types';
 
 interface CheckoutProps {
@@ -26,14 +26,32 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
 
   const [notes, setNotes] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
+      const { data: customer, error: customerError } = await supabase
+        .from('customers')
+        .upsert({
+          email: formData.email,
+          full_name: formData.full_name,
+          phone: formData.phone,
+          address: formData.address,
+          city: formData.city,
+          postal_code: formData.postal_code
+        }, {
+          onConflict: 'email'
+        })
+        .select()
+        .single();
+
+      if (customerError) throw customerError;
+
       const deliveryAddress = `${formData.address}, ${formData.city} ${formData.postal_code}`;
 
       const orderData: Order = {
+        customer_id: customer.id,
         total_amount: totalAmount,
         delivery_address: deliveryAddress,
         customer_notes: notes,
@@ -42,15 +60,28 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
         status: 'pending'
       };
 
-      const orderItems: Omit<OrderItem, 'id' | 'order_id'>[] = items.map(item => ({
+      const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .insert(orderData)
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+
+      const orderItems: OrderItem[] = items.map(item => ({
+        order_id: order.id!,
         menu_item_id: item.menuItem.id,
         quantity: item.quantity,
-        unit_price: item.selectedSize?.price || item.menuItem.price,
-        subtotal: (item.selectedSize?.price || item.menuItem.price) * item.quantity,
+        unit_price: item.menuItem.price,
+        subtotal: item.menuItem.price * item.quantity,
         special_instructions: item.specialInstructions || ''
       }));
 
-      const { order } = localDataService.createOrder(orderData, orderItems);
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+
+      if (itemsError) throw itemsError;
 
       clearCart();
       onSuccess(order.order_number!);

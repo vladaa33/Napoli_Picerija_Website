@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Pencil, Trash2, X } from 'lucide-react';
-import { localDataService } from '../lib/localDataService';
+import { supabase } from '../lib/supabase';
 import type { Category, MenuItem } from '../types';
 
 export default function Admin() {
@@ -22,15 +22,24 @@ export default function Admin() {
     loadData();
   }, []);
 
-  const loadData = () => {
-    const categoriesData = localDataService.getCategories();
-    const itemsData = localDataService.getMenuItems();
+  const loadData = async () => {
+    const { data: categoriesData } = await supabase
+      .from('categories')
+      .select('*')
+      .order('display_order');
 
-    setCategories(categoriesData);
-    if (categoriesData.length > 0 && !selectedCategory) {
-      setSelectedCategory(categoriesData[0].id);
+    const { data: itemsData } = await supabase
+      .from('menu_items')
+      .select('*')
+      .order('display_order');
+
+    if (categoriesData) {
+      setCategories(categoriesData);
+      if (categoriesData.length > 0 && !selectedCategory) {
+        setSelectedCategory(categoriesData[0].id);
+      }
     }
-    setMenuItems(itemsData);
+    if (itemsData) setMenuItems(itemsData);
   };
 
   const openModal = (item?: MenuItem) => {
@@ -68,7 +77,7 @@ export default function Admin() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const itemData = {
@@ -76,31 +85,39 @@ export default function Admin() {
       description: formData.description,
       price: parseFloat(formData.price),
       image_url: formData.image_url,
-      category_id: formData.category_id,
-      is_available: true,
-      is_featured: false,
-      display_order: menuItems.length + 1
+      category_id: formData.category_id
     };
 
     if (editingItem) {
-      localDataService.updateMenuItem(editingItem.id, itemData);
+      await supabase
+        .from('menu_items')
+        .update(itemData)
+        .eq('id', editingItem.id);
     } else {
-      localDataService.addMenuItem(itemData);
+      await supabase
+        .from('menu_items')
+        .insert(itemData);
     }
 
     loadData();
     closeModal();
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Da li ste sigurni da želite da obrišete ovu stavku?')) {
-      localDataService.deleteMenuItem(id);
+      await supabase
+        .from('menu_items')
+        .delete()
+        .eq('id', id);
       loadData();
     }
   };
 
-  const toggleAvailability = (item: MenuItem) => {
-    localDataService.updateMenuItem(item.id, { is_available: !item.is_available });
+  const toggleAvailability = async (item: MenuItem) => {
+    await supabase
+      .from('menu_items')
+      .update({ is_available: !item.is_available })
+      .eq('id', item.id);
     loadData();
   };
 

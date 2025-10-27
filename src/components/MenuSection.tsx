@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { localDataService } from '../lib/localDataService';
+import { supabase } from '../lib/supabase';
 import type { Category } from '../types';
 import CategoryDetail from './CategoryDetail';
 
@@ -13,10 +13,17 @@ export default function MenuSection() {
     loadCategories();
   }, []);
 
-  const loadCategories = () => {
+  const loadCategories = async () => {
     try {
-      const categoriesData = localDataService.getCategories({ is_active: true });
-      setCategories(categoriesData);
+      const { data: categoriesData } = await supabase
+        .from('categories')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order');
+
+      if (categoriesData) {
+        setCategories(categoriesData);
+      }
     } catch (error) {
       console.error('Error loading categories:', error);
     } finally {
