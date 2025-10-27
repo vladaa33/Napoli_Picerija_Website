@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, Plus } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { localDataService } from '../lib/localDataService';
 import { useCart } from '../context/CartContext';
 import { useFlyToCart } from '../hooks/useFlyToCart';
 import PizzaToppingsModal from './PizzaToppingsModal';
@@ -34,42 +34,22 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
     loadItems();
   }, [category.id, scrollPosition]);
 
-  const loadItems = async () => {
+  const loadItems = () => {
     try {
-      const { data: itemsData } = await supabase
-        .from('menu_items')
-        .select('*')
-        .eq('category_id', category.id)
-        .eq('is_available', true)
-        .order('display_order');
+      const itemsData = localDataService.getMenuItems({
+        category_id: category.id,
+        is_available: true
+      });
 
-      if (itemsData) {
-        const itemsWithSizes = await Promise.all(
-          itemsData.map(async (item) => {
-            const { data: sizesData } = await supabase
-              .from('menu_item_sizes')
-              .select('*')
-              .eq('menu_item_id', item.id)
-              .eq('is_available', true)
-              .order('display_order');
+      setMenuItems(itemsData);
 
-            return {
-              ...item,
-              sizes: sizesData || [],
-            };
-          })
-        );
-
-        setMenuItems(itemsWithSizes);
-
-        const initialSizes: Record<string, MenuItemSize> = {};
-        itemsWithSizes.forEach((item) => {
-          if (item.sizes && item.sizes.length > 0) {
-            initialSizes[item.id] = item.sizes[0];
-          }
-        });
-        setSelectedSizes(initialSizes);
-      }
+      const initialSizes: Record<string, MenuItemSize> = {};
+      itemsData.forEach((item) => {
+        if (item.sizes && item.sizes.length > 0) {
+          initialSizes[item.id] = item.sizes[0];
+        }
+      });
+      setSelectedSizes(initialSizes);
     } catch (error) {
       console.error('Error loading menu items:', error);
     } finally {
