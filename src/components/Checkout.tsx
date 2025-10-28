@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { X, CreditCard, Banknote } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { localDataService } from '../lib/localDataService';
+import PostalCodeSelector from './PostalCodeSelector';
 import type { Customer, Order, OrderItem } from '../types';
 
 interface CheckoutProps {
@@ -167,12 +168,10 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                   <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
                     Poštanski broj *
                   </label>
-                  <input
-                    type="text"
-                    required
+                  <PostalCodeSelector
                     value={formData.postal_code}
-                    onChange={(e) => setFormData({ ...formData, postal_code: e.target.value })}
-                    className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white"
+                    onChange={(value) => setFormData({ ...formData, postal_code: value })}
+                    required
                   />
                 </div>
               </div>
