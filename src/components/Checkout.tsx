@@ -118,18 +118,18 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
               </div>
 
               <div>
-                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-base min-h-[48px]"
-                />
-              </div>
-            </div>
+  <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
+    Email *
+  </label>
+  <input
+    type="email"
+    required
+    value={formData.email}
+    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+    className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white placeholder:text-gray-500"
+  />
+</div>
+
 
 
             <div className="space-y-3 sm:space-y-4">
