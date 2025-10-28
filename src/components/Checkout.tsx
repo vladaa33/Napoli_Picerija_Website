@@ -137,7 +137,7 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
               <h3 className="text-base sm:text-lg font-semibold text-white">Adresa dostave</h3>
 
               <div>
-                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
                   Ulica i broj *
                 </label>
                 <input
