@@ -1045,19 +1045,6 @@
       "updated_at": "2025-10-27T19:51:52.755996+00:00"
     },
     {
-      "id": "363d6641-8144-4643-ade9-a84b3abfd74b",
-      "category_id": "0451c2b6-e1bb-47a6-aef1-7b06225574bf",
-      "name": "Pileći štapići",
-      "description": "300 grama - Lepinja, pomfrit, salata",
-      "price": 880,
-      "image_url": "",
-      "is_available": true,
-      "is_featured": false,
-      "display_order": 4,
-      "created_at": "2025-10-11T11:41:44.467262+00:00",
-      "updated_at": "2025-10-27T19:51:58.544081+00:00"
-    },
-    {
       "id": "ba598cd3-d302-463e-87cd-6eb520e08e14",
       "category_id": "472c9daa-44ba-4f50-95d2-b1f794f3bac7",
       "name": "Palačinka Nutela",
