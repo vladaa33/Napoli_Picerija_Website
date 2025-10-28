@@ -179,7 +179,7 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
             </div>
 
             <div>
-              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
                 Napomena (opciono)
               </label>
               <textarea
