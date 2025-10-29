@@ -27,7 +27,6 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
 
   if (!isOpen) return null;
 
-  // OPTIONAL: Ako želiš custom "thank you" rutu, dodaj action="/success" na <form>
   return (
     <>
       <div
@@ -49,7 +48,6 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
             </button>
           </div>
 
-          {/* NETLIFY HTML FORM SUBMISSION */}
           <form
             name="checkout"
             method="POST"
@@ -57,11 +55,9 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
             data-netlify-honeypot="bot-field"
             className="p-4 sm:p-6 space-y-5 sm:space-y-6"
           >
-            {/* Netlify essentials */}
             <input type="hidden" name="form-name" value="checkout" />
             <input type="hidden" name="bot-field" />
 
-            {/* Hidden mirrors for state/UI bez name atributa */}
             <input type="hidden" name="payment_method" value={paymentMethod} />
             <input type="hidden" name="total_amount" value={totalAmount.toFixed(2)} />
             <input
@@ -91,10 +87,8 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
               )}
             />
 
-            {/* Vidljiva polja */}
             <div className="space-y-3 sm:space-y-4">
               <h3 className="text-base sm:text-lg font-semibold text-white">Vaši podaci</h3>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
@@ -109,7 +103,6 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
                     className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white"
                   />
                 </div>
-
                 <div>
                   <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
                     Telefon *
@@ -124,7 +117,6 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
                   />
                 </div>
               </div>
-
               <div>
                 <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
                   Email *
@@ -142,7 +134,6 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
 
             <div className="space-y-3 sm:space-y-4">
               <h3 className="text-base sm:text-lg font-semibold text-white">Adresa dostave</h3>
-
               <div>
                 <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
                   Ulica i broj *
@@ -156,7 +147,6 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
                   className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white"
                 />
               </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
@@ -171,12 +161,10 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
                     className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white"
                   />
                 </div>
-
                 <div>
                   <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
                     Poštanski broj *
                   </label>
-                  {/* Komponenta nema name; hidden mirror iznad šalje vrednost */}
                   <PostalCodeSelector
                     value={formData.postal_code}
                     onChange={(value) => setFormData({ ...formData, postal_code: value })}
@@ -202,7 +190,6 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
 
             <div className="space-y-3 sm:space-y-4">
               <h3 className="text-base sm:text-lg font-semibold text-white">Način plaćanja</h3>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 <button
                   type="button"
@@ -220,7 +207,6 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
                   />
                   <span className="block font-medium text-sm sm:text-base text-white">Kartica online</span>
                 </button>
-
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('cash')}
@@ -245,7 +231,6 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
                 <span className="text-white">Ukupno:</span>
                 <span className="text-[#FF6B35]">{totalAmount.toFixed(2)} RSD</span>
               </div>
-
               <button
                 type="submit"
                 className="w-full bg-[#4CAF50] text-white py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-[#3d8b40] transition-colors shadow-lg hover:shadow-xl min-h-[52px] active:scale-98"
