@@ -95,23 +95,20 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
             <input type="hidden" name="postal_code" value={formData.postal_code} />
             <input type="hidden" name="payment_status" value={paymentMethod === 'cash' ? 'pending' : 'pending'} />
             <input type="hidden" name="status" value="pending" />
+
+            {/* Human-readable order items */}
             <input
               type="hidden"
               name="order_items"
-              value={JSON.stringify(
-                items.map((item) => {
+              value={items
+                .map((item) => {
                   const unit = item.selectedSize?.price ?? item.menuItem.price;
-                  return {
-                    menu_item_id: item.menuItem.id,
-                    name: item.menuItem.name,
-                    size: item.selectedSize?.label ?? null,
-                    quantity: item.quantity,
-                    unit_price: unit,
-                    subtotal: unit * item.quantity,
-                    special_instructions: item.specialInstructions ?? '',
-                  };
+                  const name = item.menuItem.name;
+                  const size = item.selectedSize?.label ? ` (${item.selectedSize.label})` : '';
+                  const extras = item.specialInstructions ? ` Dodaci: ${item.specialInstructions}` : '';
+                  return `x${item.quantity} ${name}${size}${extras} Cena: ${unit * item.quantity} RSD`;
                 })
-              )}
+                .join('\n')}
             />
 
             <div className="space-y-3 sm:space-y-4">
