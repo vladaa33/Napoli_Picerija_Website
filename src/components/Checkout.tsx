@@ -10,8 +10,8 @@ interface CheckoutProps {
   onSuccess: (orderNumber: string) => void; // Nije u upotrebi kod Netlify POST-a, ostavljeno radi kompatibilnosti
 }
 
-export default function Checkout({ isOpen, onClose }: CheckoutProps) {
-  const { items, totalAmount } = useCart();
+export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) {
+  const { items, totalAmount, clearCart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'cash'>('card');
 
   const [formData, setFormData] = useState<Customer>({
@@ -24,6 +24,32 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
   });
 
   const [notes, setNotes] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const form = e.target as HTMLFormElement;
+    const formDataToSend = new FormData(form);
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formDataToSend as any).toString(),
+      });
+
+      if (response.ok || response.status === 303) {
+        const orderNumber = `ORD-${Date.now()}`;
+        clearCart();
+        onSuccess(orderNumber);
+      } else {
+        alert('Greška pri slanju porudžbine. Molimo pokušajte ponovo.');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('Greška pri slanju porudžbine. Molimo pokušajte ponovo.');
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -53,6 +79,7 @@ export default function Checkout({ isOpen, onClose }: CheckoutProps) {
             method="POST"
             data-netlify="true"
             data-netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
             className="p-4 sm:p-6 space-y-5 sm:space-y-6"
           >
             <input type="hidden" name="form-name" value="checkout" />
