@@ -20,11 +20,6 @@ export default function OrderSuccess({ isOpen, orderNumber, onClose }: OrderSucc
           </p>
         </div>
 
-        <div className="bg-[#1A1A1A] rounded-lg p-6 mb-6 border border-[#FF6B35]/20">
-          <p className="text-sm text-gray-300 mb-2">Broj porudžbine:</p>
-          <p className="text-2xl font-bold text-[#FF6B35]">{orderNumber}</p>
-        </div>
-
         <div className="space-y-3 text-sm text-gray-300 mb-6">
           <p>Potvrdu ćete dobiti na email adresu.</p>
           <p>Očekivano vreme dostave je 30-45 minuta.</p>
