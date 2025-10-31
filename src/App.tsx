@@ -9,14 +9,12 @@ import Footer from './components/Footer';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import OrderSuccess from './components/OrderSuccess';
-import Admin from './components/Admin';
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
-  const [showAdmin, setShowAdmin] = useState(false);
 
   const homeRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -59,22 +57,6 @@ function App() {
     setIsSuccessOpen(false);
     scrollToSection('home');
   };
-
-  if (showAdmin) {
-    return (
-      <div>
-        <div className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50">
-          <button
-            onClick={() => setShowAdmin(false)}
-            className="bg-white text-gray-700 px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl shadow-soft-lg hover:bg-gray-100 transition-all duration-200 font-semibold hover:-translate-y-0.5 text-sm sm:text-base min-h-[44px] active:scale-95"
-          >
-            Nazad na sajt
-          </button>
-        </div>
-        <Admin />
-      </div>
-    );
-  }
 
   return (
     <CartProvider>
@@ -122,13 +104,6 @@ function App() {
           orderNumber={orderNumber}
           onClose={handleSuccessClose}
         />
-
-        <button
-          onClick={() => setShowAdmin(true)}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-[#FF6B35] text-white px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl shadow-soft-lg hover:bg-[#e55a2a] transition-all duration-300 text-xs sm:text-sm font-semibold z-40 hover:-translate-y-1 min-h-[44px] active:scale-95"
-        >
-          Admin
-        </button>
       </div>
     </CartProvider>
   );
