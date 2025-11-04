@@ -9,6 +9,8 @@ interface MenuItemModalProps {
   basePrice: number;
   itemImage?: string;
   categoryName?: string;
+  language: string;
+  translations: any;
 }
 
 const MENU_ITEM_ADDONS: Record<number, string[]> = {
@@ -35,7 +37,12 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
   150: ['Pohovanje']
 };
 
-const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
+const getPastaTypes = (language: string, translations: any) => [
+  translations[language].spagete,
+  translations[language].taljatele,
+  translations[language].pene,
+  translations[language].fusili
+];
 
 export default function MenuItemModal({
   isOpen,
@@ -43,7 +50,9 @@ export default function MenuItemModal({
   itemName,
   basePrice,
   itemImage,
-  categoryName
+  categoryName,
+  language,
+  translations
 }: MenuItemModalProps) {
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [nothingSelected, setNothingSelected] = useState(false);
@@ -126,13 +135,20 @@ export default function MenuItemModal({
     const parts: string[] = [];
 
     if (isPasta && selectedPasta) {
-      parts.push(selectedPasta);
+      const pastaOriginal = [
+        { sr: translations.sr.spagete, en: translations.en.spagete },
+        { sr: translations.sr.taljatele, en: translations.en.taljatele },
+        { sr: translations.sr.pene, en: translations.en.pene },
+        { sr: translations.sr.fusili, en: translations.en.fusili }
+      ];
+      const matchedPasta = pastaOriginal.find(p => p[language as 'sr' | 'en'] === selectedPasta);
+      parts.push(matchedPasta?.sr || selectedPasta);
     }
 
     if (selectedAddons.length > 0) {
       parts.push(selectedAddons.join(', '));
     } else if (nothingSelected) {
-      parts.push('Bez dodataka');
+      parts.push(language === 'sr' ? 'Bez dodataka' : 'No add-ons');
     }
 
     const specialInstructions = parts.length > 0 ? parts.join(' | ') : undefined;
@@ -175,7 +191,7 @@ export default function MenuItemModal({
           <button
             onClick={onClose}
             className="p-2 rounded-full hover:bg-[#FF6B35]/10 transition-colors group"
-            aria-label="Zatvori"
+            aria-label={translations[language].close}
           >
             <X className="h-6 w-6 text-gray-400 group-hover:text-[#FF6B35] transition-colors" />
           </button>
@@ -184,11 +200,11 @@ export default function MenuItemModal({
         <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
           {isPasta && (
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-white mb-1">Pasta:</h3>
-              <p className="text-sm text-gray-400 mb-4">Obavezan izbor testenine:</p>
+              <h3 className="text-lg font-bold text-white mb-1">{translations[language].pasta}</h3>
+              <p className="text-sm text-gray-400 mb-4">{translations[language].pastaRequired}</p>
 
               <div className="grid grid-cols-2 gap-2 mb-2">
-                {PASTA_TYPES.map(pasta => {
+                {getPastaTypes(language, translations).map(pasta => {
                   const isSelected = selectedPasta === pasta;
 
                   return (
@@ -216,7 +232,7 @@ export default function MenuItemModal({
           )}
 
           <div className="mb-6">
-            <h3 className="text-lg font-bold text-white mb-4">Dodaci</h3>
+            <h3 className="text-lg font-bold text-white mb-4">{translations[language].addons}</h3>
 
             <label className="flex items-center gap-3 p-4 bg-[#1A1A1A] rounded-xl border-2 border-[#FF6B35]/20 hover:border-[#FF6B35]/40 transition-all cursor-pointer mb-6">
               <input
@@ -225,7 +241,7 @@ export default function MenuItemModal({
                 onChange={handleNothingSelectedToggle}
                 className="w-5 h-5 rounded border-2 border-gray-600 text-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-offset-2 focus:ring-offset-[#2A2A2A] bg-[#1A1A1A] cursor-pointer"
               />
-              <span className="font-semibold text-white">Ništa od ponuđenog</span>
+              <span className="font-semibold text-white">{translations[language].nothingOffered}</span>
             </label>
 
             <div className="mb-6">
@@ -237,7 +253,7 @@ export default function MenuItemModal({
                   return (
                     <div key={priceKey} className="mb-4">
                       <p className="text-sm text-gray-400 mb-2">
-                        {price === 0 ? 'Besplatno' : `+${price} RSD po dodatku`}
+                        {price === 0 ? translations[language].free : `+${price} RSD ${translations[language].perAddon}`}
                       </p>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                         {addonsList.map(addon => {
@@ -281,13 +297,13 @@ export default function MenuItemModal({
 
         <div className="border-t border-[#FF6B35]/20 p-6 bg-[#1A1A1A]">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-white font-semibold">Količina:</span>
+            <span className="text-white font-semibold">{translations[language].quantity}</span>
             <div className="flex items-center gap-3">
               <button
                 onClick={decrementQuantity}
                 disabled={quantity <= 1}
                 className="p-2 rounded-full bg-[#2A2A2A] hover:bg-[#FF6B35] disabled:opacity-50 disabled:cursor-not-allowed transition-colors group"
-                aria-label="Smanji količinu"
+                aria-label={translations[language].decreaseQuantity}
               >
                 <Minus className="h-5 w-5 text-white" />
               </button>
@@ -295,7 +311,7 @@ export default function MenuItemModal({
               <button
                 onClick={incrementQuantity}
                 className="p-2 rounded-full bg-[#2A2A2A] hover:bg-[#FF6B35] transition-colors group"
-                aria-label="Povećaj količinu"
+                aria-label={translations[language].increaseQuantity}
               >
                 <Plus className="h-5 w-5 text-white" />
               </button>
@@ -307,7 +323,7 @@ export default function MenuItemModal({
             disabled={isPasta && !selectedPasta}
             className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2a] hover:from-[#e55a2a] hover:to-[#FF6B35] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
-            <span>Dodaj u korpu</span>
+            <span>{translations[language].addToCart}</span>
             <span className="text-xl">{calculateTotalPrice()} RSD</span>
           </button>
         </div>
