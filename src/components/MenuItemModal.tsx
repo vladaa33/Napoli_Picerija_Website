@@ -76,7 +76,7 @@ export default function MenuItemModal({
   const isBreakfast = categoryName?.toLowerCase().includes('doručak') || categoryName?.toLowerCase().includes('dorucak');
   const isSweetPancake = categoryName?.toLowerCase().includes('slatke palačinke') || categoryName?.toLowerCase().includes('slatke palacinke');
   const isSaltyPancake = categoryName?.toLowerCase().includes('slane palačinke') || categoryName?.toLowerCase().includes('slane palacinke');
-  const isPasta = categoryName?.toLowerCase().includes('paste');
+  const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
