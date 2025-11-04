@@ -166,7 +166,7 @@ export default function MenuItemModal({
 
         <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
           <div className="mb-6">
-            <h3 className="text-lg font-bold text-white mb-4">Dodatci</h3>
+            <h3 className="text-lg font-bold text-white mb-4">Dodaci</h3>
 
             <label className="flex items-center gap-3 p-4 bg-[#1A1A1A] rounded-xl border-2 border-[#FF6B35]/20 hover:border-[#FF6B35]/40 transition-all cursor-pointer mb-6">
               <input
