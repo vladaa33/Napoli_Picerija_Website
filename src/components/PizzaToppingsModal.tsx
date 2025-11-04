@@ -208,7 +208,7 @@ export default function PizzaToppingsModal({
 
             {Object.keys(sizeAddons).length > 0 && (
               <div className="mb-6">
-                <h4 className="text-lg font-bold text-white mb-4">Dodatci</h4>
+                <h4 className="text-lg font-bold text-white mb-4">Dodaci</h4>
                 {Object.entries(sizeAddons)
                   .sort((a, b) => Number(a[0]) - Number(b[0]))
                   .map(([priceKey, addonsList]) => {
