@@ -265,7 +265,7 @@ export default function PizzaToppingsModal({
               return (
                 <div key={priceKey} className="mb-6">
                   <h4 className="text-md font-bold text-[#FF6B35] mb-3">
-                    {price === 0 ? 'Besplatni dodatci' : `Dodaci za ${price} RSD`}
+                    {price === 0 ? 'Besplatni dodaci' : `Dodaci za ${price} RSD`}
                   </h4>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {toppingsList.map(topping => {
