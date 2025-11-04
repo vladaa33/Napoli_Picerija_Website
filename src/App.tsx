@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -11,17 +11,10 @@ import Checkout from './components/Checkout';
 import OrderSuccess from './components/OrderSuccess';
 
 function App() {
-  const [language, setLanguage] = useState(() => {
-    return localStorage.getItem('napoli-language') || 'sr';
-  });
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem('napoli-language', language);
-  }, [language]);
 
   const homeRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -68,28 +61,23 @@ function App() {
   return (
     <CartProvider>
       <div className="min-h-screen bg-[#1A1A1A]">
-        <Header
-          onCartClick={() => setIsCartOpen(true)}
-          onMenuClick={scrollToSection}
-          language={language}
-          onLanguageChange={setLanguage}
-        />
+        <Header onCartClick={() => setIsCartOpen(true)} onMenuClick={scrollToSection} />
 
         <main>
           <div ref={homeRef}>
-            <Hero onOrderClick={() => scrollToSection('menu')} onCartClick={() => setIsCartOpen(true)} language={language} />
+            <Hero onOrderClick={() => scrollToSection('menu')} onCartClick={() => setIsCartOpen(true)} />
           </div>
 
           <div ref={menuRef}>
-            <MenuSection language={language} />
+            <MenuSection />
           </div>
 
           <div ref={aboutRef}>
-            <About language={language} />
+            <About />
           </div>
 
           <div ref={contactRef}>
-            <Contact language={language} />
+            <Contact />
           </div>
         </main>
 
@@ -103,21 +91,18 @@ function App() {
             setIsCartOpen(false);
             setTimeout(() => scrollToSection('menu'), 100);
           }}
-          language={language}
         />
 
         <Checkout
           isOpen={isCheckoutOpen}
           onClose={() => setIsCheckoutOpen(false)}
           onSuccess={handleOrderSuccess}
-          language={language}
         />
 
         <OrderSuccess
           isOpen={isSuccessOpen}
           orderNumber={orderNumber}
           onClose={handleSuccessClose}
-          language={language}
         />
       </div>
     </CartProvider>

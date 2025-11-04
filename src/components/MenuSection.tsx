@@ -2,14 +2,8 @@ import { useState, useEffect } from 'react';
 import { localDataService } from '../lib/localDataService';
 import type { Category } from '../types';
 import CategoryDetail from './CategoryDetail';
-import { translations, Language } from '../translations';
 
-interface MenuSectionProps {
-  language: Language;
-}
-
-export default function MenuSection({ language }: MenuSectionProps) {
-  const t = translations[language].menu;
+export default function MenuSection() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [loading, setLoading] = useState(true);
@@ -48,7 +42,6 @@ export default function MenuSection({ language }: MenuSectionProps) {
         category={selectedCategory}
         onBack={() => setSelectedCategory(null)}
         scrollPosition={scrollPosition}
-        language={language}
       />
     );
   }
@@ -85,9 +78,9 @@ export default function MenuSection({ language }: MenuSectionProps) {
       <div className="relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 tracking-tight px-4" style={{ fontFamily: "'Playfair Display', serif" }}>{t.title} 🍽️</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 tracking-tight px-4" style={{ fontFamily: "'Playfair Display', serif" }}>Naš Meni 🍽️</h2>
           <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto px-4">
-            {t.subtitle} 👨‍🍳
+            Izaberite kategoriju i istražite našu ponudu 👨‍🍳
           </p>
         </div>
 

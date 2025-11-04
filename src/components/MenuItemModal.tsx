@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { translations, Language } from '../translations';
 
 interface MenuItemModalProps {
   isOpen: boolean;
@@ -10,7 +9,6 @@ interface MenuItemModalProps {
   basePrice: number;
   itemImage?: string;
   categoryName?: string;
-  language: Language;
 }
 
 const MENU_ITEM_ADDONS: Record<number, string[]> = {
@@ -37,15 +35,7 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
   150: ['Pohovanje']
 };
 
-const getPastaTypes = (language: Language) => {
-  const t = translations[language].modal.pastaTypes;
-  return [
-    { key: 'spagete', label: t.spagete },
-    { key: 'taljatele', label: t.taljatele },
-    { key: 'pene', label: t.pene },
-    { key: 'fusili', label: t.fusili }
-  ];
-};
+const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
 
 export default function MenuItemModal({
   isOpen,
@@ -53,15 +43,13 @@ export default function MenuItemModal({
   itemName,
   basePrice,
   itemImage,
-  categoryName,
-  language
+  categoryName
 }: MenuItemModalProps) {
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [nothingSelected, setNothingSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [selectedPasta, setSelectedPasta] = useState<string>('');
   const { addItem } = useCart();
-  const t = translations[language].modal;
 
   useEffect(() => {
     if (isOpen) {
@@ -196,16 +184,16 @@ export default function MenuItemModal({
         <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
           {isPasta && (
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-white mb-1">{t.pasta}:</h3>
-              <p className="text-sm text-gray-400 mb-4">{t.pastaRequired}:</p>
+              <h3 className="text-lg font-bold text-white mb-1">Pasta:</h3>
+              <p className="text-sm text-gray-400 mb-4">Obavezan izbor testenine:</p>
 
               <div className="grid grid-cols-2 gap-2 mb-2">
-                {getPastaTypes(language).map(pasta => {
-                  const isSelected = selectedPasta === pasta.label;
+                {PASTA_TYPES.map(pasta => {
+                  const isSelected = selectedPasta === pasta;
 
                   return (
                     <label
-                      key={pasta.key}
+                      key={pasta}
                       className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
                         isSelected
                           ? 'bg-[#FF6B35]/10 border-[#FF6B35] shadow-md'
@@ -216,10 +204,10 @@ export default function MenuItemModal({
                         type="radio"
                         name="pasta"
                         checked={isSelected}
-                        onChange={() => setSelectedPasta(pasta.label)}
+                        onChange={() => setSelectedPasta(pasta)}
                         className="w-4 h-4 text-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-offset-2 focus:ring-offset-[#2A2A2A] bg-[#1A1A1A] border-gray-600 cursor-pointer"
                       />
-                      <span className="text-white text-sm font-medium">{pasta.label}</span>
+                      <span className="text-white text-sm font-medium">{pasta}</span>
                     </label>
                   );
                 })}
@@ -228,7 +216,7 @@ export default function MenuItemModal({
           )}
 
           <div className="mb-6">
-            <h3 className="text-lg font-bold text-white mb-4">{t.addons}</h3>
+            <h3 className="text-lg font-bold text-white mb-4">Dodaci</h3>
 
             <label className="flex items-center gap-3 p-4 bg-[#1A1A1A] rounded-xl border-2 border-[#FF6B35]/20 hover:border-[#FF6B35]/40 transition-all cursor-pointer mb-6">
               <input
@@ -237,7 +225,7 @@ export default function MenuItemModal({
                 onChange={handleNothingSelectedToggle}
                 className="w-5 h-5 rounded border-2 border-gray-600 text-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-offset-2 focus:ring-offset-[#2A2A2A] bg-[#1A1A1A] cursor-pointer"
               />
-              <span className="font-semibold text-white">{t.nothingSelected}</span>
+              <span className="font-semibold text-white">Ništa od ponuđenog</span>
             </label>
 
             <div className="mb-6">
@@ -249,7 +237,7 @@ export default function MenuItemModal({
                   return (
                     <div key={priceKey} className="mb-4">
                       <p className="text-sm text-gray-400 mb-2">
-                        {price === 0 ? t.free : `+${price} RSD ${t.perAddon}`}
+                        {price === 0 ? 'Besplatno' : `+${price} RSD po dodatku`}
                       </p>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                         {addonsList.map(addon => {
@@ -293,7 +281,7 @@ export default function MenuItemModal({
 
         <div className="border-t border-[#FF6B35]/20 p-6 bg-[#1A1A1A]">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-white font-semibold">{t.quantity}:</span>
+            <span className="text-white font-semibold">Količina:</span>
             <div className="flex items-center gap-3">
               <button
                 onClick={decrementQuantity}
@@ -319,7 +307,7 @@ export default function MenuItemModal({
             disabled={isPasta && !selectedPasta}
             className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2a] hover:from-[#e55a2a] hover:to-[#FF6B35] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
-            <span>{t.addToCart}</span>
+            <span>Dodaj u korpu</span>
             <span className="text-xl">{calculateTotalPrice()} RSD</span>
           </button>
         </div>
