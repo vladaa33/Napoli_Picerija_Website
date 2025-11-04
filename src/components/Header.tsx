@@ -1,25 +1,21 @@
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { translations, Language } from '../translations';
 
 interface HeaderProps {
   onCartClick: () => void;
   onMenuClick: (section: string) => void;
-  language: Language;
-  onLanguageChange: (lang: Language) => void;
 }
 
-export default function Header({ onCartClick, onMenuClick, language, onLanguageChange }: HeaderProps) {
+export default function Header({ onCartClick, onMenuClick }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { totalItems, cartRef } = useCart();
-  const t = translations[language].header;
 
   const menuItems = [
-    { id: 'home', label: t.home },
-    { id: 'menu', label: t.menu },
-    { id: 'about', label: t.about },
-    { id: 'contact', label: t.contact }
+    { id: 'home', label: 'Početna' },
+    { id: 'menu', label: 'Meni' },
+    { id: 'about', label: 'O nama' },
+    { id: 'contact', label: 'Kontakt' }
   ];
 
   return (
@@ -49,32 +45,11 @@ export default function Header({ onCartClick, onMenuClick, language, onLanguageC
           </nav>
 
           <div className="flex items-center space-x-2 sm:space-x-4">
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => onLanguageChange('sr')}
-                className={`p-2 text-2xl hover:bg-[#FF6B35]/10 rounded-lg transition-all duration-200 min-w-[44px] min-h-[44px] flex items-center justify-center ${
-                  language === 'sr' ? 'ring-2 ring-[#FF6B35] bg-[#FF6B35]/10' : ''
-                }`}
-                aria-label="Serbian"
-              >
-                🇷🇸
-              </button>
-              <button
-                onClick={() => onLanguageChange('en')}
-                className={`p-2 text-2xl hover:bg-[#FF6B35]/10 rounded-lg transition-all duration-200 min-w-[44px] min-h-[44px] flex items-center justify-center ${
-                  language === 'en' ? 'ring-2 ring-[#FF6B35] bg-[#FF6B35]/10' : ''
-                }`}
-                aria-label="English"
-              >
-                🇬🇧
-              </button>
-            </div>
-
             <button
               ref={cartRef}
               onClick={onCartClick}
               className="relative p-3 text-gray-300 hover:text-[#FF6B35] transition-all duration-200 hover:bg-[#FF6B35]/10 rounded-lg min-w-[44px] min-h-[44px] flex items-center justify-center"
-              aria-label={t.cart}
+              aria-label="Korpa"
             >
               <ShoppingCart className="h-6 w-6" />
               {totalItems > 0 && (

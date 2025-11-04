@@ -6,16 +6,14 @@ import { useFlyToCart } from '../hooks/useFlyToCart';
 import PizzaToppingsModal from './PizzaToppingsModal';
 import MenuItemModal from './MenuItemModal';
 import type { Category, MenuItem, MenuItemSize } from '../types';
-import { Language } from '../translations';
 
 interface CategoryDetailProps {
   category: Category;
   onBack: () => void;
   scrollPosition: number;
-  language: Language;
 }
 
-export default function CategoryDetail({ category, onBack, scrollPosition, language }: CategoryDetailProps) {
+export default function CategoryDetail({ category, onBack, scrollPosition }: CategoryDetailProps) {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState<Record<string, MenuItemSize>>({});
@@ -228,7 +226,6 @@ export default function CategoryDetail({ category, onBack, scrollPosition, langu
         pizzaSize={selectedPizza?.size.size_name || ''}
         basePrice={selectedPizza?.size.price || 0}
         pizzaImage={selectedPizza?.item.image_url}
-        language={language}
       />
 
       <MenuItemModal
@@ -241,7 +238,6 @@ export default function CategoryDetail({ category, onBack, scrollPosition, langu
         basePrice={selectedMenuItem?.price || 0}
         itemImage={selectedMenuItem?.image_url}
         categoryName={category.name}
-        language={language}
       />
     </section>
   );
