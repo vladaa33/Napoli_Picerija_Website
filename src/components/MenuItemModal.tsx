@@ -35,6 +35,8 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
   150: ['Pohovanje']
 };
 
+const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
+
 export default function MenuItemModal({
   isOpen,
   onClose,
@@ -46,6 +48,7 @@ export default function MenuItemModal({
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [nothingSelected, setNothingSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [selectedPasta, setSelectedPasta] = useState<string>('');
   const { addItem } = useCart();
 
   useEffect(() => {
@@ -64,6 +67,7 @@ export default function MenuItemModal({
       setSelectedAddons([]);
       setNothingSelected(false);
       setQuantity(1);
+      setSelectedPasta('');
     }
   }, [isOpen]);
 
@@ -72,6 +76,7 @@ export default function MenuItemModal({
   const isBreakfast = categoryName?.toLowerCase().includes('doručak') || categoryName?.toLowerCase().includes('dorucak');
   const isSweetPancake = categoryName?.toLowerCase().includes('slatke palačinke') || categoryName?.toLowerCase().includes('slatke palacinke');
   const isSaltyPancake = categoryName?.toLowerCase().includes('slane palačinke') || categoryName?.toLowerCase().includes('slane palacinke');
+  const isPasta = categoryName?.toLowerCase().includes('paste');
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
@@ -114,11 +119,23 @@ export default function MenuItemModal({
   };
 
   const handleAddToCart = () => {
-    const extrasList = selectedAddons.length > 0
-      ? selectedAddons.join(', ')
-      : (nothingSelected ? 'Bez dodataka' : '');
+    if (isPasta && !selectedPasta) {
+      return;
+    }
 
-    const specialInstructions = extrasList || undefined;
+    const parts: string[] = [];
+
+    if (isPasta && selectedPasta) {
+      parts.push(selectedPasta);
+    }
+
+    if (selectedAddons.length > 0) {
+      parts.push(selectedAddons.join(', '));
+    } else if (nothingSelected) {
+      parts.push('Bez dodataka');
+    }
+
+    const specialInstructions = parts.length > 0 ? parts.join(' | ') : undefined;
 
     const menuItem = {
       id: `${itemName}-${Date.now()}`,
@@ -165,6 +182,39 @@ export default function MenuItemModal({
         </div>
 
         <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
+          {isPasta && (
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-white mb-1">Pasta:</h3>
+              <p className="text-sm text-gray-400 mb-4">Obavezan izbor testenine:</p>
+
+              <div className="grid grid-cols-2 gap-2 mb-2">
+                {PASTA_TYPES.map(pasta => {
+                  const isSelected = selectedPasta === pasta;
+
+                  return (
+                    <label
+                      key={pasta}
+                      className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
+                        isSelected
+                          ? 'bg-[#FF6B35]/10 border-[#FF6B35] shadow-md'
+                          : 'bg-[#1A1A1A] border-gray-700 hover:border-[#FF6B35]/40 hover:bg-[#1A1A1A]/80'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="pasta"
+                        checked={isSelected}
+                        onChange={() => setSelectedPasta(pasta)}
+                        className="w-4 h-4 text-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-offset-2 focus:ring-offset-[#2A2A2A] bg-[#1A1A1A] border-gray-600 cursor-pointer"
+                      />
+                      <span className="text-white text-sm font-medium">{pasta}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           <div className="mb-6">
             <h3 className="text-lg font-bold text-white mb-4">Dodaci</h3>
 
@@ -254,7 +304,8 @@ export default function MenuItemModal({
 
           <button
             onClick={handleAddToCart}
-            className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2a] hover:from-[#e55a2a] hover:to-[#FF6B35] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+            disabled={isPasta && !selectedPasta}
+            className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2a] hover:from-[#e55a2a] hover:to-[#FF6B35] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
             <span>Dodaj u korpu</span>
             <span className="text-xl">{calculateTotalPrice()} RSD</span>
