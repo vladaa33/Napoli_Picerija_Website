@@ -54,10 +54,10 @@ export default function About() {
             <h3 className="text-3xl font-bold text-white mb-8 tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>Naša priča 📖</h3>
             <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
               <p>
-                Restoran Napoli osnovan je sa vizijom da donese autentičan italijanski ukus srpskim ljubiteljima dobre hrane. Inspirisani toplinom i gostoprimstvom južne Italije, trudimo se da svaki obrok bude poseban doživljaj.
+                Restoran Napoli osnovan je 1997. godine sa vizijom da donese autentičan italijanski ukus srpskim ljubiteljima dobre hrane. Inspirisani toplinom i gostoprimstvom južne Italije, trudimo se da svaki obrok bude poseban doživljaj.
               </p>
               <p>
-                Koristimo samo najkvalitetnije sastojke, a naše pice pravimo po tradicionalnim receptima iz Napulja. Svaka pica, svaki specijalitet pripremljen je sa pažnjom kako bi vaš obrok bio savršen.
+                Koristimo samo najkvalitetnije sastojke, a naše pice pravimo po tradicionalnim receptima. Svaka pica i svaki specijalitet pripremljen je sa pažnjom kako bi vaš obrok bio savršen.
               </p>
               <p>
                 Danas smo ponosni što možemo da vam pružimo mogućnost da uživate u našim specijalitetima u udobnosti vašeg doma, zahvaljujući našoj jednostavnoj online narudžbini.
