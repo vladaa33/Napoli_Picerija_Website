@@ -41,13 +41,15 @@ export default function PizzaToppingsModal({
   pizzaName,
   pizzaSize,
   basePrice,
-  pizzaImage
+  pizzaImage,
+  language
 }: PizzaToppingsModalProps) {
   const [selectedToppings, setSelectedToppings] = useState<string[]>([]);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [nothingSelected, setNothingSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
+  const t = translations[language].modal;
 
   useEffect(() => {
     if (isOpen) {
