@@ -5,20 +5,17 @@ import { useCart } from '../context/CartContext';
 interface HeaderProps {
   onCartClick: () => void;
   onMenuClick: (section: string) => void;
-  language: string;
-  setLanguage: (lang: string) => void;
-  translations: any;
 }
 
-export default function Header({ onCartClick, onMenuClick, language, setLanguage, translations }: HeaderProps) {
+export default function Header({ onCartClick, onMenuClick }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { totalItems, cartRef } = useCart();
 
   const menuItems = [
-    { id: 'home', label: language === 'sr' ? 'Početna' : 'Home' },
-    { id: 'menu', label: translations[language].menu },
-    { id: 'about', label: language === 'sr' ? 'O nama' : 'About' },
-    { id: 'contact', label: language === 'sr' ? 'Kontakt' : 'Contact' }
+    { id: 'home', label: 'Početna' },
+    { id: 'menu', label: 'Meni' },
+    { id: 'about', label: 'O nama' },
+    { id: 'contact', label: 'Kontakt' }
   ];
 
   return (
@@ -48,22 +45,6 @@ export default function Header({ onCartClick, onMenuClick, language, setLanguage
           </nav>
 
           <div className="flex items-center space-x-2 sm:space-x-4">
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setLanguage('sr')}
-                className={`text-2xl p-2 rounded-lg transition ${language === 'sr' ? 'bg-orange-500/20 border-2 border-orange-500' : 'hover:bg-gray-800'}`}
-                aria-label="Srpski jezik"
-              >
-                🇷🇸
-              </button>
-              <button
-                onClick={() => setLanguage('en')}
-                className={`text-2xl p-2 rounded-lg transition ${language === 'en' ? 'bg-orange-500/20 border-2 border-orange-500' : 'hover:bg-gray-800'}`}
-                aria-label="English language"
-              >
-                🇬🇧
-              </button>
-            </div>
             <button
               ref={cartRef}
               onClick={onCartClick}

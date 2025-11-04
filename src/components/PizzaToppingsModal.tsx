@@ -10,8 +10,6 @@ interface PizzaToppingsModalProps {
   pizzaSize: string;
   basePrice: number;
   pizzaImage?: string;
-  language: string;
-  translations: any;
 }
 
 const PIZZA_ADDONS: Record<number, Record<number, string[]>> = {
@@ -43,9 +41,7 @@ export default function PizzaToppingsModal({
   pizzaName,
   pizzaSize,
   basePrice,
-  pizzaImage,
-  language,
-  translations
+  pizzaImage
 }: PizzaToppingsModalProps) {
   const [selectedToppings, setSelectedToppings] = useState<string[]>([]);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
@@ -135,7 +131,7 @@ export default function PizzaToppingsModal({
     const allExtras = [...selectedToppings, ...selectedAddons];
     const extrasList = allExtras.length > 0
       ? allExtras.join(', ')
-      : (nothingSelected ? (language === 'sr' ? 'Bez dodataka' : 'No add-ons') : '');
+      : (nothingSelected ? 'Bez dodataka' : '');
 
     const specialInstructions = extrasList || undefined;
 
@@ -185,12 +181,12 @@ export default function PizzaToppingsModal({
         <div className="flex items-center justify-between p-6 border-b border-[#FF6B35]/20">
           <div>
             <h2 className="text-2xl font-bold text-white mb-1">{pizzaName}</h2>
-            <p className="text-gray-400">{translations[language].size} {pizzaSize}</p>
+            <p className="text-gray-400">Veličina: {pizzaSize}</p>
           </div>
           <button
             onClick={onClose}
             className="p-2 rounded-full hover:bg-[#FF6B35]/10 transition-colors group"
-            aria-label={translations[language].close}
+            aria-label="Zatvori"
           >
             <X className="h-6 w-6 text-gray-400 group-hover:text-[#FF6B35] transition-colors" />
           </button>
@@ -198,7 +194,7 @@ export default function PizzaToppingsModal({
 
         <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
           <div className="mb-6">
-            <h3 className="text-lg font-bold text-white mb-4">{translations[language].addons}</h3>
+            <h3 className="text-lg font-bold text-white mb-4">Dodaci</h3>
 
             <label className="flex items-center gap-3 p-4 bg-[#1A1A1A] rounded-xl border-2 border-[#FF6B35]/20 hover:border-[#FF6B35]/40 transition-all cursor-pointer mb-6">
               <input
@@ -207,12 +203,12 @@ export default function PizzaToppingsModal({
                 onChange={handleNothingSelectedToggle}
                 className="w-5 h-5 rounded border-2 border-gray-600 text-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-offset-2 focus:ring-offset-[#2A2A2A] bg-[#1A1A1A] cursor-pointer"
               />
-              <span className="font-semibold text-white">{translations[language].nothingOffered}</span>
+              <span className="font-semibold text-white">Ništa od ponuđenog</span>
             </label>
 
             {Object.keys(sizeAddons).length > 0 && (
               <div className="mb-6">
-                <h4 className="text-lg font-bold text-white mb-4">{translations[language].addons}</h4>
+                <h4 className="text-lg font-bold text-white mb-4">Dodaci</h4>
                 {Object.entries(sizeAddons)
                   .sort((a, b) => Number(a[0]) - Number(b[0]))
                   .map(([priceKey, addonsList]) => {
@@ -221,7 +217,7 @@ export default function PizzaToppingsModal({
                     return (
                       <div key={priceKey} className="mb-4">
                         <p className="text-sm text-gray-400 mb-2">
-                          {price === 0 ? translations[language].free : `+${price} RSD ${translations[language].perAddon}`}
+                          {price === 0 ? 'Besplatno' : `+${price} RSD po dodatku`}
                         </p>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                           {addonsList.map(addon => {
@@ -269,7 +265,7 @@ export default function PizzaToppingsModal({
               return (
                 <div key={priceKey} className="mb-6">
                   <h4 className="text-md font-bold text-[#FF6B35] mb-3">
-                    {price === 0 ? (language === 'sr' ? 'Besplatni dodaci' : 'Free add-ons') : `${language === 'sr' ? 'Dodaci za' : 'Add-ons for'} ${price} RSD`}
+                    {price === 0 ? 'Besplatni dodaci' : `Dodaci za ${price} RSD`}
                   </h4>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {toppingsList.map(topping => {
@@ -312,13 +308,13 @@ export default function PizzaToppingsModal({
 
         <div className="border-t border-[#FF6B35]/20 p-6 bg-[#1A1A1A]">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-white font-semibold">{translations[language].quantity}</span>
+            <span className="text-white font-semibold">Količina:</span>
             <div className="flex items-center gap-3">
               <button
                 onClick={decrementQuantity}
                 disabled={quantity <= 1}
                 className="p-2 rounded-full bg-[#2A2A2A] hover:bg-[#FF6B35] disabled:opacity-50 disabled:cursor-not-allowed transition-colors group"
-                aria-label={translations[language].decreaseQuantity}
+                aria-label="Smanji količinu"
               >
                 <Minus className="h-5 w-5 text-white" />
               </button>
@@ -326,7 +322,7 @@ export default function PizzaToppingsModal({
               <button
                 onClick={incrementQuantity}
                 className="p-2 rounded-full bg-[#2A2A2A] hover:bg-[#FF6B35] transition-colors group"
-                aria-label={translations[language].increaseQuantity}
+                aria-label="Povećaj količinu"
               >
                 <Plus className="h-5 w-5 text-white" />
               </button>
@@ -337,7 +333,7 @@ export default function PizzaToppingsModal({
             onClick={handleAddToCart}
             className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2a] hover:from-[#e55a2a] hover:to-[#FF6B35] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
           >
-            <span>{translations[language].addToCart}</span>
+            <span>Dodaj u korpu</span>
             <span className="text-xl">{calculateTotalPrice()} RSD</span>
           </button>
         </div>

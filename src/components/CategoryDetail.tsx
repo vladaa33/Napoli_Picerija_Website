@@ -11,11 +11,9 @@ interface CategoryDetailProps {
   category: Category;
   onBack: () => void;
   scrollPosition: number;
-  language: string;
-  translations: any;
 }
 
-export default function CategoryDetail({ category, onBack, scrollPosition, language, translations }: CategoryDetailProps) {
+export default function CategoryDetail({ category, onBack, scrollPosition }: CategoryDetailProps) {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSizes, setSelectedSizes] = useState<Record<string, MenuItemSize>>({});
@@ -117,13 +115,13 @@ export default function CategoryDetail({ category, onBack, scrollPosition, langu
           className="flex items-center gap-2 text-[#FF6B35] hover:text-[#e55a2a] font-semibold mb-6 sm:mb-8 transition-colors min-h-[44px] active:scale-95"
         >
           <ArrowLeft className="h-5 w-5" />
-          {translations[language].backToCategories}
+          Nazad na kategorije
         </button>
 
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">{category.name}</h2>
           <p className="text-base sm:text-lg text-gray-300">
-            {translations[language].chooseAndAdd}
+            Izaberite jelo i dodajte ga u korpu
           </p>
         </div>
 
@@ -137,10 +135,10 @@ export default function CategoryDetail({ category, onBack, scrollPosition, langu
         ) : menuItems.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-400 text-lg">
-              {translations[language].noItemsAvailable}
+              Trenutno nema dostupnih jela u ovoj kategoriji.
             </p>
             <p className="text-gray-500 mt-2">
-              {translations[language].checkLater}
+              Molimo vas da proverite kasnije ili kontaktirajte restoran.
             </p>
           </div>
         ) : (
@@ -179,7 +177,7 @@ export default function CategoryDetail({ category, onBack, scrollPosition, langu
                   {item.sizes && item.sizes.length > 0 && (
                     <div className="mb-3 sm:mb-4">
                       <label className="text-xs sm:text-sm font-semibold text-gray-300 mb-2 block">
-                        {translations[language].size}
+                        Veličina:
                       </label>
                       <div className="grid grid-cols-2 gap-2">
                         {item.sizes.map((size) => (
@@ -206,7 +204,7 @@ export default function CategoryDetail({ category, onBack, scrollPosition, langu
                     <button
                       onClick={() => handleAddToCart(item)}
                       className="bg-[#4CAF50] text-white p-3 rounded-full hover:bg-[#3d8b40] transition-colors shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 min-w-[48px] min-h-[48px] flex items-center justify-center"
-                      aria-label={`${translations[language].addToCart} ${item.name}`}
+                      aria-label={`Dodaj ${item.name} u korpu`}
                     >
                       <Plus className="h-5 w-5" />
                     </button>
@@ -228,8 +226,6 @@ export default function CategoryDetail({ category, onBack, scrollPosition, langu
         pizzaSize={selectedPizza?.size.size_name || ''}
         basePrice={selectedPizza?.size.price || 0}
         pizzaImage={selectedPizza?.item.image_url}
-        language={language}
-        translations={translations}
       />
 
       <MenuItemModal
@@ -242,8 +238,6 @@ export default function CategoryDetail({ category, onBack, scrollPosition, langu
         basePrice={selectedMenuItem?.price || 0}
         itemImage={selectedMenuItem?.image_url}
         categoryName={category.name}
-        language={language}
-        translations={translations}
       />
     </section>
   );

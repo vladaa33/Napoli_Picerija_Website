@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { CartProvider } from './context/CartContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -10,81 +10,7 @@ import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import OrderSuccess from './components/OrderSuccess';
 
-const translations = {
-  sr: {
-    menu: "Meni",
-    ourMenu: "Naš Meni",
-    chooseCategory: "Izaberite kategoriju i istražite našu ponudu",
-    backToCategories: "Nazad na kategorije",
-    chooseAndAdd: "Izaberite jelo i dodajte ga u korpu",
-    noItemsAvailable: "Trenutno nema dostupnih jela u ovoj kategoriji.",
-    checkLater: "Molimo vas da proverite kasnije ili kontaktirajte restoran.",
-    size: "Veličina:",
-    addToCart: "Dodaj u korpu",
-    yourCart: "Vaša korpa",
-    cartEmpty: "Korpa je prazna",
-    addSomething: "Dodajte nešto ukusno iz našeg menija!",
-    viewMenu: "Pogledajte meni",
-    removeFromCart: "Ukloni iz korpe",
-    note: "Napomena:",
-    increaseQuantity: "Povećaj količinu",
-    decreaseQuantity: "Smanji količinu",
-    total: "Ukupno",
-    items: "stavki",
-    item: "stavka",
-    continueOrder: "Nastavite sa narudžbinom",
-    addons: "Dodaci",
-    pasta: "Pasta:",
-    pastaRequired: "Obavezan izbor testenine:",
-    nothingOffered: "Ništa od ponuđenog",
-    free: "Besplatno",
-    perAddon: "po dodatku",
-    quantity: "Količina:",
-    spagete: "Špagete",
-    taljatele: "Taljatele",
-    pene: "Pene",
-    fusili: "Fusili",
-    close: "Zatvori"
-  },
-  en: {
-    menu: "Menu",
-    ourMenu: "Our Menu",
-    chooseCategory: "Choose a category and explore our offerings",
-    backToCategories: "Back to categories",
-    chooseAndAdd: "Choose a dish and add it to your cart",
-    noItemsAvailable: "Currently no dishes available in this category.",
-    checkLater: "Please check back later or contact the restaurant.",
-    size: "Size:",
-    addToCart: "Add to Cart",
-    yourCart: "Your Cart",
-    cartEmpty: "Cart is empty",
-    addSomething: "Add something delicious from our menu!",
-    viewMenu: "View Menu",
-    removeFromCart: "Remove from cart",
-    note: "Note:",
-    increaseQuantity: "Increase quantity",
-    decreaseQuantity: "Decrease quantity",
-    total: "Total",
-    items: "items",
-    item: "item",
-    continueOrder: "Continue with order",
-    addons: "Add-ons",
-    pasta: "Pasta:",
-    pastaRequired: "Required pasta selection:",
-    nothingOffered: "Nothing from offered",
-    free: "Free",
-    perAddon: "per add-on",
-    quantity: "Quantity:",
-    spagete: "Spaghetti",
-    taljatele: "Tagliatelle",
-    pene: "Penne",
-    fusili: "Fusilli",
-    close: "Close"
-  }
-};
-
 function App() {
-  const [language, setLanguage] = useState('sr');
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
@@ -132,19 +58,10 @@ function App() {
     scrollToSection('home');
   };
 
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem('language');
-    if (savedLanguage) setLanguage(savedLanguage);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('language', language);
-  }, [language]);
-
   return (
     <CartProvider>
       <div className="min-h-screen bg-[#1A1A1A]">
-        <Header onCartClick={() => setIsCartOpen(true)} onMenuClick={scrollToSection} language={language} setLanguage={setLanguage} translations={translations} />
+        <Header onCartClick={() => setIsCartOpen(true)} onMenuClick={scrollToSection} />
 
         <main>
           <div ref={homeRef}>
@@ -152,7 +69,7 @@ function App() {
           </div>
 
           <div ref={menuRef}>
-            <MenuSection language={language} translations={translations} />
+            <MenuSection />
           </div>
 
           <div ref={aboutRef}>
@@ -174,8 +91,6 @@ function App() {
             setIsCartOpen(false);
             setTimeout(() => scrollToSection('menu'), 100);
           }}
-          language={language}
-          translations={translations}
         />
 
         <Checkout
