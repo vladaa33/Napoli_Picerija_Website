@@ -532,7 +532,7 @@
       "price": 710,
       "image_url": "/pice/margarita pica.jpg",
       "is_available": true,
-      "is_featured": false,
+      "is_featured": true,
       "display_order": 1,
       "created_at": "2025-10-11T11:30:01.95968+00:00",
       "updated_at": "2025-10-27T19:51:52.755996+00:00"
