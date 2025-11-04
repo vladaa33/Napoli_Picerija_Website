@@ -13,7 +13,7 @@ export default function About() {
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-white mb-4 tracking-tight" style={{ fontFamily: "'Playfair Display', serif" }}>O nama</h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Napoli donosi autentičan ukus Italije u Srbiju već više od decenije ✨
+            Napoli donosi autentičan ukus Italije u Srbiju već više od dve decenije ✨
           </p>
         </div>
 
