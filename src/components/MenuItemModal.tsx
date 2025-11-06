@@ -85,6 +85,7 @@ export default function MenuItemModal({
   const isSaltyPancake = categoryName?.toLowerCase().includes('slane palačinke') || categoryName?.toLowerCase().includes('slane palacinke');
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
+  const isPića = categoryName?.toLowerCase().includes('nektar sok') || categoryName?.toLowerCase().includes('nektar sok');
 
   const hasAddons = menuItem?.hasAddons !== false;
   const hasFlavors = menuItem?.flavors && menuItem.flavors.length > 0;
