@@ -78,6 +78,7 @@ export default function MenuItemModal({
   const isSaltyPancake = categoryName?.toLowerCase().includes('slane palačinke') || categoryName?.toLowerCase().includes('slane palacinke');
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
+  const isDrink = categoryName?.toLowerCase().includes('pića') || categoryName?.toLowerCase().includes('pica');
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
@@ -216,7 +217,7 @@ export default function MenuItemModal({
             </div>
           )}
 
-          {!isLasagna && (
+          {!isLasagna && !isDrink && (
             <div className="mb-6">
               <h3 className="text-lg font-bold text-white mb-4">Dodaci</h3>
 
