@@ -235,8 +235,7 @@ export default function MenuItemModal({
 
           {hasFlavors && (
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-white mb-1">Ukus:</h3>
-              <p className="text-sm text-gray-400 mb-4">Izaberite ukus:</p>
+              <h3 className="text-lg font-bold text-white mb-4">Ukus</h3>
 
               <div className="flex flex-wrap gap-3">
                 {flavors.map(flavor => {
