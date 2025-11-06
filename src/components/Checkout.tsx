@@ -107,7 +107,9 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                   const size = item.selectedSize?.label ? ` (${item.selectedSize.label})` : '';
                   const extras = item.specialInstructions ? ` Dodaci: ${item.specialInstructions}` : '';
                   return `x${item.quantity} ${name}${size} Cena: ${unit * item.quantity} RSD 
-                  ${extras}`;
+                   <p>
+                   ${extras}
+                   </p>`;
                 })
                 .join('\n')}
             />
