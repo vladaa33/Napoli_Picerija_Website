@@ -39,6 +39,8 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
 
 const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
 
+const NEKTAR_TYPES = ['Jabuka', 'Pomorandža', 'Breskva']
+
 export default function MenuItemModal({
   isOpen,
   onClose,
