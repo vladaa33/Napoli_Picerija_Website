@@ -2158,7 +2158,7 @@
     {
       "id": "b2663410-425d-44de-a7e0-2eb2157ee490",
       "menu_item_id": "09d876b7-bdfa-45f3-9677-1a18fe237b83",
-      "size_name": "Nektar Jabuka",
+      "size_name": "Jabuka",
       "price": 300,
       "is_available": true,
       "display_order": 1,
@@ -2167,7 +2167,7 @@
     {
       "id": "b2663410-425d-44de-a7e0-2eb2157ee490",
       "menu_item_id": "09d876b7-bdfa-45f3-9677-1a18fe237b83",
-      "size_name": "Nektar Pomorandža",
+      "size_name": "Pomorandža",
       "price": 300,
       "is_available": true,
       "display_order": 1,
@@ -2176,7 +2176,7 @@
     {
       "id": "b2663410-425d-44de-a7e0-2eb2157ee490",
       "menu_item_id": "09d876b7-bdfa-45f3-9677-1a18fe237b83",
-      "size_name": "Nektar Breskva",
+      "size_name": "Breskva",
       "price": 300,
       "is_available": true,
       "display_order": 1,
