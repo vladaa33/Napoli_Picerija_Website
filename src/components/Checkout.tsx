@@ -97,19 +97,21 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
             <input type="hidden" name="status" value="pending" />
 
             {/* Human-readable order items */}
-            <input
-              type="hidden"
-              name="order_items"
-              value={items
-                .map((item) => {
-                  const unit = item.selectedSize?.price ?? item.menuItem.price;
-                  const name = item.menuItem.name;
-                  const size = item.selectedSize?.label ? ` (${item.selectedSize.label})` : '';
-                  const extras = item.specialInstructions ? ` Dodaci: ${item.specialInstructions}` : '';
-                  return `x${item.quantity} ${name}${size}${extras} Cena: ${unit * item.quantity} RSD`;
-                })
-                .join('\n')}
-            />
+<input
+  type="hidden"
+  name="order_items"
+  value={items
+    .map((item) => {
+      const unit = item.selectedSize2?.price ?? item.menuItem.price;
+      const name = item.menuItem.name;
+      const size = item.selectedSize2?.label ? ` ${item.selectedSize2.label}` : '';
+      const extras = item.specialInstructions
+        ? `\nDodaci: ${item.specialInstructions.replace(/\s*\|\s*/g, ', ')}`
+        : '';
+      return `x${item.quantity} ${name}${size} Cena: ${unit * item.quantity} RSD${extras}`;
+    })
+    .join('\n\n')}
+/>
 
             <div className="space-y-3 sm:space-y-4">
               <h3 className="text-base sm:text-lg font-semibold text-white">Vaši podaci</h3>
