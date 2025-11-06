@@ -238,28 +238,23 @@ export default function MenuItemModal({
               <h3 className="text-lg font-bold text-white mb-1">Ukus:</h3>
               <p className="text-sm text-gray-400 mb-4">Izaberite ukus:</p>
 
-              <div className="grid grid-cols-1 gap-2 mb-2">
+              <div className="flex flex-wrap gap-3">
                 {flavors.map(flavor => {
                   const isSelected = selectedFlavor === flavor;
 
                   return (
-                    <label
+                    <button
                       key={flavor}
-                      className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
+                      type="button"
+                      onClick={() => setSelectedFlavor(flavor)}
+                      className={`px-6 py-3 rounded-lg font-medium transition-all ${
                         isSelected
-                          ? 'bg-[#FF6B35]/10 border-[#FF6B35] shadow-md'
-                          : 'bg-[#1A1A1A] border-gray-700 hover:border-[#FF6B35]/40 hover:bg-[#1A1A1A]/80'
+                          ? 'bg-[#FF6B35] text-white shadow-lg'
+                          : 'bg-[#1A1A1A] text-gray-300 border-2 border-gray-700 hover:border-[#FF6B35]/40'
                       }`}
                     >
-                      <input
-                        type="radio"
-                        name="flavor"
-                        checked={isSelected}
-                        onChange={() => setSelectedFlavor(flavor)}
-                        className="w-4 h-4 text-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-offset-2 focus:ring-offset-[#2A2A2A] bg-[#1A1A1A] border-gray-600 cursor-pointer"
-                      />
-                      <span className="text-white text-sm font-medium">{flavor}</span>
-                    </label>
+                      {flavor}
+                    </button>
                   );
                 })}
               </div>
