@@ -37,6 +37,8 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
 
 const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
 
+const NEKTAR_FLAVORS = ['Jabuka', 'Breskva', 'Pomorandža'];
+
 export default function MenuItemModal({
   isOpen,
   onClose,
@@ -49,6 +51,7 @@ export default function MenuItemModal({
   const [nothingSelected, setNothingSelected] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [selectedPasta, setSelectedPasta] = useState<string>('');
+  const [selectedFlavor, setSelectedFlavor] = useState<string>('');
   const { addItem } = useCart();
 
   useEffect(() => {
@@ -67,6 +70,7 @@ export default function MenuItemModal({
       setSelectedAddons([]);
       setNothingSelected(false);
       setQuantity(1);
+      setSelectedFlavor('');
       setSelectedPasta('');
     }
   }, [isOpen]);
@@ -79,6 +83,7 @@ export default function MenuItemModal({
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
   const isDrink = categoryName?.toLowerCase().includes('pića') || categoryName?.toLowerCase().includes('pica');
+  const isNektarSok = itemName?.toLowerCase().includes('nektar');
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
@@ -125,10 +130,18 @@ export default function MenuItemModal({
       return;
     }
 
+    if (isNektarSok && !selectedFlavor) {
+      return;
+    }
+
     const parts: string[] = [];
 
     if (isPasta && !isLasagna && selectedPasta) {
       parts.push(selectedPasta);
+    }
+
+    if (isNektarSok && selectedFlavor) {
+      parts.push(`Ukus: ${selectedFlavor}`);
     }
 
     if (selectedAddons.length > 0) {
@@ -210,6 +223,39 @@ export default function MenuItemModal({
                         className="w-4 h-4 text-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-offset-2 focus:ring-offset-[#2A2A2A] bg-[#1A1A1A] border-gray-600 cursor-pointer"
                       />
                       <span className="text-white text-sm font-medium">{pasta}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {isNektarSok && (
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-white mb-1">Ukus:</h3>
+              <p className="text-sm text-gray-400 mb-4">Izaberite ukus:</p>
+
+              <div className="grid grid-cols-1 gap-2 mb-2">
+                {NEKTAR_FLAVORS.map(flavor => {
+                  const isSelected = selectedFlavor === flavor;
+
+                  return (
+                    <label
+                      key={flavor}
+                      className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
+                        isSelected
+                          ? 'bg-[#FF6B35]/10 border-[#FF6B35] shadow-md'
+                          : 'bg-[#1A1A1A] border-gray-700 hover:border-[#FF6B35]/40 hover:bg-[#1A1A1A]/80'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="flavor"
+                        checked={isSelected}
+                        onChange={() => setSelectedFlavor(flavor)}
+                        className="w-4 h-4 text-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-offset-2 focus:ring-offset-[#2A2A2A] bg-[#1A1A1A] border-gray-600 cursor-pointer"
+                      />
+                      <span className="text-white text-sm font-medium">{flavor}</span>
                     </label>
                   );
                 })}
@@ -308,7 +354,7 @@ export default function MenuItemModal({
 
           <button
             onClick={handleAddToCart}
-            disabled={isPasta && !isLasagna && !selectedPasta}
+            disabled={(isPasta && !isLasagna && !selectedPasta) || (isNektarSok && !selectedFlavor)}
             className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2a] hover:from-[#e55a2a] hover:to-[#FF6B35] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
             <span>Dodaj u korpu</span>
