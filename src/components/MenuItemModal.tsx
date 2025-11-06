@@ -121,13 +121,13 @@ export default function MenuItemModal({
   };
 
   const handleAddToCart = () => {
-    if (isPasta && !selectedPasta) {
+    if (isPasta && !isLasagna && !selectedPasta) {
       return;
     }
 
     const parts: string[] = [];
 
-    if (isPasta && selectedPasta) {
+    if (isPasta && !isLasagna && selectedPasta) {
       parts.push(selectedPasta);
     }
 
@@ -184,7 +184,7 @@ export default function MenuItemModal({
         </div>
 
         <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
-          {isPasta && (
+          {isPasta && !isLasagna && (
             <div className="mb-6">
               <h3 className="text-lg font-bold text-white mb-1">Pasta:</h3>
               <p className="text-sm text-gray-400 mb-4">Obavezan izbor testenine:</p>
@@ -308,7 +308,7 @@ export default function MenuItemModal({
 
           <button
             onClick={handleAddToCart}
-            disabled={isPasta && !selectedPasta}
+            disabled={isPasta && !isLasagna && !selectedPasta}
             className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2a] hover:from-[#e55a2a] hover:to-[#FF6B35] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
             <span>Dodaj u korpu</span>
