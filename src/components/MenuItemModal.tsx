@@ -246,11 +246,15 @@ export default function MenuItemModal({
                     <button
                       key={flavor}
                       type="button"
-                      onClick={() => setSelectedFlavor(flavor)}
+                      onClick={() => {
+                        console.log('Clicking flavor:', flavor);
+                        console.log('Previous selectedFlavor:', selectedFlavor);
+                        setSelectedFlavor(flavor);
+                      }}
                       className={`px-6 py-3 rounded-lg font-medium transition-all ${
                         isSelected
-                          ? 'bg-[#FF6B35] text-white shadow-lg'
-                          : 'bg-[#1A1A1A] text-gray-300 border-2 border-gray-700 hover:border-[#FF6B35]/40'
+                          ? 'bg-[#FF6B35] text-white shadow-lg scale-105'
+                          : 'bg-[#1A1A1A] text-gray-300 border-2 border-gray-700 hover:border-[#FF6B35]/40 hover:scale-105'
                       }`}
                     >
                       {flavor}
@@ -258,6 +262,9 @@ export default function MenuItemModal({
                   );
                 })}
               </div>
+              {selectedFlavor && (
+                <p className="text-xs text-gray-400 mt-2">Izabran ukus: {selectedFlavor}</p>
+              )}
             </div>
           )}
 
