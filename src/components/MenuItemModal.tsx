@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import type { MenuItem } from '../types';
 
 interface MenuItemModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface MenuItemModalProps {
   basePrice: number;
   itemImage?: string;
   categoryName?: string;
+  menuItem?: MenuItem;
 }
 
 const MENU_ITEM_ADDONS: Record<number, string[]> = {
@@ -37,15 +39,14 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
 
 const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
 
-const NEKTAR_FLAVORS = ['Jabuka', 'Breskva', 'Pomorandža'];
-
 export default function MenuItemModal({
   isOpen,
   onClose,
   itemName,
   basePrice,
   itemImage,
-  categoryName
+  categoryName,
+  menuItem
 }: MenuItemModalProps) {
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [nothingSelected, setNothingSelected] = useState(false);
@@ -82,8 +83,10 @@ export default function MenuItemModal({
   const isSaltyPancake = categoryName?.toLowerCase().includes('slane palačinke') || categoryName?.toLowerCase().includes('slane palacinke');
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
-  const isDrink = categoryName?.toLowerCase().includes('pića') || categoryName?.toLowerCase().includes('pica');
-  const isNektarSok = itemName?.toLowerCase().includes('nektar');
+
+  const hasAddons = menuItem?.hasAddons !== false;
+  const hasFlavors = menuItem?.flavors && menuItem.flavors.length > 0;
+  const flavors = menuItem?.flavors || [];
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
@@ -130,7 +133,7 @@ export default function MenuItemModal({
       return;
     }
 
-    if (isNektarSok && !selectedFlavor) {
+    if (hasFlavors && !selectedFlavor) {
       return;
     }
 
@@ -140,7 +143,7 @@ export default function MenuItemModal({
       parts.push(selectedPasta);
     }
 
-    if (isNektarSok && selectedFlavor) {
+    if (hasFlavors && selectedFlavor) {
       parts.push(`Ukus: ${selectedFlavor}`);
     }
 
@@ -230,13 +233,13 @@ export default function MenuItemModal({
             </div>
           )}
 
-          {isNektarSok && (
+          {hasFlavors && (
             <div className="mb-6">
               <h3 className="text-lg font-bold text-white mb-1">Ukus:</h3>
               <p className="text-sm text-gray-400 mb-4">Izaberite ukus:</p>
 
               <div className="grid grid-cols-1 gap-2 mb-2">
-                {NEKTAR_FLAVORS.map(flavor => {
+                {flavors.map(flavor => {
                   const isSelected = selectedFlavor === flavor;
 
                   return (
@@ -263,7 +266,7 @@ export default function MenuItemModal({
             </div>
           )}
 
-          {!isLasagna && !isDrink && (
+          {!isLasagna && hasAddons && (
             <div className="mb-6">
               <h3 className="text-lg font-bold text-white mb-4">Dodaci</h3>
 
@@ -354,7 +357,7 @@ export default function MenuItemModal({
 
           <button
             onClick={handleAddToCart}
-            disabled={(isPasta && !isLasagna && !selectedPasta) || (isNektarSok && !selectedFlavor)}
+            disabled={(isPasta && !isLasagna && !selectedPasta) || (hasFlavors && !selectedFlavor)}
             className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2a] hover:from-[#e55a2a] hover:to-[#FF6B35] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
             <span>Dodaj u korpu</span>

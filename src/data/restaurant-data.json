@@ -470,7 +470,8 @@
       "is_featured": false,
       "display_order": 1,
       "created_at": "2025-10-11T14:59:05.889383+00:00",
-      "updated_at": "2025-10-12T14:18:29.055337+00:00"
+      "updated_at": "2025-10-12T14:18:29.055337+00:00",
+      "hasAddons": false
     },
     {
       "id": "30d59670-7fca-451b-997b-ace25bda5a63",
@@ -626,7 +627,8 @@
       "is_featured": false,
       "display_order": 2,
       "created_at": "2025-10-11T14:59:05.889383+00:00",
-      "updated_at": "2025-10-12T14:18:31.912647+00:00"
+      "updated_at": "2025-10-12T14:18:31.912647+00:00",
+      "hasAddons": false
     },
     {
       "id": "a1f31429-5ea7-480c-afb7-8e354e7413ff",
@@ -951,7 +953,9 @@
       "is_featured": false,
       "display_order": 3,
       "created_at": "2025-10-11T14:59:05.889383+00:00",
-      "updated_at": "2025-10-12T14:18:33.931652+00:00"
+      "updated_at": "2025-10-12T14:18:33.931652+00:00",
+      "hasAddons": false,
+      "flavors": ["Jabuka", "Breskva", "Pomorandža"]
     },
     {
       "id": "e54439eb-ce11-4d77-80f3-14a8bd6d1a91",
@@ -1029,7 +1033,8 @@
       "is_featured": false,
       "display_order": 4,
       "created_at": "2025-10-11T14:59:05.889383+00:00",
-      "updated_at": "2025-10-12T14:18:39.795325+00:00"
+      "updated_at": "2025-10-12T14:18:39.795325+00:00",
+      "hasAddons": false
     },
     {
       "id": "e1b168b3-5ae6-4ac2-b602-6eb7d2ffa8d5",
@@ -1185,7 +1190,8 @@
       "is_featured": false,
       "display_order": 5,
       "created_at": "2025-10-11T14:59:05.889383+00:00",
-      "updated_at": "2025-10-12T14:18:42.242711+00:00"
+      "updated_at": "2025-10-12T14:18:42.242711+00:00",
+      "hasAddons": false
     },
     {
       "id": "9600743f-96a2-45a0-85c8-6e5c3f6d0d06",
@@ -1289,7 +1295,8 @@
       "is_featured": false,
       "display_order": 6,
       "created_at": "2025-10-11T14:59:05.889383+00:00",
-      "updated_at": "2025-10-12T14:18:47.92715+00:00"
+      "updated_at": "2025-10-12T14:18:47.92715+00:00",
+      "hasAddons": false
     },
     {
       "id": "674a3537-014b-4a30-ab7f-1b42f93033a0",

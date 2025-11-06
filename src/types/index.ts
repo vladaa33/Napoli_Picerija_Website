@@ -21,6 +21,8 @@ export interface MenuItem {
   created_at: string;
   updated_at: string;
   sizes?: MenuItemSize[];
+  hasAddons?: boolean;
+  flavors?: string[];
 }
 
 export interface MenuItemSize {

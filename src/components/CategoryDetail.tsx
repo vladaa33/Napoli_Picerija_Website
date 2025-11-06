@@ -238,6 +238,7 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
         basePrice={selectedMenuItem?.price || 0}
         itemImage={selectedMenuItem?.image_url}
         categoryName={category.name}
+        menuItem={selectedMenuItem || undefined}
       />
     </section>
   );
