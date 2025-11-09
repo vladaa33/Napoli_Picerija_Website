@@ -89,14 +89,25 @@ export default function MenuItemModal({
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
 
-  const normCat = normalizeNoDiacritics(categoryName ?? '');
+  const effectiveCategoryName =
+    categoryName ??
+    (menuItem as any)?.category_name ??
+    '';
+
+  const normCat = normalizeNoDiacritics(effectiveCategoryName);
+  const normItem = normalizeNoDiacritics(itemName ?? '');
+
   const looksLikePizza = /\b(pizza|picerija|pizzeria)\b/.test(normCat);
 
-  const isDrinks =
-    !looksLikePizza &&
+  const catLooksLikeDrinks =
     /\b(pice|pica|sok|sokovi|napici|napitci|napitak|drinks|beverages)\b/.test(normCat);
 
-  const showFlavorOptions = isDrinks && /nektar\s*sok/i.test(menuItem?.name ?? '');
+  const nameLooksLikeDrink =
+    /\b(sok|voda|nektar|cola|kola|fanta|pivo|vino|rakija|koktel|sprite|tonik|juice|drink)\b/.test(normItem);
+
+  const isDrinks = !looksLikePizza && (catLooksLikeDrinks || nameLooksLikeDrink);
+
+  const showFlavorOptions = isDrinks && /nektar\s*sok/i.test(menuItem?.name ?? itemName ?? '');
 
   const hasAddons = !isDrinks && menuItem?.hasAddons !== false;
 
