@@ -60,9 +60,8 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
   const handleAddToCart = (item: MenuItem) => {
     const selectedSize = selectedSizes[item.id];
 
-    const isPizza = category.name.toLowerCase().includes('pica') ||
-                    category.name.toLowerCase().includes('pizza') ||
-                    (item.sizes && item.sizes.length > 0);
+    const isPizzaCategory = category.name.toLowerCase().includes('pica') ||
+                            category.name.toLowerCase().includes('pizza');
 
     const hasFlavors = item.flavors && item.flavors.length > 0;
     const hasAddons = item.hasAddons === true;
@@ -80,7 +79,7 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
                        hasFlavors ||
                        hasAddons;
 
-    if (isPizza && selectedSize) {
+    if (isPizzaCategory && selectedSize) {
       console.log('Opening pizza modal for:', item.name, selectedSize.size_name);
       setSelectedPizza({ item, size: selectedSize });
       setPizzaModalOpen(true);
