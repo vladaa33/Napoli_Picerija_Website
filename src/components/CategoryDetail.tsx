@@ -65,7 +65,7 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
                     (item.sizes && item.sizes.length > 0);
 
     const hasFlavors = item.flavors && item.flavors.length > 0;
-    const hasAddons = item.hasAddons !== false;
+    const hasAddons = item.hasAddons === true;
 
     const needsModal = category.name.toLowerCase().includes('sendvič') ||
                        category.name.toLowerCase().includes('paste') ||
