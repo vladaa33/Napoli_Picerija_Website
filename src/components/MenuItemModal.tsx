@@ -39,6 +39,11 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
 
 const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
 
+const normalizeNoDiacritics = (s: string = '') =>
+  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+const NEKTAR_FLAVORS = ['Jabuka', 'Pomorandža', 'Breskva'];
+
 export default function MenuItemModal({
   isOpen,
   onClose,
@@ -72,12 +77,7 @@ export default function MenuItemModal({
       setNothingSelected(false);
       setQuantity(1);
       setSelectedPasta('');
-
-      if (menuItem?.name === "Nektar sok") {
-        setSelectedFlavor("Jabuka");
-      } else {
-        setSelectedFlavor('');
-      }
+      setSelectedFlavor('');
     }
   }, [isOpen, menuItem]);
 
@@ -88,10 +88,17 @@ export default function MenuItemModal({
   const isSaltyPancake = categoryName?.toLowerCase().includes('slane palačinke') || categoryName?.toLowerCase().includes('slane palacinke');
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
-  const isDrinks = categoryName?.toLowerCase().includes('pića') || categoryName?.toLowerCase().includes('pica');
+
+  const normCat = normalizeNoDiacritics(categoryName ?? '');
+  const looksLikePizza = /\b(pizza|picerija|pizzeria)\b/.test(normCat);
+
+  const isDrinks =
+    !looksLikePizza &&
+    /\b(pice|pica|sok|sokovi|napici|napitci|napitak|drinks|beverages)\b/.test(normCat);
+
+  const showFlavorOptions = isDrinks && /nektar\s*sok/i.test(menuItem?.name ?? '');
 
   const hasAddons = !isDrinks && menuItem?.hasAddons !== false;
-  const showFlavorOptions = isDrinks && menuItem?.name === "Nektar sok";
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
@@ -242,7 +249,7 @@ export default function MenuItemModal({
             <div className="space-y-3 mb-6">
               <h3 className="text-lg font-semibold text-white">Ukus:</h3>
               <div className="space-y-2">
-                {["Jabuka", "Pomorandža", "Breskva"].map((flavor) => (
+                {NEKTAR_FLAVORS.map((flavor) => (
                   <label
                     key={flavor}
                     className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
