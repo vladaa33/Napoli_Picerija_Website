@@ -90,27 +90,31 @@ export default function MenuItemModal({
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
 
-  const resolvedCategoryName =
-    categoryName ??
-    localDataService.getCategories().find(c => c.id === menuItem?.category_id)?.name ??
-    '';
+  // --- DRINKS DETEKCIJA (bez lomljenja pizze/paste) ---
+  const rawCat = categoryName ?? '';
+  const catLower = rawCat.toLowerCase();
 
-  const normCat  = stripDiacritics(resolvedCategoryName);
-  const normName = stripDiacritics(itemName ?? menuItem?.name ?? '');
+  // eksplicitno IZBEGNI pizzu
+  const looksLikePizza =
+    /\b(pizza|pizze|picerija|pizzeria)\b/.test(catLower);
 
-  const looksLikePizza = /\b(pizza|picerija|pizzeria)\b/.test(normCat);
+  // pozitivni pojmovi za pića (sa i bez dijakritika)
+  const looksLikeDrinksByCategory =
+    /\b(pića|pi\u0107a|pi\u0107e|napici|sokovi)\b/i.test(rawCat);
 
-  const catLooksLikeDrinks =
-    /\b(pice|pica|sok|sokovi|napici|napitci|napitak|drinks|beverages)\b/.test(normCat);
+  // dozvoli i "pica/pice" samo ako nije pizza
+  const looksLikeDrinksFallback =
+    !looksLikePizza && /\b(pica|pice)\b/i.test(rawCat);
 
-  const nameLooksLikeDrink =
-    /\b(sok|voda|nektar|cola|kola|fanta|sprite|tonik|pivo|vino|rakija|koktel|juice|drink)\b/.test(normName);
+  // FINALNO: pića
+  const isDrinks = !looksLikePizza && (looksLikeDrinksByCategory || looksLikeDrinksFallback);
 
-  const isDrinks = !looksLikePizza && (catLooksLikeDrinks || nameLooksLikeDrink);
+  // samo Nektar sok dobija izbor ukusa
+  const showFlavorOptions = /nektar\s*sok/i.test(menuItem?.name ?? itemName ?? '');
 
-  const showFlavorOptions = isDrinks && /nektar\s*sok/i.test(menuItem?.name ?? itemName ?? '');
-
-  const hasAddons = !isDrinks && menuItem?.hasAddons !== false;
+  // Addoni su podrazumevano uključeni osim ako je eksplicitno postavljeno na false.
+  // Ne prikazuj ako je piće.
+  const hasAddons = menuItem?.hasAddons !== false;
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
