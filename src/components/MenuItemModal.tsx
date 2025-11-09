@@ -91,7 +91,14 @@ export default function MenuItemModal({
   const isDrinks = categoryName?.toLowerCase().includes('pića') || categoryName?.toLowerCase().includes('pica');
   const isNektarJuice = isDrinks && itemName?.toLowerCase().includes('nektar');
 
-  const hasAddons = menuItem?.hasAddons !== false;
+  const isSimpleDrink = isDrinks && (
+    itemName?.toLowerCase().includes('coca cola') ||
+    itemName?.toLowerCase().includes('guarana') ||
+    itemName?.toLowerCase().includes('heineken') ||
+    itemName?.toLowerCase().includes('pivo')
+  );
+
+  const hasAddons = !isDrinks && menuItem?.hasAddons !== false;
   const hasFlavors = menuItem?.flavors && menuItem.flavors.length > 0;
   const flavors = menuItem?.flavors || [];
 
