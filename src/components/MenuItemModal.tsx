@@ -73,8 +73,8 @@ export default function MenuItemModal({
       setQuantity(1);
       setSelectedPasta('');
 
-      if (menuItem?.flavors && menuItem.flavors.length > 0) {
-        setSelectedFlavor(menuItem.flavors[0]);
+      if (menuItem?.name === "Nektar sok") {
+        setSelectedFlavor("Jabuka");
       } else {
         setSelectedFlavor('');
       }
@@ -89,30 +89,9 @@ export default function MenuItemModal({
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
   const isDrinks = categoryName?.toLowerCase().includes('pića') || categoryName?.toLowerCase().includes('pica');
-  const isNektarJuice = (isDrinks && itemName?.toLowerCase().includes('nektar')) ||
-                        (categoryName?.toLowerCase().includes('pića') && itemName?.toLowerCase().includes('nektar')) ||
-                        itemName === 'Nektar sok';
 
-  const isSimpleDrink = isDrinks && (
-    itemName?.toLowerCase().includes('coca cola') ||
-    itemName?.toLowerCase().includes('guarana') ||
-    itemName?.toLowerCase().includes('heineken') ||
-    itemName?.toLowerCase().includes('pivo')
-  );
-
-  const hasAddons = !isDrinks && menuItem?.hasAddons !== false;
-  const hasFlavors = menuItem?.flavors && menuItem.flavors.length > 0;
-  const flavors = menuItem?.flavors || [];
-
-  console.log('MenuItemModal Debug:', {
-    itemName,
-    categoryName,
-    isDrinks,
-    isNektarJuice,
-    hasFlavors,
-    flavors,
-    menuItem
-  });
+  const hasAddons = !isDrinks && menuItem?.hasAddons !== false && menuItem?.name !== "Nektar sok";
+  const showFlavorOptions = isDrinks && menuItem?.name === "Nektar sok";
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
@@ -159,7 +138,7 @@ export default function MenuItemModal({
       return;
     }
 
-    if (isNektarJuice && hasFlavors && !selectedFlavor) {
+    if (showFlavorOptions && !selectedFlavor) {
       return;
     }
 
@@ -169,7 +148,7 @@ export default function MenuItemModal({
       parts.push(selectedPasta);
     }
 
-    if (isNektarJuice && hasFlavors && selectedFlavor) {
+    if (showFlavorOptions && selectedFlavor) {
       parts.push(`Ukus: ${selectedFlavor}`);
     }
 
@@ -259,34 +238,30 @@ export default function MenuItemModal({
             </div>
           )}
 
-          {isNektarJuice && hasFlavors && (
-            <div className="mb-6">
-              <h3 className="text-lg font-bold text-white mb-4">Ukus:</h3>
-
-              <div className="grid grid-cols-1 gap-2">
-                {flavors.map(flavor => {
-                  const isSelected = selectedFlavor === flavor;
-
-                  return (
-                    <label
-                      key={flavor}
-                      className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
-                        isSelected
-                          ? 'bg-[#FF6B35]/10 border-[#FF6B35] shadow-md'
-                          : 'bg-[#1A1A1A] border-gray-700 hover:border-[#FF6B35]/40 hover:bg-[#1A1A1A]/80'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="flavor"
-                        checked={isSelected}
-                        onChange={() => setSelectedFlavor(flavor)}
-                        className="w-4 h-4 text-[#FF6B35] focus:ring-2 focus:ring-[#FF6B35] focus:ring-offset-2 focus:ring-offset-[#2A2A2A] bg-[#1A1A1A] border-gray-600 cursor-pointer"
-                      />
-                      <span className="text-white text-sm font-medium">{flavor}</span>
-                    </label>
-                  );
-                })}
+          {showFlavorOptions && (
+            <div className="space-y-3 mb-6">
+              <h3 className="text-lg font-semibold text-white">Ukus:</h3>
+              <div className="space-y-2">
+                {["Jabuka", "Pomorandža", "Breskva"].map((flavor) => (
+                  <label
+                    key={flavor}
+                    className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
+                      selectedFlavor === flavor
+                        ? 'bg-[#FF6B35]/10 border-[#FF6B35] shadow-md'
+                        : 'border-gray-700 hover:border-[#FF6B35]/40'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="flavor"
+                      value={flavor}
+                      checked={selectedFlavor === flavor}
+                      onChange={(e) => setSelectedFlavor(e.target.value)}
+                      className="w-4 h-4 text-[#FF6B35]"
+                    />
+                    <span className="text-white">{flavor}</span>
+                  </label>
+                ))}
               </div>
             </div>
           )}
@@ -382,7 +357,7 @@ export default function MenuItemModal({
 
           <button
             onClick={handleAddToCart}
-            disabled={(isPasta && !isLasagna && !selectedPasta) || (isNektarJuice && hasFlavors && !selectedFlavor)}
+            disabled={(isPasta && !isLasagna && !selectedPasta) || (showFlavorOptions && !selectedFlavor)}
             className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2a] hover:from-[#e55a2a] hover:to-[#FF6B35] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
             <span>Dodaj u korpu</span>
