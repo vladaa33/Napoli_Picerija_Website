@@ -40,13 +40,10 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
 
 const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
 
+const stripDiacritics = (s: string = '') =>
+  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
 const NEKTAR_FLAVORS = ['Jabuka', 'Pomorandža', 'Breskva'];
-
-const DRINK_NAME_RE =
-  /\b(nektar\s*sok|sok|juice|limunada|voda|kisela|cedevita|cola|coca[-\s]?cola|fanta|sprite|schweppes|tonik|guarana|red\s?bull|energetsko|pivo|heineken|vino|rakija|koktel|kafa|espresso|kapu[cć]ino|cappuccino|latte|čaj|caj)\b/i;
-
-const isDrinkByCategory = (name?: string) =>
-  !!name && /\b(pi[cć]e|pi[cć]a|sok|napit(ci|ak|ci|ak|ak|ci)|drinks|beverages)\b/i.test(name);
 
 export default function MenuItemModal({
   isOpen,
@@ -93,13 +90,27 @@ export default function MenuItemModal({
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
 
-  const isDrinks =
-    DRINK_NAME_RE.test(itemName ?? menuItem?.name ?? '') ||
-    isDrinkByCategory(categoryName);
+  const resolvedCategoryName =
+    categoryName ??
+    localDataService.getCategories().find(c => c.id === menuItem?.category_id)?.name ??
+    '';
 
-  const hasAddons = (menuItem?.hasAddons === true) && !isDrinks;
+  const normCat  = stripDiacritics(resolvedCategoryName);
+  const normName = stripDiacritics(itemName ?? menuItem?.name ?? '');
 
-  const showFlavorOptions = /nektar\s*sok/i.test(itemName ?? menuItem?.name ?? '');
+  const looksLikePizza = /\b(pizza|picerija|pizzeria)\b/.test(normCat);
+
+  const catLooksLikeDrinks =
+    /\b(pice|pica|sok|sokovi|napici|napitci|napitak|drinks|beverages)\b/.test(normCat);
+
+  const nameLooksLikeDrink =
+    /\b(sok|voda|nektar|cola|kola|fanta|sprite|tonik|pivo|vino|rakija|koktel|juice|drink)\b/.test(normName);
+
+  const isDrinks = !looksLikePizza && (catLooksLikeDrinks || nameLooksLikeDrink);
+
+  const showFlavorOptions = isDrinks && /nektar\s*sok/i.test(menuItem?.name ?? itemName ?? '');
+
+  const hasAddons = !isDrinks && menuItem?.hasAddons !== false;
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
