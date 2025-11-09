@@ -90,7 +90,7 @@ export default function MenuItemModal({
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
   const isDrinks = categoryName?.toLowerCase().includes('pića') || categoryName?.toLowerCase().includes('pica');
 
-  const hasAddons = !isDrinks && menuItem?.hasAddons !== false && menuItem?.name !== "Nektar sok";
+  const hasAddons = !isDrinks && menuItem?.hasAddons !== false;
   const showFlavorOptions = isDrinks && menuItem?.name === "Nektar sok";
 
   let addonsToUse = MENU_ITEM_ADDONS;
@@ -266,7 +266,7 @@ export default function MenuItemModal({
             </div>
           )}
 
-          {!isLasagna && hasAddons && (
+          {!isLasagna && !isDrinks && hasAddons && (
             <div className="mb-6">
               <h3 className="text-lg font-bold text-white mb-4">Dodaci</h3>
 
