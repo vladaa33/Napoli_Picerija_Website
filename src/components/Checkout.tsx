@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Banknote } from 'lucide-react';
+import { X, CreditCard, Banknote } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import PostalCodeSelector from './PostalCodeSelector';
 import type { Customer } from '../types';
@@ -12,7 +12,7 @@ interface CheckoutProps {
 
 export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) {
   const { items, totalAmount, clearCart } = useCart();
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'cash'>('cash');
+  const [paymentMethod, setPaymentMethod] = useState<'card' | 'cash'>('card');
 
   const [formData, setFormData] = useState<Customer>({
     email: '',
@@ -215,15 +215,39 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
 
             <div className="space-y-3 sm:space-y-4">
               <h3 className="text-base sm:text-lg font-semibold text-white">Način plaćanja</h3>
-              <div className="grid grid-cols-1 gap-3 sm:gap-4">
-                <div
-                  className="p-4 border-2 rounded-lg border-[#FF6B35] bg-[#FF6B35]/10"
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('card')}
+                  className={`p-4 border-2 rounded-lg transition-all min-h-[80px] active:scale-95 ${
+                    paymentMethod === 'card'
+                      ? 'border-[#FF6B35] bg-[#FF6B35]/10'
+                      : 'border-[#FF6B35]/20 hover:border-[#FF6B35]/40 bg-[#1A1A1A]'
+                  }`}
+                >
+                  <CreditCard
+                    className={`h-8 w-8 mx-auto mb-2 ${
+                      paymentMethod === 'card' ? 'text-[#FF6B35]' : 'text-gray-400'
+                    }`}
+                  />
+                  <span className="block font-medium text-sm sm:text-base text-white">Kartica online</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('cash')}
+                  className={`p-4 border-2 rounded-lg transition-all ${
+                    paymentMethod === 'cash'
+                      ? 'border-[#FF6B35] bg-[#FF6B35]/10'
+                      : 'border-[#FF6B35]/20 hover:border-[#FF6B35]/40 bg-[#1A1A1A]'
+                  }`}
                 >
                   <Banknote
-                    className="h-8 w-8 mx-auto mb-2 text-[#FF6B35]"
+                    className={`h-8 w-8 mx-auto mb-2 ${
+                      paymentMethod === 'cash' ? 'text-[#FF6B35]' : 'text-gray-400'
+                    }`}
                   />
-                  <span className="block font-medium text-sm sm:text-base text-white text-center">Gotovina</span>
-                </div>
+                  <span className="block font-medium text-sm sm:text-base text-white">Gotovina</span>
+                </button>
               </div>
             </div>
 
@@ -236,7 +260,7 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                 type="submit"
                 className="w-full bg-[#4CAF50] text-white py-4 rounded-lg font-semibold text-base sm:text-lg hover:bg-[#3d8b40] transition-colors shadow-lg hover:shadow-xl min-h-[52px] active:scale-98"
               >
-                Potvrdi porudžbinu
+                {paymentMethod === 'card' ? 'Plati i poruči' : 'Potvrdi porudžbinu'}
               </button>
             </div>
           </form>

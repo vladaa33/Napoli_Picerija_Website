@@ -84,7 +84,7 @@ export default function MenuItemModal({
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
 
-  const hasAddons = menuItem?.hasAddons === true;
+  const hasAddons = menuItem?.hasAddons !== false;
   const hasFlavors = menuItem?.flavors && menuItem.flavors.length > 0;
   const flavors = menuItem?.flavors || [];
 
