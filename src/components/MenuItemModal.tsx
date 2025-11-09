@@ -266,7 +266,7 @@ export default function MenuItemModal({
             </div>
           )}
 
-          {!isLasagna && !isDrinks && hasAddons && (
+          {!isLasagna && hasAddons && (
             <div className="mb-6">
               <h3 className="text-lg font-bold text-white mb-4">Dodaci</h3>
 
