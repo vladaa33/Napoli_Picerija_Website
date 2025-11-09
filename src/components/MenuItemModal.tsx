@@ -89,7 +89,9 @@ export default function MenuItemModal({
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
   const isDrinks = categoryName?.toLowerCase().includes('pića') || categoryName?.toLowerCase().includes('pica');
-  const isNektarJuice = isDrinks && itemName?.toLowerCase().includes('nektar');
+  const isNektarJuice = (isDrinks && itemName?.toLowerCase().includes('nektar')) ||
+                        (categoryName?.toLowerCase().includes('pića') && itemName?.toLowerCase().includes('nektar')) ||
+                        itemName === 'Nektar sok';
 
   const isSimpleDrink = isDrinks && (
     itemName?.toLowerCase().includes('coca cola') ||
@@ -101,6 +103,16 @@ export default function MenuItemModal({
   const hasAddons = !isDrinks && menuItem?.hasAddons !== false;
   const hasFlavors = menuItem?.flavors && menuItem.flavors.length > 0;
   const flavors = menuItem?.flavors || [];
+
+  console.log('MenuItemModal Debug:', {
+    itemName,
+    categoryName,
+    isDrinks,
+    isNektarJuice,
+    hasFlavors,
+    flavors,
+    menuItem
+  });
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
