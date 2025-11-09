@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { localDataService } from '../lib/localDataService';
 import type { MenuItem } from '../types';
 
 interface MenuItemModalProps {
@@ -39,7 +40,7 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
 
 const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
 
-const normalizeNoDiacritics = (s: string = '') =>
+const stripDiacritics = (s: string = '') =>
   s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
 const NEKTAR_FLAVORS = ['Jabuka', 'Pomorandža', 'Breskva'];
@@ -89,13 +90,13 @@ export default function MenuItemModal({
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
 
-  const effectiveCategoryName =
+  const resolvedCategoryName =
     categoryName ??
-    (menuItem as any)?.category_name ??
+    localDataService.getCategories().find(c => c.id === menuItem?.category_id)?.name ??
     '';
 
-  const normCat = normalizeNoDiacritics(effectiveCategoryName);
-  const normItem = normalizeNoDiacritics(itemName ?? '');
+  const normCat  = stripDiacritics(resolvedCategoryName);
+  const normName = stripDiacritics(itemName ?? menuItem?.name ?? '');
 
   const looksLikePizza = /\b(pizza|picerija|pizzeria)\b/.test(normCat);
 
@@ -103,7 +104,7 @@ export default function MenuItemModal({
     /\b(pice|pica|sok|sokovi|napici|napitci|napitak|drinks|beverages)\b/.test(normCat);
 
   const nameLooksLikeDrink =
-    /\b(sok|voda|nektar|cola|kola|fanta|pivo|vino|rakija|koktel|sprite|tonik|juice|drink)\b/.test(normItem);
+    /\b(sok|voda|nektar|cola|kola|fanta|sprite|tonik|pivo|vino|rakija|koktel|juice|drink)\b/.test(normName);
 
   const isDrinks = !looksLikePizza && (catLooksLikeDrinks || nameLooksLikeDrink);
 
