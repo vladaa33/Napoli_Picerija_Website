@@ -90,27 +90,33 @@ export default function MenuItemModal({
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
 
-  // --- DRINKS DETEKCIJA (bez lomljenja pizze/paste) ---
-  const rawCat = categoryName ?? '';
-  const catLower = rawCat.toLowerCase();
+ // --- DRINKS DETEKCIJA (robustnije) ---
+const nameRaw = (menuItem?.name ?? itemName ?? '');
+const catRaw  = (categoryName ?? '');
 
-  // eksplicitno IZBEGNI pizzu
-  const looksLikePizza =
-    /\b(pizza|pizze|picerija|pizzeria)\b/.test(catLower);
+const nameNoDia = stripDiacritics(nameRaw);
+const catNoDia  = stripDiacritics(catRaw);
 
-  // pozitivni pojmovi za pića (sa i bez dijakritika)
-  const looksLikeDrinksByCategory =
-    /\b(pića|pi\u0107a|pi\u0107e|napici|sokovi)\b/i.test(rawCat);
+// Izbegni lažna poklapanja sa pizzom (često je kategorija za pizze "Pice")
+const looksLikePizza =
+  /\b(pizza|pizze|picerija|pizzeria|pice)\b/.test(catNoDia);
 
-  // dozvoli i "pica/pice" samo ako nije pizza
-  const looksLikeDrinksFallback =
-    !looksLikePizza && /\b(pica|pice)\b/i.test(rawCat);
+// Pića: prepoznaj i po kategoriji i po nazivu artikla
+const drinkKeywordsCat  = /(pica|pice|napici|sokovi|sok|bezalkoholna|alkoholna|kafa|kafe|voda|vode|gazirana|gazirani|kokteli)/;
+const drinkKeywordsName = /(sok|kafa|espresso|cappuccino|voda|cola|coca|fanta|sprite|schweppes|cedevita|nektar|limunada|red bull|guarana)/;
 
-  // FINALNO: pića
-  const isDrinks = !looksLikePizza && (looksLikeDrinksByCategory || looksLikeDrinksFallback);
+const isDrinks = !looksLikePizza && (drinkKeywordsCat.test(catNoDia) || drinkKeywordsName.test(nameNoDia));
 
-  // samo Nektar sok dobija izbor ukusa
-  const showFlavorOptions = /nektar\s*sok/i.test(menuItem?.name ?? itemName ?? '');
+// Nektar sok – prikaži ukuse samo ako ukus već NIJE u nazivu
+const alreadyHasFlavor = NEKTAR_FLAVORS
+  .map(f => stripDiacritics(f).toLowerCase())
+  .some(f => nameNoDia.includes(f));
+
+const showFlavorOptions =
+  isDrinks &&
+  /nektar/.test(nameNoDia) &&
+  /sok/.test(nameNoDia) &&
+  !alreadyHasFlavor;
 
   // Addoni su podrazumevano uključeni osim ako je eksplicitno postavljeno na false.
   // Ne prikazuj ako je piće.
