@@ -43,7 +43,7 @@ const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
 const stripDiacritics = (s: string = '') =>
   s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-const NEKTAR_FLAVORS = ['Jabuka', 'Pomorandža', 'Breskva'];
+const NEKTAR_FLAVORS = ['Breskva', 'Pomorandža', 'Jabuka'];
 
 export default function MenuItemModal({
   isOpen,
