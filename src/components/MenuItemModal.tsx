@@ -89,7 +89,7 @@ export default function MenuItemModal({
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
   const isNektarSok = itemName?.toLowerCase().includes('nektar');
 
-  const hasAddons = menuItem?.hasAddons !== false;
+  const hasAddons = isNektarSok ? true : (menuItem?.hasAddons !== false);
   const hasFlavors = menuItem?.flavors && menuItem.flavors.length > 0;
   const flavors = menuItem?.flavors || [];
 

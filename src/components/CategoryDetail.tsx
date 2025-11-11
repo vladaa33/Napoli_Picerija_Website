@@ -60,9 +60,10 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
   const handleAddToCart = (item: MenuItem) => {
     const selectedSize = selectedSizes[item.id];
 
-    const isPizza = category.name.toLowerCase().includes('pica') ||
-                    category.name.toLowerCase().includes('pizza') ||
-                    (item.sizes && item.sizes.length > 0);
+    const isDrinkCategory = category.name.toLowerCase().includes('pić');
+    const isPizza = (category.name.toLowerCase().includes('pica') ||
+                    category.name.toLowerCase().includes('pizza')) &&
+                    !isDrinkCategory;
 
     const isNektarSok = item.name.toLowerCase().includes('nektar');
 
@@ -76,7 +77,7 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
                        category.name.toLowerCase().includes('slatke palacinke') ||
                        category.name.toLowerCase().includes('slane palačinke') ||
                        category.name.toLowerCase().includes('slane palacinke') ||
-                       (category.name.toLowerCase().includes('pić') && isNektarSok);
+                       (isDrinkCategory && isNektarSok);
 
     if (isPizza && selectedSize) {
       console.log('Opening pizza modal for:', item.name, selectedSize.size_name);
