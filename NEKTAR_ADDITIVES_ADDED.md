@@ -53,7 +53,7 @@ export const itemSpecificAdditives: AdditivesByItem = {
       '0': [
         { name: 'Jabuka', price: 0 },
         { name: 'Pomorandža', price: 0 },
-        { name: 'Breskv', price: 0 }
+        { name: 'Breskva', price: 0 }
       ]
     }
   }
