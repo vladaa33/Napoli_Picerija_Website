@@ -157,7 +157,7 @@ const needsModal = category.name.toLowerCase().includes('sendvič') ||
    - Title: "Nektar sok"
    - Heading: "Ukus"
    - 3 checkboxes: Jabuka, Pomorandža, Breskva
-   - All showing "" or no extra price
+   - All showing "Besplatno" or no extra price
 5. Select one or more flavors
 6. Verify they appear in cart with selected flavors
 7. Try other drinks in Pića - verify NO flavor options appear
