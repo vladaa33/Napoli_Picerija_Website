@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { X, Plus, Minus } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { localDataService } from '../lib/localDataService';
 import type { MenuItem } from '../types';
 
 interface MenuItemModalProps {
@@ -40,11 +39,6 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
 
 const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
 
-const stripDiacritics = (s: string = '') =>
-  s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-
-const NEKTAR_FLAVORS = ['Breskva', 'Pomorandža', 'Jabuka'];
-
 export default function MenuItemModal({
   isOpen,
   onClose,
@@ -77,10 +71,10 @@ export default function MenuItemModal({
       setSelectedAddons([]);
       setNothingSelected(false);
       setQuantity(1);
-      setSelectedPasta('');
       setSelectedFlavor('');
+      setSelectedPasta('');
     }
-  }, [isOpen, menuItem]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -90,37 +84,9 @@ export default function MenuItemModal({
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
 
- // --- DRINKS DETEKCIJA (robustnije) ---
-const nameRaw = (menuItem?.name ?? itemName ?? '');
-const catRaw  = (categoryName ?? '');
-
-const nameNoDia = stripDiacritics(nameRaw);
-const catNoDia  = stripDiacritics(catRaw);
-
-// Izbegni lažna poklapanja sa pizzom (često je kategorija za pizze "Pice")
-const looksLikePizza =
-  /\b(pizza|pizze|picerija|pizzeria|pice)\b/.test(catNoDia);
-
-// Pića: prepoznaj i po kategoriji i po nazivu artikla
-const drinkKeywordsCat  = /(pica|pice|napici|sokovi|sok|bezalkoholna|alkoholna|kafa|kafe|voda|vode|gazirana|gazirani|kokteli)/;
-const drinkKeywordsName = /(sok|kafa|espresso|cappuccino|voda|cola|coca|fanta|sprite|schweppes|cedevita|nektar|limunada|red bull|guarana)/;
-
-const isDrinks = !looksLikePizza && (drinkKeywordsCat.test(catNoDia) || drinkKeywordsName.test(nameNoDia));
-
-// Nektar sok – prikaži ukuse samo ako ukus već NIJE u nazivu
-const alreadyHasFlavor = NEKTAR_FLAVORS
-  .map(f => stripDiacritics(f).toLowerCase())
-  .some(f => nameNoDia.includes(f));
-
-const showFlavorOptions =
-  isDrinks &&
-  /nektar/.test(nameNoDia) &&
-  /sok/.test(nameNoDia) &&
-  !alreadyHasFlavor;
-
-  // Addoni su podrazumevano uključeni osim ako je eksplicitno postavljeno na false.
-  // Ne prikazuj ako je piće.
   const hasAddons = menuItem?.hasAddons !== false;
+  const hasFlavors = menuItem?.flavors && menuItem.flavors.length > 0;
+  const flavors = menuItem?.flavors || [];
 
   let addonsToUse = MENU_ITEM_ADDONS;
   if (isBreakfast) {
@@ -167,7 +133,7 @@ const showFlavorOptions =
       return;
     }
 
-    if (showFlavorOptions && !selectedFlavor) {
+    if (hasFlavors && !selectedFlavor) {
       return;
     }
 
@@ -177,7 +143,7 @@ const showFlavorOptions =
       parts.push(selectedPasta);
     }
 
-    if (showFlavorOptions && selectedFlavor) {
+    if (hasFlavors && selectedFlavor) {
       parts.push(`Ukus: ${selectedFlavor}`);
     }
 
@@ -267,35 +233,41 @@ const showFlavorOptions =
             </div>
           )}
 
-          {showFlavorOptions && (
-            <div className="space-y-3 mb-6">
-              <h3 className="text-lg font-semibold text-white">Ukus:</h3>
-              <div className="space-y-2">
-                {NEKTAR_FLAVORS.map((flavor) => (
-                  <label
-                    key={flavor}
-                    className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer ${
-                      selectedFlavor === flavor
-                        ? 'bg-[#FF6B35]/10 border-[#FF6B35] shadow-md'
-                        : 'border-gray-700 hover:border-[#FF6B35]/40'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="flavor"
-                      value={flavor}
-                      checked={selectedFlavor === flavor}
-                      onChange={(e) => setSelectedFlavor(e.target.value)}
-                      className="w-4 h-4 text-[#FF6B35]"
-                    />
-                    <span className="text-white">{flavor}</span>
-                  </label>
-                ))}
+          {hasFlavors && (
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-white mb-4">Ukusi</h3>
+
+              <div className="flex flex-wrap gap-3">
+                {flavors.map(flavor => {
+                  const isSelected = selectedFlavor === flavor;
+
+                  return (
+                    <button
+                      key={flavor}
+                      type="button"
+                      onClick={() => {
+                        console.log('Clicking flavor:', flavor);
+                        console.log('Previous selectedFlavor:', selectedFlavor);
+                        setSelectedFlavor(flavor);
+                      }}
+                      className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                        isSelected
+                          ? 'bg-[#FF6B35] text-white shadow-lg scale-105'
+                          : 'bg-[#1A1A1A] text-gray-300 border-2 border-gray-700 hover:border-[#FF6B35]/40 hover:scale-105'
+                      }`}
+                    >
+                      {flavor}
+                    </button>
+                  );
+                })}
               </div>
+              {selectedFlavor && (
+                <p className="text-xs text-gray-400 mt-2">Izabran ukus: {selectedFlavor}</p>
+              )}
             </div>
           )}
 
-          {!isLasagna && !isDrinks && hasAddons && (
+          {!isLasagna && hasAddons && (
             <div className="mb-6">
               <h3 className="text-lg font-bold text-white mb-4">Dodaci</h3>
 
@@ -386,7 +358,7 @@ const showFlavorOptions =
 
           <button
             onClick={handleAddToCart}
-            disabled={(isPasta && !isLasagna && !selectedPasta) || (showFlavorOptions && !selectedFlavor)}
+            disabled={(isPasta && !isLasagna && !selectedPasta) || (hasFlavors && !selectedFlavor)}
             className="w-full bg-gradient-to-r from-[#FF6B35] to-[#e55a2a] hover:from-[#e55a2a] hover:to-[#FF6B35] text-white py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
             <span>Dodaj u korpu</span>
