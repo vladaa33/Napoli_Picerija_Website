@@ -9,6 +9,26 @@ export interface ToppingsBySize {
   };
 }
 
+export interface AdditivesByItem {
+  [itemName: string]: {
+    [size: string]: {
+      [priceGroup: string]: Topping[];
+    };
+  };
+}
+
+export const itemSpecificAdditives: AdditivesByItem = {
+  'Nektar sok': {
+    '1L': {
+      '0': [
+        { name: 'Jabuka', price: 0 },
+        { name: 'Pomorandža', price: 0 },
+        { name: 'Breskva', price: 0 }
+      ]
+    }
+  }
+};
+
 export const toppings: ToppingsBySize = {
   '28cm': {
     '0': [

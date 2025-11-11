@@ -37,6 +37,10 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
   150: ['Pohovanje']
 };
 
+const NEKTAR_FLAVORS: Record<number, string[]> = {
+  0: ['Jabuka', 'Pomorandža', 'Breskva']
+};
+
 const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
 
 export default function MenuItemModal({
@@ -83,13 +87,16 @@ export default function MenuItemModal({
   const isSaltyPancake = categoryName?.toLowerCase().includes('slane palačinke') || categoryName?.toLowerCase().includes('slane palacinke');
   const isPasta = categoryName?.toLowerCase().includes('paste') || categoryName?.toLowerCase().includes('pasta');
   const isLasagna = itemName?.toLowerCase().includes('lazanje');
+  const isNektarSok = itemName?.toLowerCase().includes('nektar');
 
   const hasAddons = menuItem?.hasAddons !== false;
   const hasFlavors = menuItem?.flavors && menuItem.flavors.length > 0;
   const flavors = menuItem?.flavors || [];
 
   let addonsToUse = MENU_ITEM_ADDONS;
-  if (isBreakfast) {
+  if (isNektarSok) {
+    addonsToUse = NEKTAR_FLAVORS;
+  } else if (isBreakfast) {
     addonsToUse = BREAKFAST_ADDONS;
   } else if (isSweetPancake) {
     addonsToUse = SWEET_PANCAKE_ADDONS;
@@ -269,7 +276,7 @@ export default function MenuItemModal({
 
           {!isLasagna && hasAddons && (
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-white mb-4">Dodaci</h3>
+              <h3 className="text-lg font-bold text-white mb-4">{isNektarSok ? 'Ukus' : 'Dodaci'}</h3>
 
             <label className="flex items-center gap-3 p-4 bg-[#1A1A1A] rounded-xl border-2 border-[#FF6B35]/20 hover:border-[#FF6B35]/40 transition-all cursor-pointer mb-6">
               <input

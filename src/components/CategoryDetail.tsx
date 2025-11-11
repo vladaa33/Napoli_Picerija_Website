@@ -64,6 +64,8 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
                     category.name.toLowerCase().includes('pizza') ||
                     (item.sizes && item.sizes.length > 0);
 
+    const isNektarSok = item.name.toLowerCase().includes('nektar');
+
     const needsModal = category.name.toLowerCase().includes('sendvič') ||
                        category.name.toLowerCase().includes('paste') ||
                        category.name.toLowerCase().includes('tortilje') ||
@@ -73,7 +75,8 @@ export default function CategoryDetail({ category, onBack, scrollPosition }: Cat
                        category.name.toLowerCase().includes('slatke palačinke') ||
                        category.name.toLowerCase().includes('slatke palacinke') ||
                        category.name.toLowerCase().includes('slane palačinke') ||
-                       category.name.toLowerCase().includes('slane palacinke');
+                       category.name.toLowerCase().includes('slane palacinke') ||
+                       (category.name.toLowerCase().includes('pić') && isNektarSok);
 
     if (isPizza && selectedSize) {
       console.log('Opening pizza modal for:', item.name, selectedSize.size_name);
