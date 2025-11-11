@@ -37,7 +37,8 @@ const SALTY_PANCAKE_ADDONS: Record<number, string[]> = {
   150: ['Pohovanje']
 };
 
-
+const NEKTAR_FLAVORS: Record<number, string[]> = {
+  0: ['Jabuka', 'Pomorandža', 'Breskva']
 };
 
 const PASTA_TYPES = ['Špagete', 'Taljatele', 'Pene', 'Fusili'];
