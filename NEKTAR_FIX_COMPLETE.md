@@ -142,7 +142,7 @@ if (isNektarSok) {
 - [ ] Verify modal shows:
   - [ ] Heading: "Ukus"
   - [ ] "Ništa od ponuđenog" checkbox
-  - [ ] "" section label
+  - [ ] "Besplatno" section label
   - [ ] Jabuka checkbox
   - [ ] Pomorandža checkbox
   - [ ] Breskva checkbox
