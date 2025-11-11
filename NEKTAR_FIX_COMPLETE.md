@@ -95,7 +95,7 @@ if (isNektarSok) {
 - Click → **Opens modal** with:
   - Heading: "Ukus"
   - Checkbox: "Ništa od ponuđenog"
-  - Section: ""
+  - Section: "Besplatno"
     - ☐ Jabuka
     - ☐ Pomorandža
     - ☐ Breskva
@@ -142,7 +142,7 @@ if (isNektarSok) {
 - [ ] Verify modal shows:
   - [ ] Heading: "Ukus"
   - [ ] "Ništa od ponuđenog" checkbox
-  - [ ] "Besplatno" section label
+  - [ ] "" section label
   - [ ] Jabuka checkbox
   - [ ] Pomorandža checkbox
   - [ ] Breskva checkbox
