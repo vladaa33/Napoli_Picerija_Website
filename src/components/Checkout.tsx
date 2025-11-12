@@ -93,6 +93,8 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
               name="delivery_address"
               value={`${formData.address}, ${formData.city} ${formData.postal_code}`}
             />
+            <input type="hidden" name="address" value={formData.address} />
+            <input type="hidden" name="apartment_details" value={apartmentDetails} />
             <input type="hidden" name="postal_code" value={formData.postal_code} />
             <input type="hidden" name="payment_status" value={paymentMethod === 'cash' ? 'pending' : 'pending'} />
             <input type="hidden" name="status" value="pending" />
