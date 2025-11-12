@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { X, CreditCard, Banknote } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import PostalCodeSelector from './PostalCodeSelector';
