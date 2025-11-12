@@ -217,7 +217,7 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
               <h3 className="text-base sm:text-lg font-semibold text-white">Način plaćanja</h3>
               <div className="p-4 border-2 border-[#FF6B35] bg-[#FF6B35]/10 rounded-lg">
                 <Banknote className="h-8 w-8 mx-auto mb-2 text-[#FF6B35]" />
-                <span className="block font-medium text-sm sm:text-base text-white text-center">Gotovina pri dostavi</span>
+                <span className="block font-medium text-sm sm:text-base text-white text-center">Gotovina</span>
               </div>
             </div>
 
