@@ -21,9 +21,7 @@ export default function OrderSuccess({ isOpen, orderNumber, onClose }: OrderSucc
         </div>
 
         <div className="space-y-3 text-sm text-gray-300 mb-6">
-          <p>Potvrdu ćete dobiti na email adresu.</p>
-          <p>Očekivano vreme dostave je 30-45 minuta.</p>
-          <p className="font-medium">Kontaktirat ćemo vas ukoliko postoje pitanja.</p>
+          <p>Očekivano vreme dostave je do 60 minuta.</p>
         </div>
 
         <button
