@@ -105,13 +105,33 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                 .map((item) => {
                   const unit = item.selectedSize?.price ?? item.menuItem.price;
                   const name = item.menuItem.name;
-                  const size = item.selectedSize?.label ? ` (${item.selectedSize.label})` : '';
-                  const extras = item.specialInstructions ? ` Dodaci: ${item.specialInstructions}` : '';
-                  return `x${item.quantity} ${name}${size} Cena: ${unit * item.quantity} RSD 
-                  ${extras}`;
+                  const size = item.selectedSize?.size_name ? ` - Veličina: ${item.selectedSize.size_name}` : '';
+                  const extras = item.specialInstructions ? ` | Dodaci: ${item.specialInstructions}` : '';
+                  return `x${item.quantity} ${name}${size}${extras} | Cena: ${unit * item.quantity} RSD`;
                 })
                 .join('\n')}
             />
+
+            {/* Individual pizza items with explicit size information */}
+            {items.map((item, index) => {
+              const pizzaName = item.menuItem.name;
+              const pizzaSize = item.selectedSize?.size_name || 'N/A';
+              const pizzaPrice = item.selectedSize?.price ?? item.menuItem.price;
+              const pizzaQuantity = item.quantity;
+              const pizzaExtras = item.specialInstructions || 'None';
+
+              return (
+                <React.Fragment key={`${item.menuItem.id}-${item.selectedSize?.id || 'default'}-${index}`}>
+                  <input type="hidden" name={`pizza_${index + 1}_name`} value={pizzaName} />
+                  <input type="hidden" name={`pizza_${index + 1}_size`} value={pizzaSize} />
+                  <input type="hidden" name={`pizza_${index + 1}_quantity`} value={pizzaQuantity} />
+                  <input type="hidden" name={`pizza_${index + 1}_price`} value={pizzaPrice} />
+                  <input type="hidden" name={`pizza_${index + 1}_extras`} value={pizzaExtras} />
+                  <input type="hidden" name={`pizza_${index + 1}_subtotal`} value={pizzaPrice * pizzaQuantity} />
+                </React.Fragment>
+              );
+            })}
+            <input type="hidden" name="total_items_count" value={items.length} />
 
             <div className="space-y-3 sm:space-y-4">
               <h3 className="text-base sm:text-lg font-semibold text-white">Vaši podaci</h3>
