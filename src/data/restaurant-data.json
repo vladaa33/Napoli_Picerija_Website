@@ -362,7 +362,7 @@
       "description": "juneće meso, prilog testenina, domaća lepinja",
       "price": 780,
       "image_url": "/kuvana jela/gulas.jpg",
-      "is_available": false,
+      "is_available": true,
       "is_featured": false,
       "display_order": 0,
       "created_at": "2025-10-11T15:34:58.832812+00:00",
