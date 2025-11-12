@@ -31,7 +31,7 @@ export default function Hero({ onOrderClick, onCartClick }: HeroProps) {
           <div className="flex justify-center px-4">
             <button
               onClick={onOrderClick}
-              className="bg-[#FF6B35] text-white px-8 py-3.5 sm:px-10 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#e55a2a] transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 hover:scale-105 min-h-[48px]"
+              className="bg-[#4CAF50] text-white px-8 py-3.5 sm:px-10 sm:py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-[#3d8b40] transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 hover:scale-105 min-h-[48px]"
             >
               Pogledajte meni
             </button>
