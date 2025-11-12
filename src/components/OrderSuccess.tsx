@@ -16,7 +16,7 @@ export default function OrderSuccess({ isOpen, orderNumber, onClose }: OrderSucc
           <CheckCircle className="h-20 w-20 text-[#4CAF50] mx-auto mb-4" />
           <h2 className="text-3xl font-bold text-white mb-2">Hvala vam!</h2>
           <p className="text-lg text-gray-300">
-            Vaša porudžbina je uspešno primljena
+            Vaša porudžbina je primljena
           </p>
         </div>
 
