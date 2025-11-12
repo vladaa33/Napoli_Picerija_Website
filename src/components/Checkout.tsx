@@ -182,7 +182,7 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                   name="apartment_details"
                   value={apartmentDetails}
                   onChange={(e) => setApartmentDetails(e.target.value)}
-                  placeholder="npr. Sprat 3, Stan 12, Interfon 12"
+                  placeholder=""
                   className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white placeholder:text-gray-500"
                 />
               </div>
