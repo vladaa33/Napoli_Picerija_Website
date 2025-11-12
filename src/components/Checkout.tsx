@@ -23,6 +23,7 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
     postal_code: '',
   });
 
+  const [apartmentDetails, setApartmentDetails] = useState('');
   const [notes, setNotes] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -170,6 +171,19 @@ export default function Checkout({ isOpen, onClose, onSuccess }: CheckoutProps) 
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                   className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white"
+                />
+              </div>
+              <div>
+                <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-2">
+                  Sprat, stan i interfon
+                </label>
+                <input
+                  type="text"
+                  name="apartment_details"
+                  value={apartmentDetails}
+                  onChange={(e) => setApartmentDetails(e.target.value)}
+                  placeholder="npr. Sprat 3, Stan 12, Interfon 12"
+                  className="w-full px-4 py-3 sm:py-2.5 border border-[#FF6B35]/20 rounded-lg focus:ring-2 focus:ring-[#FF6B35] focus:border-transparent text-base min-h-[48px] bg-[#1A1A1A] text-white placeholder:text-gray-500"
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
