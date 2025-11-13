@@ -25,7 +25,7 @@ export default function Contact() {
             </div>
             <h3 className="font-bold text-white mb-3 text-lg tracking-tight">Telefon 📱</h3>
             <a href="+38164 111 6 999" className="text-gray-300 hover:text-[#FF6B35] transition-colors">
-              +38164 111 6 999
+              +381 64 111 6 999
             </a>
           </div>
 
